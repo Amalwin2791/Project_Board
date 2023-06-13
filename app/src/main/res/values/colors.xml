@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#4ADEDE</color>
+    <color name="secondaryColor">#1134A6</color>
+    <color name="text_color_primary">#3F00FF</color>
+    <color name="text_color_secondary">#0C90F1</color>
+    <color name="off_white">#FAF9F6</color>
+    <color name="peach">#FFFDD0</color>
+    <color name="grey">#808080</color>
+    <color name="red">#FF0000</color>
+    <color name="black">#000000</color>
+    <color name="electric_blue">#3F00FF</color>
+    <color name="roya_blue">#6495ED</color>
+    <color name="neon_blue">#1F51FF</color>
+    <color name="vanilla">#FCF5E5</color>
+    <color name="azure">#F0FFFF</color>
+    <color name="task_list_action_color">#F7F6FA</color>
+    <color name="task_list_title_view_bg_color">#F8F8F8</color>
+    <color name="colorAccent">#0C90F1</color>
+    <color name="divider_color">#EAEAEA</color>
+    <color name="green">#00FF00</color>
+    <color name="blue">#00FF00</color>
+    <color name="sky_blue">#87CEEB</color>
+    <color name="bright_blue">#0096FF</color>
+</resources>

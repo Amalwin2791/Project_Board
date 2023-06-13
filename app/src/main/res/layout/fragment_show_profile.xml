@@ -1,0 +1,212 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/azure"
+    android:theme="@style/Theme.Material3.DayNight"
+    android:layout_marginTop="?attr/actionBarSize"
+    tools:context="com.example.boardsdraft.view.fragments.ShowProfileFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="67dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/personal_details"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_button_curved_white"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.9">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_image_place_holder"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/profile_name_display_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp"
+                    android:text="@string/name"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/profile_label_size"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintEnd_toEndOf="@id/profile_image"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/profile_image"
+                    app:layout_constraintTop_toBottomOf="@id/profile_image"
+                    app:layout_constraintWidth_percent=".8" />
+
+                <TextView
+                    android:id="@+id/profile_name_display"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/profile_label_field_spacing"
+                    android:text="@string/name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/profile_text_size"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintStart_toStartOf="@id/profile_name_display_label"
+                    app:layout_constraintTop_toBottomOf="@id/profile_name_display_label"
+                    app:layout_constraintWidth_percent="0.8" />
+
+                <TextView
+                    android:id="@+id/profile_email_display_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/profile_field_spacing"
+                    android:text="@string/email"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/profile_label_size"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintEnd_toEndOf="@id/profile_name_display"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/profile_name_display"
+                    app:layout_constraintTop_toBottomOf="@id/profile_name_display"
+                    app:layout_constraintWidth_percent=".8" />
+
+                <TextView
+                    android:id="@+id/profile_email_display"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/profile_label_field_spacing"
+                    android:text="@string/email"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/profile_text_size"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintEnd_toEndOf="@id/profile_email_display_label"
+                    app:layout_constraintStart_toStartOf="@id/profile_email_display_label"
+                    app:layout_constraintTop_toBottomOf="@id/profile_email_display_label"
+                    app:layout_constraintWidth_percent="0.8" />
+
+                <TextView
+                    android:id="@+id/profile_designation_display_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/profile_field_spacing"
+                    android:text="@string/designation"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/profile_label_size"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintEnd_toEndOf="@id/profile_email_display"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/profile_email_display"
+                    app:layout_constraintTop_toBottomOf="@id/profile_email_display"
+                    app:layout_constraintWidth_percent=".8" />
+
+                <TextView
+                    android:id="@+id/profile_designation_display"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/profile_label_field_spacing"
+                    android:text="@string/designation"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/profile_text_size"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintEnd_toEndOf="@id/profile_designation_display_label"
+                    app:layout_constraintStart_toStartOf="@id/profile_designation_display_label"
+                    app:layout_constraintTop_toBottomOf="@id/profile_designation_display_label"
+                    app:layout_constraintWidth_percent="0.8" />
+
+                <TextView
+                    android:id="@+id/profile_organization_display_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/profile_field_spacing"
+                    android:text="@string/department"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/profile_label_size"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintEnd_toEndOf="@id/profile_designation_display"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@id/profile_designation_display"
+                    app:layout_constraintTop_toBottomOf="@id/profile_designation_display"
+                    app:layout_constraintWidth_percent=".8" />
+
+                <TextView
+                    android:id="@+id/profile_organization_display"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/profile_label_field_spacing"
+                    android:layout_marginBottom="13dp"
+                    android:text="@string/department"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/profile_text_size"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/profile_organization_display_label"
+                    app:layout_constraintStart_toStartOf="@id/profile_organization_display_label"
+                    app:layout_constraintTop_toBottomOf="@id/profile_organization_display_label"
+                    app:layout_constraintWidth_percent="0.8" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/projects_in_common_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/shape_button_curved_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/personal_details"
+                app:layout_constraintStart_toStartOf="@id/personal_details"
+                app:layout_constraintTop_toBottomOf="@id/personal_details"
+                app:layout_constraintWidth_percent="0.9">
+
+                <TextView
+                    android:id="@+id/projects_in_common_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="@string/projects_in_common"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/profile_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/projects_in_common"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:padding="10dp"
+                    android:background="@color/azure"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/projects_in_common_tv"
+                    app:layout_constraintStart_toStartOf="@id/projects_in_common_tv"
+                    app:layout_constraintTop_toBottomOf="@id/projects_in_common_tv" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</FrameLayout>

@@ -1,0 +1,18 @@
+<resources>
+    <style name="Base.Theme.ProjectBuddy" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorAccent">@color/secondaryColor</item>
+    </style>
+
+    <style name="Theme.ProjectBuddy" parent="Base.Theme.ProjectBuddy"/>
+    <style name="FabCircleShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="MyTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/roya_blue</item>
+        <item name="hintTextColor">@color/roya_blue</item>
+    </style>
+
+
+</resources>

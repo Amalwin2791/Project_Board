@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">Project Board</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="signIn">Sign In</string>
+    <string name="forgotPassword">forgot Password</string>
+    <string name="signUp">Sign Up</string>
+    <string name="retypePassword">Retype Password</string>
+    <string name="passwordConstraints">*must have 8–20 chars,at least 1 uppercase,1 number,1 special char,1 lower case</string>
+    <string name="userAlreadyPresentWarning">*User Name Already Present</string>
+    <string name="emailAlreadyPresentWarning">*Email Already Present</string>
+    <string name="passwordsMatchWarning">*Retype The Same Password</string>
+    <string name="bottomNavHome">Home</string>
+    <string name="bottomNavTasks">My Tasks</string>
+    <string name="bottomNavProfile">My Profile</string>
+    <string name="addBoard">Add A New Boards</string>
+    <string name="boardName">Board Name</string>
+    <string name="createdBy">Created By:</string>
+    <string name="create">Create</string>
+    <string name="creator">Creator</string>
+    <string name="cancel">Cancel</string>
+    <string name="required">*Required</string>
+    <string name="update">UPDATE</string>
+    <string name="action_add_list">Add List</string>
+    <string name="hint_list_name">Title(15 chars)</string>
+    <string name="action_add_card">Add Task</string>
+    <string name="hint_card_name">Task Name(15 chars)</string>
+    <string name="add_list">Add List</string>
+    <string name="todo">TODO</string>
+    <string name="inProgress">IN PROGRESS</string>
+    <string name="completed">COMPLETED</string>
+    <string name="image_contentDescription">image</string>
+    <string name="members">Members</string>
+    <string name="leaveBoards">Leave Project</string>
+    <string name="addMembers">Add Members</string>
+    <string name="message">Message</string>
+    <string name="label_color">Priority</string>
+    <string name="select_color">Select Priority</string>
+    <string name="select_members">Select Members</string>
+    <string name="due_date">Due Date</string>
+    <string name="select_due_date">Select Due Date</string>
+    <string name="str_select_label_color">Select Label Color</string>
+    <string name="logOut">Log Out</string>
+    <string name="designation">Designation</string>
+    <string name="department">Department</string>
+    <string name="projects_in_common">Projects In Common</string>
+    <string name="unknown">--Unknown--</string>
+    <string name="noProjectsInCommon">No Projects In Common</string>
+    <string name="you">You</string>
+
+    <string-array name="priority_colors">
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
+
+    <string-array name="my_profile_options">
+        <item>My Profile</item>
+        <item>Change Password</item>
+        <item>Log Out</item>
+    </string-array>
+
+    <string-array name="add_click_options">
+        <item>Join A Board</item>
+        <item>Create A New Board</item>
+    </string-array>
+
+
+
+</resources>
