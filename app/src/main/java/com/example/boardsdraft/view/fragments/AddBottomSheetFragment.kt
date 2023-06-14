@@ -47,7 +47,7 @@ class AddBottomSheetFragment(
         binding.addOptions.apply {
             val options = resources.getStringArray(R.array.add_click_options)
             adapter = ArrayAdapter(requireContext(),android.R.layout.simple_list_item_1,options)
-             setOnItemClickListener { parent, view, position, id ->
+             setOnItemClickListener { _, _, position, _ ->
                  if(position == 0){
                      InputBottomSheetFragment("Enter Board ID", "Join","Project Code",
                          this@AddBottomSheetFragment).show(parentFragmentManager,"BottomFrag")

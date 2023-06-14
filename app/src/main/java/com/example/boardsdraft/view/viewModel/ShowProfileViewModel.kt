@@ -16,18 +16,21 @@ class ShowProfileViewModel @Inject constructor(
     private val repo: UserRepo,
 ): ViewModel() {
 
-    private val _dataMonitor = MutableLiveData<Boolean>()
-    val dataMonitor : LiveData<Boolean>
-        get()=_dataMonitor
 
     private lateinit var currentUser: User
+
+    private var _user = MutableLiveData<User>()
+    val user: LiveData<User>
+        get() = _user
+
+
 
     val projectsInCommon: MutableLiveData<List<Project>> = MutableLiveData()
 
     fun getUser(userID: Int) {
         viewModelScope.launch {
             currentUser= repo.getUser(userID)
-            _dataMonitor.value=true
+            _user.value = currentUser
         }
     }
 

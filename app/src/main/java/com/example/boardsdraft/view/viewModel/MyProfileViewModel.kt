@@ -20,18 +20,24 @@ class MyProfileViewModel @Inject constructor(
     private val sharedPreference: SessionManager
 ): ViewModel() {
 
-    private val _dataMonitor = MutableLiveData<Boolean>()
-    val dataMonitor : LiveData<Boolean>
-        get()=_dataMonitor
+    private var _user = MutableLiveData<User>()
+    val user: LiveData<User>
+        get() = _user
 
-
-    private lateinit var currentUser: User
-    val projectsInCommon: MutableLiveData<List<Project>> = MutableLiveData()
+    lateinit var currentUser: User
 
     fun getCurrentUser() {
         viewModelScope.launch {
             currentUser= getCurrentUserEmailID()?.let { repo.getUser(it) }!!
-            _dataMonitor.value=true
+            _user.value = currentUser
+        }
+    }
+
+    fun updateUser(user:User){
+        viewModelScope.launch {
+            sharedPreference.setLoggedIn(true,user.email,user.userID,user.userName,user.password)
+            repo.updateUser(user)
+
         }
     }
 
@@ -66,10 +72,7 @@ class MyProfileViewModel @Inject constructor(
         sharedPreference.clearSession()
     }
 
-    fun getProjectsInCommon(otherUserID: Int) {
-        viewModelScope.launch {
-            val commonProjects = repo.getCommonProjects(getCurrentUserID(), otherUserID)
-            projectsInCommon.value = commonProjects
-        }
+    suspend fun doesEmailExist(email: String):Boolean{
+        return repo.doesEmailIdExists(email)
     }
 }

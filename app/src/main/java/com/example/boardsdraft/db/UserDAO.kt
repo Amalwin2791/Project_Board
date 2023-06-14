@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import com.example.boardsdraft.db.entities.Project
 import com.example.boardsdraft.db.entities.User
 
@@ -18,10 +19,17 @@ interface UserDAO {
     @Query("SELECT * FROM Users WHERE email = :email ")
     suspend fun getUserByEmail(email: String): User?
 
+    @Update
+    suspend fun updateUser(user:User)
+
     @Query("SELECT * FROM Users WHERE userID = :userID ")
     suspend fun getUser(userID: Int): User
 
     @Transaction
     @Query("SELECT Projects.* FROM Projects INNER JOIN UserProjectCrossRef ON Projects.projectID = UserProjectCrossRef.projectID WHERE UserProjectCrossRef.userID = :currentUserID AND UserProjectCrossRef.userID = :otherUserID")
     suspend fun getCommonProjects(currentUserID: Int, otherUserID: Int): List<Project>
+
+    @Query("SELECT EXISTS(SELECT 1 FROM Users WHERE email = :emailId)")
+    suspend fun doesEmailIdExists(emailId: String): Boolean
+
 }

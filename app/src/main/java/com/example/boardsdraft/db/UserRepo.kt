@@ -15,5 +15,9 @@ interface UserRepo {
 
     suspend fun getCommonProjects(currentUserID: Int, otherUserID: Int): List<Project>
 
+    suspend fun doesEmailIdExists(emailId: String): Boolean
+
+    suspend fun updateUser(user:User)
+
 
 }

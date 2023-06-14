@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isEmpty
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boardsDraft.R
@@ -43,8 +45,16 @@ class ShowProfileFragment(
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentShowProfileBinding.bind(view)
 
-        viewModel.dataMonitor.observe(viewLifecycleOwner) { isInitiated ->
-            if (isInitiated) {
+        val toolBar: Toolbar = requireActivity().findViewById(R.id.profile_toolbar)
+
+        toolBar.apply {
+            title= "My Profile"
+            if(menu.isEmpty()){
+                inflateMenu(R.menu.profile_menu_item)
+            }
+        }
+
+        viewModel.user.observe(viewLifecycleOwner) {
 
                 binding.apply {
                     profileNameDisplay.text = viewModel.getCurrentUserName()
@@ -90,8 +100,12 @@ class ShowProfileFragment(
                         }
                     }
                 }
-            }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getUser(requireArguments().getInt("userID"))
     }
 
     override fun onDestroy() {

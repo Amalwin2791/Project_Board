@@ -9,14 +9,15 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
+                android:id="@+id/edit_profile_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="110dp"
@@ -26,25 +27,41 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/edit_floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="-5dp"
+                android:layout_marginBottom="-5dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/round_edit_24"
+                app:backgroundTint="@color/off_white"
+                app:fabCustomSize="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_profile_image"
+                app:layout_constraintEnd_toEndOf="@+id/edit_profile_image"
+                app:tint="@color/roya_blue" />
+
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/sign_up_name_layout"
+                android:id="@+id/edit_profile_name_layout"
                 style="@style/MyTextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:counterEnabled="true"
                 app:counterMaxLength="15"
                 app:endIconMode="clear_text"
+                android:layout_marginTop="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_image"
+                app:layout_constraintTop_toBottomOf="@id/edit_profile_image"
                 app:layout_constraintVertical_bias="0.119"
                 app:layout_constraintWidth_percent=".8"
                 app:startIconDrawable="@drawable/ic_name">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/sign_up_name"
+                    android:id="@+id/edit_profile_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/name"
@@ -59,22 +76,22 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/sign_up_email_layout"
+                android:id="@+id/edit_profile_email_layout"
                 style="@style/MyTextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:endIconMode="clear_text"
-                app:startIconDrawable="@drawable/ic_email"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/sign_up_name_layout"
+                app:layout_constraintEnd_toEndOf="@id/edit_profile_name_layout"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/sign_up_name_layout"
-                app:layout_constraintTop_toBottomOf="@id/sign_up_name_layout"
+                app:layout_constraintStart_toStartOf="@id/edit_profile_name_layout"
+                app:layout_constraintTop_toBottomOf="@id/edit_profile_name_layout"
                 app:layout_constraintVertical_bias="0.019"
-                app:layout_constraintWidth_percent=".8">
+                app:layout_constraintWidth_percent=".8"
+                app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/sign_up_email"
+                    android:id="@+id/edit_profile_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
@@ -83,24 +100,72 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/grey" />
+                    android:textColorHint="@color/grey"
+                    app:layout_constraintWidth_percent=".8" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_select_designation_layout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="-5dp"
-                android:layout_marginEnd="-5dp"
-                android:clickable="true"
-                android:src="@drawable/round_edit_24"
-                app:tint="@color/roya_blue"
-                app:backgroundTint="@color/off_white"
-                app:fabCustomSize="40dp"
-                app:layout_constraintBottom_toBottomOf="@+id/profile_image"
-                app:layout_constraintEnd_toEndOf="@+id/profile_image"
-                android:focusable="true" />
+                android:layout_marginTop="7dp"
+                app:layout_constraintEnd_toEndOf="@+id/edit_profile_email_layout"
+                app:layout_constraintStart_toStartOf="@+id/edit_profile_email_layout"
+                app:layout_constraintTop_toBottomOf="@+id/edit_profile_email_layout">
+
+                <AutoCompleteTextView
+                    android:id="@+id/edit_select_designation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/designation"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    android:textSize="@dimen/et_text_size" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_select_department_layout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                app:layout_constraintEnd_toEndOf="@+id/edit_select_designation_layout"
+                app:layout_constraintStart_toStartOf="@+id/edit_select_designation_layout"
+                app:layout_constraintTop_toBottomOf="@+id/edit_select_designation_layout"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/edit_select_department"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/department"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    android:textSize="@dimen/et_text_size" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/save_changes_to_profile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent=".45"
+                android:text="@string/saveChanges"
+                app:layout_constraintTop_toBottomOf="@+id/edit_select_department_layout"
+                app:layout_constraintStart_toStartOf="@+id/edit_select_department_layout"
+                app:layout_constraintEnd_toEndOf="@+id/edit_select_department_layout"
+                android:background="@drawable/shape_button_curved_blue"
+                android:textColor="@color/off_white"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
