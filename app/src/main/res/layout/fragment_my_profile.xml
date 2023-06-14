@@ -4,50 +4,119 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
+    android:layout_marginBottom="60dp"
 tools:context="com.example.boardsdraft.view.fragments.MyProfileFragment"
 android:layout_marginTop="?attr/actionBarSize">
 
-    <ImageView
-        android:id="@+id/bg_image_profile"
-        android:layout_width="0dp"
-        android:layout_height="240dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/login_bg_pic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_marginBottom="90dp"
-        android:src="@drawable/ic_image_place_holder"
-        app:layout_constraintBottom_toBottomOf="@id/bg_image_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/profile_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/name"
-        android:textSize="42sp"
-        android:textColor="@color/off_white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/profile_image"/>
-
-    <ListView
-        android:id="@+id/my_profile_options"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bg_image_profile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="5dp"/>
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/bg_image_profile"
+                android:layout_width="0dp"
+                android:layout_height="240dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/login_bg_pic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_marginBottom="90dp"
+                android:src="@drawable/ic_image_place_holder"
+                app:layout_constraintBottom_toBottomOf="@id/bg_image_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="42sp"
+                android:textColor="@color/off_white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/profile_image"/>
+
+            <TextView
+                android:id="@+id/view_my_profile"
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.95"
+                android:text="@string/myProfile"
+                app:layout_constraintTop_toBottomOf="@+id/bg_image_profile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/bright_blue"
+                android:textSize="@dimen/profile_text_options_size"
+                android:drawableLeft="@drawable/user"
+                android:gravity="center"
+                android:drawablePadding="-20dp"
+                android:textAlignment="center"
+                android:background="@drawable/my_profile_design"
+
+                />
+
+            <TextView
+                android:id="@+id/change_my_password"
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.95"
+                android:text="@string/changePassword"
+                app:layout_constraintTop_toBottomOf="@+id/view_my_profile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="7dp"
+                android:textStyle="bold"
+                android:textColor="@color/bright_blue"
+                android:textSize="@dimen/profile_text_options_size"
+                android:drawableLeft="@drawable/lock"
+                android:gravity="center"
+                android:drawablePadding="-17dp"
+                android:textAlignment="center"
+                android:background="@drawable/my_profile_design"
+
+                />
+
+            <TextView
+                android:id="@+id/log_out"
+                android:padding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_percent="0.95"
+                android:text="@string/logOut"
+                app:layout_constraintTop_toBottomOf="@+id/change_my_password"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="7dp"
+                android:textStyle="bold"
+                android:textColor="@color/bright_blue"
+                android:textSize="@dimen/profile_text_options_size"
+                android:drawableLeft="@drawable/exit"
+                android:drawablePadding="-30dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:background="@drawable/my_profile_design"
+
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

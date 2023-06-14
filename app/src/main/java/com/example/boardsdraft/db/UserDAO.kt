@@ -5,8 +5,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import com.example.boardsdraft.db.entities.Project
 import com.example.boardsdraft.db.entities.User
-import com.example.boardsdraft.db.entities.relations.ProjectsWithUsers
 
 
 @Dao
@@ -22,6 +22,6 @@ interface UserDAO {
     suspend fun getUser(userID: Int): User
 
     @Transaction
-    @Query("SELECT * FROM Projects INNER JOIN UserProjectCrossRef ON Projects.projectID = UserProjectCrossRef.projectID WHERE UserProjectCrossRef.userID = :currentUserID AND UserProjectCrossRef.userID = :otherUserID")
-    suspend fun getCommonProjects(currentUserID: Int, otherUserID: Int): List<ProjectsWithUsers>
+    @Query("SELECT Projects.* FROM Projects INNER JOIN UserProjectCrossRef ON Projects.projectID = UserProjectCrossRef.projectID WHERE UserProjectCrossRef.userID = :currentUserID AND UserProjectCrossRef.userID = :otherUserID")
+    suspend fun getCommonProjects(currentUserID: Int, otherUserID: Int): List<Project>
 }

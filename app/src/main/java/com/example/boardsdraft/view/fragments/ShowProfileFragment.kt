@@ -84,11 +84,11 @@ class ShowProfileFragment(
                             viewModel.projectsInCommon.observe(viewLifecycleOwner) { commonProjects ->
                                 if (commonProjects != null) {
                                     projectsInCommonAdapter.setList(commonProjects)
+                                    projectsInCommonAdapter.notifyDataSetChanged()
                                 }
                             }
                         }
                     }
-
                 }
             }
         }

@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardsdraft.db.UserRepo
+import com.example.boardsdraft.db.entities.Project
 import com.example.boardsdraft.db.entities.User
-import com.example.boardsdraft.db.entities.relations.ProjectsWithUsers
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class ShowProfileViewModel @Inject constructor(
 
     private lateinit var currentUser: User
 
-    val projectsInCommon: MutableLiveData<List<ProjectsWithUsers>> = MutableLiveData()
+    val projectsInCommon: MutableLiveData<List<Project>> = MutableLiveData()
 
     fun getUser(userID: Int) {
         viewModelScope.launch {

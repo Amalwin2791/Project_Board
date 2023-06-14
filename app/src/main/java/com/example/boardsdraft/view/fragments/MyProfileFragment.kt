@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentMyProfileBinding
 import com.example.boardsdraft.view.activities.LoginActivity
+import com.example.boardsdraft.view.activities.ManageProfileActivity
 import com.example.boardsdraft.view.viewModel.MyProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,19 +46,15 @@ class MyProfileFragment: Fragment() {
             typeface = Typeface.createFromAsset(requireContext().assets, "unfoldingfont.ttf")
             text = viewModel.getCurrentUserName()
         }
-        binding.myProfileOptions.setOnItemClickListener { _, _, position, _ ->
-            if(position==2){
-                viewModel.clearSession()
-                requireContext().startActivity(Intent(requireContext(),LoginActivity::class.java))
+        binding.logOut.setOnClickListener {
+            viewModel.clearSession()
+                requireContext().startActivity(Intent(requireContext(), LoginActivity::class.java))
                 requireActivity().finish()
-            }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        binding.myProfileOptions.adapter = ArrayAdapter(requireContext(),android.R.layout.simple_list_item_1,
-            resources.getStringArray(R.array.my_profile_options))
+        binding.viewMyProfile.setOnClickListener {
+            startActivity(Intent(requireContext(),ManageProfileActivity::class.java)
+                .putExtra("currentUserID",viewModel.getCurrentUserID()))
+        }
     }
 
     override fun onDestroyView() {

@@ -9,11 +9,11 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boardsDraft.R
-import com.example.boardsdraft.db.entities.relations.ProjectsWithUsers
+import com.example.boardsdraft.db.entities.Project
 
 class ProjectsInCommonAdapter: RecyclerView.Adapter<ProjectsInCommonAdapter.ProjectsInCommonAdapterViewHolder>() {
 
-    private val  projectsInCommon = ArrayList<ProjectsWithUsers>()
+    private val  projectsInCommon = ArrayList<Project>()
 
     inner class ProjectsInCommonAdapterViewHolder(view: View): RecyclerView.ViewHolder(view){
 
@@ -21,10 +21,10 @@ class ProjectsInCommonAdapter: RecyclerView.Adapter<ProjectsInCommonAdapter.Proj
         private val boardImage: ImageView = view.findViewById(R.id.image_minimal)
         val card: CardView = view.findViewById(R.id.card_minimal)
 
-        fun bind(project: ProjectsWithUsers){
-            boardName.text = project.project.projectName
-            project.project.image?.let {
-                boardImage.setImageBitmap(BitmapFactory.decodeByteArray(project.project.image, 0, it.size))
+        fun bind(project: Project){
+            boardName.text = project.projectName
+            project.image?.let {
+                boardImage.setImageBitmap(BitmapFactory.decodeByteArray(project.image, 0, it.size))
             }
         }
 
@@ -49,7 +49,7 @@ class ProjectsInCommonAdapter: RecyclerView.Adapter<ProjectsInCommonAdapter.Proj
         }
     }
 
-    fun setList(projects :List<ProjectsWithUsers>){
+    fun setList(projects :List<Project>){
         this.projectsInCommon.clear()
         this.projectsInCommon.addAll(projects)
     }

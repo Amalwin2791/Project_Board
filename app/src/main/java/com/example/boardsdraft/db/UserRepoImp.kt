@@ -1,7 +1,7 @@
 package com.example.boardsdraft.db
 
+import com.example.boardsdraft.db.entities.Project
 import com.example.boardsdraft.db.entities.User
-import com.example.boardsdraft.db.entities.relations.ProjectsWithUsers
 import com.example.boardsdraft.view.enums.LoginResults
 
 import kotlinx.coroutines.Dispatchers
@@ -57,7 +57,7 @@ class UserRepoImp @Inject constructor(
     override suspend fun getCommonProjects(
         currentUserID: Int,
         otherUserID: Int
-    ): List<ProjectsWithUsers> {
+    ): List<Project> {
         return dao.getCommonProjects(currentUserID,otherUserID)
     }
 

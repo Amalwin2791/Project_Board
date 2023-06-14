@@ -76,6 +76,9 @@ class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSh
 
     private fun displayBoards(){
         viewModel.allBoardsOfUser.observe(viewLifecycleOwner, Observer {
+            if(it.isNotEmpty()){
+                binding.noBoards.visibility = View.GONE
+            }
             adapter.setBoards(it)
             adapter.notifyDataSetChanged()
         })

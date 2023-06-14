@@ -53,6 +53,12 @@
     <string name="unknown">--Unknown--</string>
     <string name="noProjectsInCommon">No Projects In Common</string>
     <string name="you">You</string>
+    <string name="edit">Edit</string>
+    <string name="YouArePartOfNoBoard">Join A Board To Start Working!</string>
+    <string name="myProfile">My Profile</string>
+    <string name="changePassword">Change Password</string>
+    <string name="noTasksHaveBeenAssigned">No TasksHave Been Assigned</string>
+
 
     <string-array name="priority_colors">
         <item>High</item>
@@ -70,7 +76,6 @@
         <item>Join A Board</item>
         <item>Create A New Board</item>
     </string-array>
-
 
 
 </resources>

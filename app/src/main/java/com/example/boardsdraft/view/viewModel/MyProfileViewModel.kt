@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardsdraft.db.UserRepo
+import com.example.boardsdraft.db.entities.Project
 import com.example.boardsdraft.db.entities.User
 import com.example.boardsdraft.db.entities.relations.ProjectsWithUsers
 import com.example.boardsdraft.view.SessionManager
@@ -25,7 +26,7 @@ class MyProfileViewModel @Inject constructor(
 
 
     private lateinit var currentUser: User
-    val projectsInCommon: MutableLiveData<List<ProjectsWithUsers>> = MutableLiveData()
+    val projectsInCommon: MutableLiveData<List<Project>> = MutableLiveData()
 
     fun getCurrentUser() {
         viewModelScope.launch {
@@ -50,7 +51,7 @@ class MyProfileViewModel @Inject constructor(
         return sharedPreference.getPassword()
     }
 
-    private fun getCurrentUserID(): Int{
+    fun getCurrentUserID(): Int{
         return sharedPreference.getLoggedInID()
     }
     fun getCurrentUserDepartment():String?{

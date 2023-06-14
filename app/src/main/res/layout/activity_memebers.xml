@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/azure"
-    android:orientation="vertical"
     tools:context="com.example.boardsdraft.view.activities.MembersActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -21,8 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:navigationIcon="@drawable/ic_round_back"/>
-
-
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,7 +1,7 @@
 package com.example.boardsdraft.db
 
+import com.example.boardsdraft.db.entities.Project
 import com.example.boardsdraft.db.entities.User
-import com.example.boardsdraft.db.entities.relations.ProjectsWithUsers
 import com.example.boardsdraft.view.enums.LoginResults
 
 interface UserRepo {
@@ -13,7 +13,7 @@ interface UserRepo {
 
     suspend fun getUser(userID: Int): User
 
-    suspend fun getCommonProjects(currentUserID: Int, otherUserID: Int): List<ProjectsWithUsers>
+    suspend fun getCommonProjects(currentUserID: Int, otherUserID: Int): List<Project>
 
 
 }
