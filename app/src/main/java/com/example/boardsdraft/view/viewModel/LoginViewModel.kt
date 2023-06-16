@@ -51,6 +51,10 @@ class LoginViewModel @Inject constructor(
             _signUpStatus.value = LoginResults.PASSWORDS_DONT_MATCH
             return
         }
+        val emailRegex = Regex("^([a-zA-Z0-9_.+-]+)@([a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+)$")
+        if(!emailRegex.matches(email)){
+            _signInStatus.value = LoginResults.INVALID_EMAIL
+        }
 
         val passwordRegex = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$".toRegex()
         if (!passwordRegex.matches(password)) {

@@ -81,7 +81,7 @@ class EditMyProfileFragment : Fragment() {
                 }
 
 
-                editProfileImage.setOnClickListener {
+                editFloatingActionButton.setOnClickListener {
                     if (!isImagePickerOpen) {
                         isImagePickerOpen = true
 
@@ -93,7 +93,9 @@ class EditMyProfileFragment : Fragment() {
 
 
                 saveChangesToProfile.setOnClickListener{
+                    val emailRegex = Regex("^([a-zA-Z0-9_.+-]+)@([a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+)$")
                     viewModel.currentUser.apply {
+
                         if(editProfileName.text.isNullOrEmpty()){
                             editProfileNameLayout.error = "Name Cannot Be Empty"
                         }
@@ -103,6 +105,9 @@ class EditMyProfileFragment : Fragment() {
 
                         if(editProfileEmail.text.isNullOrEmpty()){
                             editProfileEmailLayout.error = "Email Cannot Be Empty"
+                        }
+                        if(!emailRegex.matches(editProfileEmail.text.toString().trim())){
+                            editProfileEmailLayout.error = "Enter Valid Email"
                         }
                         else{
                             viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {

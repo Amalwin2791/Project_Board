@@ -31,7 +31,7 @@
             android:exported="true"
             android:parentActivityName="com.example.boardsdraft.view.activities.HomeActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.example.boardsdraft.view.activities.HomeActivity"
             android:configChanges="uiMode"

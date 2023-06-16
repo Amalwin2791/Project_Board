@@ -12,4 +12,6 @@ interface TasksRepo {
     fun getTasksOfCurrentUser(userID: Int): LiveData<List<UserWithTasks>?>
 
     fun getTasksOfProject(projectID: Int): LiveData<List<ProjectWithTasks>?>
+
+    fun getLastTaskID(): LiveData<Int?>
 }

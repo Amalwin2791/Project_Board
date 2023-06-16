@@ -105,9 +105,14 @@ class TasksOfProjectFragment : Fragment() , TaskListAdapter.OnItemClickListener,
 
     }
 
-    override fun createNewTask() {
+    override fun createNewTask(taskTitle: String) {
+        val bundle = Bundle()
+        val taskDetailsFragment = TaskDetailsFragment()
+        bundle.putInt("projectID", requireArguments().getInt("projectID"))
+        bundle.putString("taskTitle",taskTitle)
+        taskDetailsFragment.arguments = bundle
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.tasks_view,TaskDetailsFragment())
+            .replace(R.id.tasks_view,taskDetailsFragment)
             .addToBackStack(null)
             .commit()
         taskListAdapter.notifyDataSetChanged()

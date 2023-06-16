@@ -76,9 +76,6 @@ class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSh
 
     private fun displayBoards(){
         viewModel.allBoardsOfUser.observe(viewLifecycleOwner, Observer {
-            if(it.isNotEmpty()){
-                binding.noBoards.visibility = View.GONE
-            }
             adapter.setBoards(it)
             adapter.notifyDataSetChanged()
         })
@@ -90,6 +87,7 @@ class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSh
         adapter = BoardsAdapter(this@BoardsFragment)
         binding.boardsList.adapter =  adapter
         displayBoards()
+        adapter.notifyDataSetChanged()
     }
 
     override fun onItemClick(projectName: String, projectID: Int,projectCode:String) {

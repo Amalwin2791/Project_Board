@@ -127,7 +127,7 @@ class TaskListAdapter(
                 newTaskListName.text.clear()
             }
             addCardText.setOnClickListener {
-                clickListener.createNewTask()
+                clickListener.createNewTask(taskTitlesList[0].taskTitles[position]!!.taskTitle)
             }
 //            cardsList.apply {
 //                layoutManager = LinearLayoutManager(context)
@@ -172,7 +172,7 @@ class TaskListAdapter(
         fun deleteTaskTitle(taskTitle: TaskTitles)
         fun insertTaskTitle(taskTitle: TaskTitles)
         fun updateTaskTitle(taskTitle: TaskTitles)
-        fun createNewTask()
+        fun createNewTask(taskTitle: String)
     }
 }
 

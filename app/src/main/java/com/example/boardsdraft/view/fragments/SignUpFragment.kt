@@ -48,6 +48,9 @@ class SignUpFragment : Fragment() {
                     startActivity(Intent(context, HomeActivity::class.java))
                     requireActivity().finish()
                 }
+                LoginResults.INVALID_EMAIL->{
+                    binding.signUpEmailLayout.error = "Enter Valid Email"
+                }
                 LoginResults.FIELD_IS_NULL -> showNullFieldsError()
                 LoginResults.PASSWORDS_DONT_MATCH -> binding.signUpRetypePasswordLayout.error = "Passwords Don't Match"
                 LoginResults.PASSWORD_DONT_MEET_REQUIREMENT ->{

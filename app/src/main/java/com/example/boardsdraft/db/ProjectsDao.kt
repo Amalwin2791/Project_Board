@@ -34,9 +34,9 @@ interface ProjectsDao {
     @Query("DELETE FROM Projects WHERE projectID = :projectID")
     suspend fun deleteProject(projectID: Int)
 
-    @Transaction
-    @Query("SELECT * FROM Projects WHERE projectName = :projectName")
-    suspend fun getUsersOfBoard(projectName: String): List<ProjectsWithUsers>
+//    @Transaction
+//    @Query("SELECT * FROM Projects WHERE projectName = :projectName")
+//    suspend fun getUsersOfBoard(projectName: String): List<ProjectsWithUsers>
 
     @Transaction
     @Query("SELECT * FROM Projects " +

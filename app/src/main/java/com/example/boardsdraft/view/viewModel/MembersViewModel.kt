@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MembersViewModel @Inject constructor(
     private val repo : ProjectsRepo,
-    val sharedPreferences: SessionManager
+    private val sharedPreferences: SessionManager
 ) : ViewModel(){
 
     lateinit var membersOfProject : LiveData<List<User>>

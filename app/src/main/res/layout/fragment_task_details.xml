@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -16,6 +16,10 @@
             android:orientation="vertical"
             android:padding="@dimen/card_details_content_padding">
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -31,6 +35,7 @@
                     android:padding="@dimen/card_details_cv_content_padding">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/task_Name_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -41,6 +46,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_card_name"
                             android:inputType="text"
+                            android:maxLength="15"
                             android:textColor="@color/black"
                             android:textColorHint="@color/grey"
                             android:textSize="@dimen/et_text_size"
@@ -65,6 +71,8 @@
                     android:padding="@dimen/card_details_cv_content_padding">
 
                     <com.google.android.material.textfield.TextInputLayout
+
+                        android:id="@+id/select_priority_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
@@ -84,31 +92,25 @@
 
 
 
-
-                    <TextView
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/select_member_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/card_details_members_label_marginTop"
-                        android:text="@string/members"
-                        android:textColor="@color/text_color_secondary"
-                        android:textSize="@dimen/card_details_label_text_size" />
+                        android:layout_marginTop="15dp"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-                    <TextView
-                        android:id="@+id/tv_select_members"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/card_details_value_marginTop"
-                        android:padding="@dimen/card_details_value_padding"
-                        android:text="@string/select_members"
-                        android:textColor="@color/text_color_primary" />
+                        <AutoCompleteTextView
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/card_details_members_label_marginTop"
-                        android:text="@string/due_date"
-                        android:textColor="@color/text_color_secondary"
-                        android:textSize="@dimen/card_details_label_text_size" />
+                            android:id="@+id/select_member_for_task"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/members"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textSize="@dimen/et_text_size" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/tv_select_due_date"
@@ -117,7 +119,10 @@
                         android:layout_marginTop="@dimen/card_details_value_marginTop"
                         android:padding="@dimen/card_details_value_padding"
                         android:text="@string/select_due_date"
-                        android:textColor="@color/text_color_primary" />
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:drawableEnd="@drawable/round_calendar_month_24"/>
+
 
                     <Button
                         android:id="@+id/btn_update_card_details"
@@ -136,4 +141,4 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>

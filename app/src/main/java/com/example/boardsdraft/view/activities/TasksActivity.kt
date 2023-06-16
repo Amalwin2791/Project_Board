@@ -64,9 +64,6 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
                     finish()
                 }
             }
-
-
-
             val bundle = Bundle()
             val tasksOfProjectFragment = TasksOfProjectFragment()
             bundle.putInt("projectID", intent.getIntExtra("projectID", 0))

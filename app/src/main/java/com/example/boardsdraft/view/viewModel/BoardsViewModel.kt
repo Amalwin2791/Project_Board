@@ -24,9 +24,6 @@ class BoardsViewModel @Inject constructor(
     val allBoardsOfUser: LiveData<List<ProjectsWithUsers>> = repo.getBoardsOfUser(getCurrentUserID())
 
     val lastProjectID = repo.getLastProjectID()
-
-    var projectID:Int? = 0
-
     suspend fun getProjectIdByProjectCode(projectCode: String): Int? {
         return withContext(Dispatchers.IO) {
             repo.getProjectIdByProjectCode(projectCode)
@@ -37,12 +34,6 @@ class BoardsViewModel @Inject constructor(
     fun insertBoard(project: Project){
         viewModelScope.launch(Dispatchers.IO) {
             repo.insertBoard(project)
-        }
-    }
-
-    fun deleteBoard(projectID: Int){
-        viewModelScope.launch(Dispatchers.IO) {
-            repo.deleteBoard(projectID)
         }
     }
 

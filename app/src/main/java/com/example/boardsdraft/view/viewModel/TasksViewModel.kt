@@ -19,26 +19,15 @@ import javax.inject.Inject
 class TasksViewModel @Inject constructor(
     private val tasksRepo: TasksRepo,
     private val taskTitleRepo : TaskTitlesRepo,
-    private val sharedPreference: SessionManager
 ): ViewModel() {
 
-    val allTasksOfCurrentUser = tasksRepo.getTasksOfCurrentUser(getCurrentUserID())
+//    val allTasksOfCurrentUser = tasksRepo.getTasksOfCurrentUser(getCurrentUserID())
 
     val lastTaskTitleID = taskTitleRepo.getLastTaskTitleID()
 
 
     fun allTasksOfDisplayedProject(projectID: Int): LiveData<List<ProjectWithTasks>?> {
         return tasksRepo.getTasksOfProject(projectID)
-    }
-
-    fun insertTask(task: Task){
-        viewModelScope.launch(Dispatchers.IO) {
-            tasksRepo.insertTask(task)
-        }
-    }
-
-    private fun getCurrentUserID(): Int{
-        return sharedPreference.getLoggedInID()
     }
 
     fun insertTaskTitle(taskTitle: TaskTitles){

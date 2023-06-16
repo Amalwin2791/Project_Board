@@ -52,20 +52,28 @@ class MyProfileFragment: Fragment() {
                 binding.profileImage.setImageBitmap(BitmapFactory.decodeByteArray(image,0,image!!.size))
             }
             binding.profileName.apply {
-                typeface = Typeface.createFromAsset(requireContext().assets, "unfoldingfont.ttf")
                 text = viewModel.getCurrentUserName()
             }
 
-            binding.logOut.setOnClickListener {
-                viewModel.clearSession()
-                requireContext().startActivity(Intent(requireContext(), LoginActivity::class.java))
-                requireActivity().finish()
-            }
-            binding.viewMyProfile.setOnClickListener {
-                startActivity(Intent(requireContext(),ManageProfileActivity::class.java)
-                    .putExtra("currentUserID",viewModel.getCurrentUserID()))
-            }
+
         })
+
+        binding.logOut.setOnClickListener {
+            viewModel.clearSession()
+            requireContext().startActivity(Intent(requireContext(), LoginActivity::class.java))
+            requireActivity().finish()
+        }
+        binding.viewMyProfile.setOnClickListener {
+            startActivity(Intent(requireContext(),ManageProfileActivity::class.java)
+                .putExtra("currentUserID",viewModel.getCurrentUserID()))
+        }
+
+        binding.changeMyPassword.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.home,ChangePasswordFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
 
     }

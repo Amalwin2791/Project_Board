@@ -66,7 +66,6 @@ class NewBoardFragment : Fragment() {
                 val projectCode = generateRandomString()
                 val board = Project(projectID=projectID, projectName = projectName, image = compressedImageData,
                     createdBy =viewModel.getCurrentUserName()!!, projectCode = projectCode)
-                println(board)
                 viewModel.insertBoard(board)
                 viewModel.insertUserProjectCrossRef(board.projectID)
                 parentFragmentManager.popBackStack()

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentAddBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -46,7 +47,7 @@ class AddBottomSheetFragment(
 
         binding.addOptions.apply {
             val options = resources.getStringArray(R.array.add_click_options)
-            adapter = ArrayAdapter(requireContext(),android.R.layout.simple_list_item_1,options)
+            adapter = ArrayAdapter(requireContext(),R.layout.item_priority_color,options)
              setOnItemClickListener { _, _, position, _ ->
                  if(position == 0){
                      InputBottomSheetFragment("Enter Board ID", "Join","Project Code",

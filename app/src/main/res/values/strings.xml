@@ -36,11 +36,12 @@
     <string name="inProgress">IN PROGRESS</string>
     <string name="completed">COMPLETED</string>
     <string name="image_contentDescription">image</string>
-    <string name="members">Members</string>
+    <string name="members">Assign A Member</string>
     <string name="leaveBoards">Leave Project</string>
     <string name="addMembers">Add Members</string>
     <string name="message">Message</string>
     <string name="label_color">Priority</string>
+    <string name="memeber">Member</string>
     <string name="select_color">Select Priority</string>
     <string name="select_members">Select Members</string>
     <string name="due_date">Due Date</string>
@@ -58,8 +59,13 @@
     <string name="YouArePartOfNoBoard">Join A Board To Start Working!</string>
     <string name="myProfile">My Profile</string>
     <string name="changePassword">Change Password</string>
-    <string name="noTasksHaveBeenAssigned">No TasksHave Been Assigned</string>
+    <string name="noTasksHaveBeenAssigned">No Tasks Have Been Assigned</string>
     <string name="saveChanges">Save Changes</string>
+    <string name="oldPassword">Old Password</string>
+    <string name="newPassword">New Password</string>
+    <string name="retypeNewPassword">Retype New Password</string>
+    <string name= "save">Save</string>
+    <string name= "deadline">DeadLine</string>
 
 
     <string-array name="priority_colors">
@@ -100,6 +106,8 @@
         <item>Join A Board</item>
         <item>Create A New Board</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
