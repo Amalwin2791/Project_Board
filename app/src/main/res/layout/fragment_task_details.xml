@@ -104,7 +104,7 @@
                             android:id="@+id/select_member_for_task"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/members"
+                            android:hint="@string/assign_member"
                             android:textColor="@color/black"
                             android:textColorHint="@color/grey"
                             android:textSize="@dimen/et_text_size" />

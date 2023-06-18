@@ -36,12 +36,14 @@
     <string name="inProgress">IN PROGRESS</string>
     <string name="completed">COMPLETED</string>
     <string name="image_contentDescription">image</string>
-    <string name="members">Assign A Member</string>
+    <string name="assign_member">Assign A Member</string>
     <string name="leaveBoards">Leave Project</string>
     <string name="addMembers">Add Members</string>
     <string name="message">Message</string>
     <string name="label_color">Priority</string>
-    <string name="memeber">Member</string>
+    <string name="members">Members</string>
+    <string name="sort_by_due_date">By Deadline</string>
+    <string name="sort_by_priority">By Priority</string>
     <string name="select_color">Select Priority</string>
     <string name="select_members">Select Members</string>
     <string name="due_date">Due Date</string>
@@ -64,11 +66,31 @@
     <string name="oldPassword">Old Password</string>
     <string name="newPassword">New Password</string>
     <string name="retypeNewPassword">Retype New Password</string>
-    <string name= "save">Save</string>
-    <string name= "deadline">DeadLine</string>
+    <string name="save">Save</string>
+    <string name="deadline">DeadLine</string>
+    <string name="low_priority_tasks">Low Priority Tasks</string>
+    <string name="medium_priority_tasks">Medium Priority Tasks</string>
+    <string name="high_priority_tasks">High Priority Tasks</string>
+    <string name="task_name">Task Name</string>
+    <string name="project_name">Project Name</string>
+    <string name="status">Status</string>
+    <string name="status_label">Status:</string>
+    <string name="due_by">Due By</string>
+    <string name="due_by_label">Due By:</string>
+    <string name="sort">Sort</string>
+    <string name="task_Name_label">Task Name:</string>
+    <string name="project_name_label">Project Name:</string>
+    <string name="created_by_label">Created By:</string>
+    <string name="current_status_label">Current Status:</string>
+    <string name="current_status">Current Status:</string>
+    <string name="priority_label">Priority:</string>
+    <string name="priority">Priority</string>
+    <string name="created_on_label">Created On:</string>
+    <string name="created_on">Created On</string>
+    <string name="deadline_label">Due By:</string>
+    <string name="change_status">Move To</string>
 
-
-    <string-array name="priority_colors">
+    <string-array name="priorities">
         <item>High</item>
         <item>Medium</item>
         <item>Low</item>

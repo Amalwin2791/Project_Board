@@ -1,6 +1,5 @@
 package com.example.boardsdraft.view.fragments
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
@@ -20,7 +19,6 @@ import com.example.boardsdraft.db.entities.User
 import com.example.boardsdraft.view.viewModel.NewTaskViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.Calendar
 import java.util.Locale
 
@@ -34,10 +32,10 @@ class TaskDetailsFragment : Fragment() {
 
     private var taskID : Int = 0
 
-    var assignedToName:String? = null
-    var assignedToID:Int? = null
-    var assignedDate: String? = null
-    var creationDate : String? = null
+    private var assignedToName:String? = null
+    private var assignedToID:Int? = null
+    private var assignedDate: String? = null
+    private var creationDate : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.getAllUsersOfProject(requireArguments().getInt("projectID"))
@@ -72,7 +70,7 @@ class TaskDetailsFragment : Fragment() {
             }
         }
 
-        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             val selectedDate = Calendar.getInstance()
             selectedDate.set(year, monthOfYear, dayOfMonth)
 
@@ -106,11 +104,11 @@ class TaskDetailsFragment : Fragment() {
         binding.apply {
             btnUpdateCardDetails.setOnClickListener {
                 if(validate()){
-                    val task= Task(etNameCardDetails.text.toString().trim(),
-                        requireArguments().getInt("projectID"),
+                    val task= Task(taskName = etNameCardDetails.text.toString().trim(),
+                        projectID = requireArguments().getInt("projectID"), projectName = requireArguments().getString("projectName",null),
                     assignedTo = assignedToID!!, assignedToName = assignedToName!!,
-                    viewModel.getCurrentUserName()!!,requireArguments().getString("taskTitle",null),
-                        creationDate!!,assignedDate!!,taskID)
+                    createdBy = viewModel.getCurrentUserName()!!, status = requireArguments().getString("taskTitle",null),
+                        priority = selectPriorityColor.text.toString(), createdDate = creationDate!!, deadLine = assignedDate!!, taskID = taskID)
                     viewModel.insertTask(task)
                     parentFragmentManager.popBackStack()
                 }
@@ -145,7 +143,7 @@ class TaskDetailsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        val colors = resources.getStringArray(R.array.priority_colors)
+        val colors = resources.getStringArray(R.array.priorities)
         val arrayAdapter = ArrayAdapter(requireContext(),R.layout.item_priority_color,colors)
         binding.selectPriorityColor.apply {
             setAdapter(arrayAdapter)
@@ -153,10 +151,8 @@ class TaskDetailsFragment : Fragment() {
         }
 
         viewModel.membersOfProject.observe(viewLifecycleOwner, Observer {
-            val members = it
-
             binding.selectMemberForTask.apply {
-                setAdapter(MembersArrayAdapter(requireContext(),members as ArrayList<User>))
+                setAdapter(MembersArrayAdapter(requireContext(),it as ArrayList<User>))
                 keyListener = null
             }
         })

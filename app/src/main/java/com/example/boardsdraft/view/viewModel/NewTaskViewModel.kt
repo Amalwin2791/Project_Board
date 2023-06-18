@@ -38,4 +38,10 @@ class NewTaskViewModel @Inject constructor(
         return sharedPreferences.getLoggedInName()
     }
 
+    fun updateTask(task:Task) {
+        viewModelScope.launch(Dispatchers.IO) {
+            tasksRepo.updateTask(task)
+        }
+    }
+
 }

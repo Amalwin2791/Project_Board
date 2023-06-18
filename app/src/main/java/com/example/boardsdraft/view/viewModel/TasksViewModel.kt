@@ -5,11 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardsdraft.db.TaskTitlesRepo
 import com.example.boardsdraft.db.TasksRepo
-import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.TaskTitles
 import com.example.boardsdraft.db.entities.relations.ProjectWithTasks
 import com.example.boardsdraft.db.entities.relations.TaskTitlesOfProject
-import com.example.boardsdraft.view.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +19,6 @@ class TasksViewModel @Inject constructor(
     private val taskTitleRepo : TaskTitlesRepo,
 ): ViewModel() {
 
-//    val allTasksOfCurrentUser = tasksRepo.getTasksOfCurrentUser(getCurrentUserID())
 
     val lastTaskTitleID = taskTitleRepo.getLastTaskTitleID()
 
@@ -46,9 +43,10 @@ class TasksViewModel @Inject constructor(
         }
     }
 
-    fun updateTaskTitle(taskTitle: TaskTitles){
+    fun updateTaskTitle(taskTitle: TaskTitles, oldTitle: String?){
         viewModelScope.launch(Dispatchers.IO) {
             taskTitleRepo.updateTaskTitle(taskTitle)
+            tasksRepo.updateTaskStatus(oldTitle!!,taskTitle.taskTitle)
         }
     }
 

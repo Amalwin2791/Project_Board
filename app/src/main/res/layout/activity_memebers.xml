@@ -12,6 +12,7 @@
         android:id="@+id/members_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/secondaryColor"
         android:background="#00FFFF"
         android:elevation="4dp"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"

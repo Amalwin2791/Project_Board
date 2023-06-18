@@ -14,6 +14,10 @@ class TasksRepoImp(
         dao.insertTask(task)
     }
 
+    override suspend fun updateTask(task: Task) {
+        dao.updateTask(task)
+    }
+
     override fun getTasksOfCurrentUser(userID: Int): LiveData<List<UserWithTasks>?> {
         return dao.getTaskOfUser(userID)
     }
@@ -24,5 +28,13 @@ class TasksRepoImp(
 
     override fun getLastTaskID(): LiveData<Int?> {
         return lastTaskID
+    }
+
+    override suspend fun updateTaskStatus(oldStatus: String, newStatus: String) {
+        dao.updateTaskStatus(oldStatus,newStatus)
+    }
+
+    override suspend fun getTaskByID(taskID: Int): Task {
+        return dao.getTaskByID(taskID)
     }
 }

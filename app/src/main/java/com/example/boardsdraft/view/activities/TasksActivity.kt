@@ -67,6 +67,7 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
             val bundle = Bundle()
             val tasksOfProjectFragment = TasksOfProjectFragment()
             bundle.putInt("projectID", intent.getIntExtra("projectID", 0))
+            bundle.putString("projectName",intent.getStringExtra("projectName"))
             tasksOfProjectFragment.arguments = bundle
             supportFragmentManager.beginTransaction()
                 .replace(binding.tasksView.id, tasksOfProjectFragment).commit()

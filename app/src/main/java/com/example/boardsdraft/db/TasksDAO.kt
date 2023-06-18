@@ -30,4 +30,9 @@ interface TasksDAO {
 
     @Query("SELECT taskID FROM Tasks ORDER BY taskID DESC LIMIT 1")
     fun getLastTaskID(): LiveData<Int?>
+    @Query("UPDATE Tasks SET status = :newStatus WHERE status = :oldStatus")
+    suspend fun updateTaskStatus(oldStatus: String, newStatus: String)
+
+    @Query("SELECT * FROM Tasks WHERE taskID = :taskID")
+    suspend fun getTaskByID(taskID:Int): Task
 }

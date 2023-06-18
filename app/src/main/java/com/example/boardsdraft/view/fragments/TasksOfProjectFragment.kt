@@ -61,13 +61,6 @@ class TasksOfProjectFragment : Fragment() , TaskListAdapter.OnItemClickListener,
 
     }
     private fun displayTasks() {
-        viewModel.getTaskTitlesOfProject(requireArguments().getInt("projectID",0)).observe(viewLifecycleOwner,
-            Observer {
-                if(it != null){
-                    taskListAdapter.setTaskTitlesList(it)
-                    taskListAdapter.notifyDataSetChanged()
-                }
-            })
         viewModel.allTasksOfDisplayedProject(requireArguments().getInt("projectID",0)).observe(viewLifecycleOwner,
             Observer {
                 if (it != null) {
@@ -77,6 +70,14 @@ class TasksOfProjectFragment : Fragment() , TaskListAdapter.OnItemClickListener,
                 }
 
             })
+        viewModel.getTaskTitlesOfProject(requireArguments().getInt("projectID",0)).observe(viewLifecycleOwner,
+            Observer {
+                if(it != null){
+                    taskListAdapter.setTaskTitlesList(it)
+                    taskListAdapter.notifyDataSetChanged()
+                }
+            })
+
 
     }
 
@@ -99,8 +100,8 @@ class TasksOfProjectFragment : Fragment() , TaskListAdapter.OnItemClickListener,
         taskListAdapter.notifyDataSetChanged()
     }
 
-    override fun updateTaskTitle(taskTitle: TaskTitles) {
-        viewModel.updateTaskTitle(taskTitle)
+    override fun updateTaskTitle(taskTitle: TaskTitles, oldTitle: String?) {
+        viewModel.updateTaskTitle(taskTitle,oldTitle)
         taskListAdapter.notifyDataSetChanged()
 
     }
@@ -110,6 +111,8 @@ class TasksOfProjectFragment : Fragment() , TaskListAdapter.OnItemClickListener,
         val taskDetailsFragment = TaskDetailsFragment()
         bundle.putInt("projectID", requireArguments().getInt("projectID"))
         bundle.putString("taskTitle",taskTitle)
+        bundle.putString("projectName",requireArguments().getString("projectName"))
+
         taskDetailsFragment.arguments = bundle
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.tasks_view,taskDetailsFragment)

@@ -1,0 +1,280 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/azure"
+    android:theme="@style/Theme.Material3.DayNight"
+    android:padding="10dp"
+    tools:context="com.example.boardsdraft.view.fragments.TaskInfoFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_button_curved_white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="8dp">
+
+
+        <TextView
+            android:id="@+id/task_name_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_bias="0.06"
+            app:layout_constraintHorizontal_bias=".1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/task_Name_label"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/profile_label_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.3"/>
+
+        <TextView
+            android:id="@+id/task_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/task_name_label"
+            app:layout_constraintTop_toBottomOf="@+id/task_name_label"
+            android:text="@string/task_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/profile_text_size"
+            app:layout_constraintStart_toStartOf="@+id/task_name_label"
+            android:layout_marginTop="2dp"
+            app:layout_constraintWidth_percent="0.3"
+            />
+
+        <TextView
+            android:id="@+id/project_name_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintHorizontal_bias=".1"
+            android:text="@string/project_name_label"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/profile_label_size"
+            app:layout_constraintStart_toStartOf="@+id/task_name"
+            app:layout_constraintEnd_toEndOf="@+id/task_name"
+            app:layout_constraintTop_toBottomOf="@+id/task_name"
+            app:layout_constraintWidth_percent="0.3"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/project_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/project_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/profile_text_size"
+            android:layout_marginTop="2dp"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintStart_toStartOf="@+id/project_name_label"
+            app:layout_constraintEnd_toEndOf="@+id/project_name_label"
+            app:layout_constraintTop_toBottomOf="@+id/project_name_label"
+            />
+
+        <TextView
+            android:id="@+id/created_by_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintHorizontal_bias=".1"
+            android:text="@string/created_by_label"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/profile_label_size"
+            app:layout_constraintStart_toStartOf="@+id/project_name"
+            app:layout_constraintEnd_toEndOf="@+id/project_name"
+            app:layout_constraintTop_toBottomOf="@+id/project_name"
+            app:layout_constraintWidth_percent="0.3"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/created_by"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/createdBy"
+            android:textColor="@color/black"
+            android:textSize="@dimen/profile_text_size"
+            android:layout_marginTop="2dp"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintStart_toStartOf="@+id/created_by_label"
+            app:layout_constraintEnd_toEndOf="@+id/created_by_label"
+            app:layout_constraintTop_toBottomOf="@+id/created_by_label"
+            />
+
+        <TextView
+            android:id="@+id/current_status_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintHorizontal_bias=".1"
+            android:text="@string/current_status_label"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/profile_label_size"
+            app:layout_constraintStart_toStartOf="@+id/created_by"
+            app:layout_constraintEnd_toEndOf="@+id/created_by"
+            app:layout_constraintTop_toBottomOf="@+id/created_by"
+            app:layout_constraintWidth_percent="0.3"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/current_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/current_status"
+            android:textColor="@color/black"
+            android:textSize="@dimen/profile_text_size"
+            android:layout_marginTop="2dp"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintStart_toStartOf="@+id/current_status_label"
+            app:layout_constraintEnd_toEndOf="@+id/current_status_label"
+            app:layout_constraintTop_toBottomOf="@+id/current_status_label"
+            />
+
+        <TextView
+            android:id="@+id/task_priority_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintHorizontal_bias=".1"
+            android:text="@string/priority_label"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/profile_label_size"
+            app:layout_constraintStart_toStartOf="@+id/current_status"
+            app:layout_constraintEnd_toEndOf="@+id/current_status"
+            app:layout_constraintTop_toBottomOf="@+id/current_status"
+            app:layout_constraintWidth_percent="0.3"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/task_priority"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/priority"
+            android:textColor="@color/black"
+            android:textSize="@dimen/profile_text_size"
+            android:layout_marginTop="2dp"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintStart_toStartOf="@+id/task_priority_label"
+            app:layout_constraintEnd_toEndOf="@+id/task_priority_label"
+            app:layout_constraintTop_toBottomOf="@+id/task_priority_label"
+            />
+
+        <TextView
+            android:id="@+id/created_on_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintHorizontal_bias=".1"
+            android:text="@string/created_on_label"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/profile_label_size"
+            app:layout_constraintStart_toStartOf="@+id/task_priority"
+            app:layout_constraintEnd_toEndOf="@+id/task_priority"
+            app:layout_constraintTop_toBottomOf="@+id/task_priority"
+            app:layout_constraintWidth_percent="0.3"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/created_on"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/created_on"
+            android:textColor="@color/black"
+            android:textSize="@dimen/profile_text_size"
+            android:layout_marginTop="2dp"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintStart_toStartOf="@+id/created_on_label"
+            app:layout_constraintEnd_toEndOf="@+id/created_on_label"
+            app:layout_constraintTop_toBottomOf="@+id/created_on_label"
+            />
+
+        <TextView
+            android:id="@+id/deadline_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintHorizontal_bias=".1"
+            android:text="@string/deadline_label"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/profile_label_size"
+            app:layout_constraintStart_toStartOf="@+id/created_on"
+            app:layout_constraintEnd_toEndOf="@+id/created_on"
+            app:layout_constraintTop_toBottomOf="@+id/created_on"
+            app:layout_constraintWidth_percent="0.3"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/deadline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/deadline"
+            android:textColor="@color/black"
+            android:textSize="@dimen/profile_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/deadline_label"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/deadline_label"
+            app:layout_constraintTop_toBottomOf="@+id/deadline_label"
+            app:layout_constraintVertical_bias="0.035"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintWidth_percent="0.3" />
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/move_to_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/deadline"
+            app:layout_constraintTop_toBottomOf="@+id/deadline"
+            app:layout_constraintWidth_percent="0.85"
+            android:layout_marginTop="14dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+            <AutoCompleteTextView
+
+                android:id="@+id/move_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/change_status"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey"
+                android:textSize="@dimen/et_text_size" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/tasks_save_changes_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintWidth_percent="0.4"
+            android:background="@drawable/shape_button_curved_blue"
+            android:text="@string/saveChanges"
+            android:textColor="@color/off_white"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="@+id/move_to_layout"
+            app:layout_constraintEnd_toEndOf="@+id/move_to_layout"
+            app:layout_constraintTop_toBottomOf="@+id/move_to_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</ScrollView>

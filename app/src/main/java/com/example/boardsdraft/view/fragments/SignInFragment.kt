@@ -61,7 +61,9 @@ class SignInFragment : Fragment() {
 
         viewModel.signInStatus.observe(viewLifecycleOwner) { signInStatus ->
             when (signInStatus) {
-
+                LoginResults.INVALID_EMAIL->{
+                    binding.signInEmailLayout.error="Enter Valid Email"
+                }
                 LoginResults.LOGIN_SUCCESSFUL -> {
                     startActivity(Intent(requireContext(), HomeActivity::class.java))
                     requireActivity().finish()

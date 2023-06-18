@@ -54,11 +54,14 @@
     <dimen name="dialog_list_title_text_size">18sp</dimen>
     <dimen name="dialog_list_divider_height">1dp</dimen>
     <dimen name="dialog_list_marginTopBottom">3dp</dimen>
+    <dimen name="my_task_margin_top_padding">3dp</dimen>
     <dimen name="profile_field_spacing">20dp</dimen>
     <dimen name="profile_label_field_spacing">2dp</dimen>
     <dimen name="profile_label_size">14sp</dimen>
     <dimen name="profile_text_size">16sp</dimen>
     <dimen name="profile_text_options_size">16sp</dimen>
+    <dimen name="title_size">18sp</dimen>
+    <dimen name="tasks_frag_text_size">18sp</dimen>
 
 
 </resources>

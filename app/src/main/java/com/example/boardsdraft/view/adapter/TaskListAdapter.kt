@@ -9,8 +9,10 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boardsDraft.R
+import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.TaskTitles
 import com.example.boardsdraft.db.entities.relations.ProjectWithTasks
 import com.example.boardsdraft.db.entities.relations.TaskTitlesOfProject
@@ -59,6 +61,8 @@ class TaskListAdapter(
         if (taskTitlesList.size>0){
 
         holder.bindTitle(taskTitlesList[0].taskTitles[position])
+
+
 
         holder.apply {
             if(position == taskTitlesList[0].taskTitles.size -1){
@@ -110,10 +114,10 @@ class TaskListAdapter(
                 }
                 else{
                     val existingTitle = taskTitlesList[0].taskTitles[position]
+                    val oldTitle = existingTitle?.taskTitle
                     existingTitle?.taskTitle =editTaskListName.text.toString()
-                    println(editTaskListName.text.toString())
                     if (existingTitle != null) {
-                        clickListener.updateTaskTitle(existingTitle)
+                        clickListener.updateTaskTitle(existingTitle,oldTitle)
                     }
                     taskListTitle.text =editTaskListName.text.toString()
                     editTitleCardView.visibility = View.GONE
@@ -129,18 +133,33 @@ class TaskListAdapter(
             addCardText.setOnClickListener {
                 clickListener.createNewTask(taskTitlesList[0].taskTitles[position]!!.taskTitle)
             }
-//            cardsList.apply {
-//                layoutManager = LinearLayoutManager(context)
-//                setHasFixedSize(true)
-//                cardsAdapter = CardsListAdapter(context)
-//                adapter = cardsAdapter
-//                setCards(taskList)
-//            }
+            if(taskList[0].tasks.isNotEmpty()){
+                cardsList.apply {
+                    layoutManager = LinearLayoutManager(context)
+                    setHasFixedSize(true)
+                    cardsAdapter = CardsListAdapter()
+                    adapter = cardsAdapter
+                    setCards(filterTasksByStatus(taskTitlesList[0].taskTitles[position]!!.taskTitle))
+                    cardsAdapter.notifyDataSetChanged()
+                }
+            }
+
         }}
     }
-    private fun setCards(taskList: ArrayList<ProjectWithTasks>) {
-        cardsAdapter.setCardsList(taskList)
+    private fun setCards(tasks: List<Task>) {
+        cardsAdapter.setCardsList(tasks)
     }
+
+    private fun filterTasksByStatus(status: String): List<Task> {
+        val filteredTasks = mutableListOf<Task>()
+        for (projectWithTasks in taskList) {
+            val tasks = projectWithTasks.tasks.filter { it?.status == status }
+            filteredTasks.addAll(tasks.filterNotNull())
+        }
+        return filteredTasks
+    }
+
+
 
     private fun Int.toDP(): Int = (this/Resources.getSystem().displayMetrics.density).toInt()
 
@@ -171,9 +190,11 @@ class TaskListAdapter(
     interface OnItemClickListener{
         fun deleteTaskTitle(taskTitle: TaskTitles)
         fun insertTaskTitle(taskTitle: TaskTitles)
-        fun updateTaskTitle(taskTitle: TaskTitles)
+        fun updateTaskTitle(taskTitle: TaskTitles, oldTitle: String?)
         fun createNewTask(taskTitle: String)
     }
+
+
 }
 
 

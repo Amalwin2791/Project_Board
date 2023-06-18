@@ -28,9 +28,15 @@ class LoginViewModel @Inject constructor(
             _signInStatus.value = LoginResults.FIELD_IS_NULL
             return
         }
+        val emailRegex = Regex("^([a-zA-Z0-9_.+-]+)@([a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+)$")
+        if(!emailRegex.matches(email)){
+            _signInStatus.value = LoginResults.INVALID_EMAIL
+            return
+        }
 
         viewModelScope.launch {
             val success = repo.signIn(email, password)
+
             if (success == LoginResults.LOGIN_SUCCESSFUL) {
                 val user = repo.getUser(email)
                 if (user != null) {
@@ -54,6 +60,7 @@ class LoginViewModel @Inject constructor(
         val emailRegex = Regex("^([a-zA-Z0-9_.+-]+)@([a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+)$")
         if(!emailRegex.matches(email)){
             _signInStatus.value = LoginResults.INVALID_EMAIL
+            return
         }
 
         val passwordRegex = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$".toRegex()

@@ -1,0 +1,127 @@
+<androidx.cardview.widget.CardView
+    android:id="@+id/my_tasks_card"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:padding="8dp"
+    android:elevation="4dp"
+    android:background="#FFFFFF">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvTaskName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/roya_blue"
+            android:fontFamily="sans-serif"
+            android:text="@string/task_name"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:textSize="20sp"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvProjectName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTaskName"
+            android:text="@string/project_name"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvStatusLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status_label"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_alignStart="@id/tvStatus"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="-55dp"
+            android:paddingTop="@dimen/my_task_margin_top_padding"
+            android:paddingEnd="4dp"/>
+
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:paddingTop="@dimen/my_task_margin_top_padding"
+            android:paddingEnd="4dp"/>
+
+        <TextView
+            android:id="@+id/tvDeadlineLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/due_by_label"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:paddingTop="@dimen/my_task_margin_top_padding"
+            android:textStyle="bold"
+            android:layout_alignStart="@id/tvDeadline"
+            android:layout_marginStart="-54dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/tvStatusLabel"
+            android:paddingEnd="4dp"/>
+
+
+
+        <TextView
+            android:id="@+id/tvDeadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/due_by"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:paddingTop="@dimen/my_task_margin_top_padding"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/tvStatus"
+            android:paddingEnd="4dp"/>
+
+        <TextView
+            android:id="@+id/tvPriorityLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/priority_label"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:paddingTop="@dimen/my_task_margin_top_padding"
+            android:textStyle="bold"
+            android:layout_alignStart="@id/tvDeadline"
+            android:layout_marginStart="-30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/tvDeadlineLabel"
+            android:paddingEnd="4dp"/>
+
+
+
+        <TextView
+            android:id="@+id/tvPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/priority"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:paddingTop="@dimen/my_task_margin_top_padding"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/tvDeadline"
+            android:paddingEnd="4dp"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

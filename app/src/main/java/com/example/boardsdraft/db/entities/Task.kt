@@ -8,10 +8,12 @@ data class Task(
 
     var taskName: String,
     val projectID : Int,
+    val projectName: String,
     var assignedTo: Int,
     var assignedToName: String,
     val createdBy: String,
     var status: String,
+    var priority: String,
     val createdDate: String,
     var deadLine: String,
 

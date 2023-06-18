@@ -191,40 +191,7 @@
                 app:cardCornerRadius="@dimen/task_item_cv_corner_radius"
                 tools:visibility="visible">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/ib_close_card_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:contentDescription="@string/image_contentDescription"
-                        android:padding="@dimen/task_item_image_buttons_padding"
-                        android:src="@drawable/ic_cancel" />
-
-                    <EditText
-                        android:id="@+id/et_card_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:maxLength="15"
-                        android:autofillHints="@string/hint_card_name"
-                        android:hint="@string/hint_card_name"
-                        android:inputType="text" />
-
-                    <ImageButton
-                        android:id="@+id/ib_done_card_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:contentDescription="@string/image_contentDescription"
-                        android:padding="@dimen/task_item_image_buttons_padding"
-                        android:src="@drawable/ic_done" />
-                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <TextView
