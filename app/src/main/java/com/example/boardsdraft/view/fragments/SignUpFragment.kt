@@ -73,16 +73,16 @@ class SignUpFragment : Fragment() {
     }
 
     private fun showNullFieldsError(){
-        if (binding.signUpName.text.isNullOrEmpty()){
+        if (binding.signUpName.text.isNullOrBlank()){
             binding.signUpNameLayout.error = "Name cannot Be Empty"
         }
-        if (binding.signUpEmail.text.isNullOrEmpty()){
+        if (binding.signUpEmail.text.isNullOrBlank()){
             binding.signUpEmailLayout.error = "Email Cannot Be Empty"
         }
-        if (binding.signUpPassword.text.isNullOrEmpty()){
+        if (binding.signUpPassword.text.isNullOrBlank()){
             binding.signUpPasswordLayout.error = "Password Cannot be Empty"
         }
-        if (binding.signUpRetypePassword.text.isNullOrEmpty()){
+        if (binding.signUpRetypePassword.text.isNullOrBlank()){
             binding.signUpRetypePasswordLayout.error = "Retype Your Password"
         }
     }

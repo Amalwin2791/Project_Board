@@ -103,6 +103,8 @@ class TaskDetailsFragment : Fragment() {
 
         binding.apply {
             btnUpdateCardDetails.setOnClickListener {
+
+
                 if(validate()){
                     val task= Task(taskName = etNameCardDetails.text.toString().trim(),
                         projectID = requireArguments().getInt("projectID"), projectName = requireArguments().getString("projectName",null),
@@ -120,16 +122,17 @@ class TaskDetailsFragment : Fragment() {
     private fun validate():Boolean{
         binding.apply {
             when{
-                etNameCardDetails.text.isNullOrEmpty()->{
+                etNameCardDetails.text.isNullOrBlank()->{
                     taskNameLayout.error = "Task Name Cannot Be Empty"
                 }
-                selectPriorityColor.text.isNullOrEmpty()->{
+                selectPriorityColor.text.isNullOrBlank()->{
                     selectPriorityLayout.error ="Select A Priority"
                 }
-                selectMemberForTask.text.isNullOrEmpty()->{
+
+                selectMemberForTask.text.isNullOrBlank()->{
                     selectMemberLayout.error= "Select A Member"
                 }
-                tvSelectDueDate.text.isNullOrEmpty()->{
+                tvSelectDueDate.text.isNullOrBlank()->{
                     tvSelectDueDate.error = "Select A Deadline"
                 }
                 else->{

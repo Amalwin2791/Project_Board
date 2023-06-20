@@ -36,6 +36,7 @@
     <string name="inProgress">IN PROGRESS</string>
     <string name="completed">COMPLETED</string>
     <string name="image_contentDescription">image</string>
+    <string name="delete_member">Delete Member</string>
     <string name="assign_member">Assign A Member</string>
     <string name="leaveBoards">Leave Project</string>
     <string name="addMembers">Add Members</string>

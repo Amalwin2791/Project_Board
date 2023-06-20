@@ -1,6 +1,7 @@
 package com.example.boardsdraft.view.viewModel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardsdraft.db.TaskTitlesRepo
@@ -22,7 +23,11 @@ class TasksViewModel @Inject constructor(
 
     val lastTaskTitleID = taskTitleRepo.getLastTaskTitleID()
 
+    private val _monitor = MutableLiveData<Boolean>()
+    val monitor: LiveData<Boolean>
+        get() = _monitor
 
+    lateinit var taskTitlesOfProject: List<String?>
     fun allTasksOfDisplayedProject(projectID: Int): LiveData<List<ProjectWithTasks>?> {
         return tasksRepo.getTasksOfProject(projectID)
     }
@@ -47,6 +52,13 @@ class TasksViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             taskTitleRepo.updateTaskTitle(taskTitle)
             tasksRepo.updateTaskStatus(oldTitle!!,taskTitle.taskTitle)
+        }
+    }
+
+    fun getAllTaskTitleNames(projectID: Int){
+        viewModelScope.launch{
+            taskTitlesOfProject = taskTitleRepo.getAllTaskTitleNamesOfProject(projectID)
+            _monitor.value = true
         }
     }
 

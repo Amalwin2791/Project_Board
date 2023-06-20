@@ -1,6 +1,7 @@
 package com.example.boardsdraft.view.viewModel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardsdraft.db.ProjectsRepo
@@ -24,6 +25,10 @@ class BoardsViewModel @Inject constructor(
     val allBoardsOfUser: LiveData<List<ProjectsWithUsers>> = repo.getBoardsOfUser(getCurrentUserID())
 
     val lastProjectID = repo.getLastProjectID()
+
+    private val _exists = MutableLiveData<Boolean>()
+    val exists: LiveData<Boolean>
+        get() = _exists
     suspend fun getProjectIdByProjectCode(projectCode: String): Int? {
         return withContext(Dispatchers.IO) {
             repo.getProjectIdByProjectCode(projectCode)
@@ -56,5 +61,10 @@ class BoardsViewModel @Inject constructor(
         return sharedPreference.getLoggedInID()
     }
 
+    fun isUserAlreadyMember(projectID: Int){
+        viewModelScope.launch {
+            _exists.value = repo.exists(sharedPreference.getLoggedInID(),projectID)
+        }
+    }
 
 }

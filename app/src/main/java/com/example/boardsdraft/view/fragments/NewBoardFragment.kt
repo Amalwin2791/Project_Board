@@ -59,7 +59,7 @@ class NewBoardFragment : Fragment() {
         })
 
         binding.createButton.setOnClickListener {
-            if (binding.newBoardName.text.isNullOrEmpty()) {
+            if (binding.newBoardName.text.isNullOrBlank()) {
                 binding.newBoardName.error = "Board Name Cannot Be Empty"
             } else {
                 val projectName = binding.newBoardName.text.toString()

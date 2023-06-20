@@ -1,9 +1,11 @@
 package com.example.boardsdraft.view.adapter
 
 import android.graphics.BitmapFactory
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -21,22 +23,23 @@ class MembersListAdapter(
 
     inner class MembersListAdapterViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
-        private val name:TextView = itemView.findViewById(R.id.name_minimal)
-        private val image: ImageView = itemView.findViewById(R.id.image_minimal)
-        val card: CardView = itemView.findViewById(R.id.card_minimal)
+        private val name:TextView = itemView.findViewById(R.id.member_name)
+        private val image: ImageView = itemView.findViewById(R.id.member_image)
+        val card: CardView = itemView.findViewById(R.id.members_card)
+
 
         fun bind(user: User){
 
-            if(user.userID == currentUserID){
-                name.text = name.context.resources.getString(R.string.you)
-            }
-            else{
-                name.text = user.userName
-            }
+                if(user.userID == currentUserID){
+                    name.text = name.context.resources.getString(R.string.you)
+                }
+                else{
+                    name.text = user.userName
+                }
+                if(user.image != null){
+                    image.setImageBitmap(BitmapFactory.decodeByteArray(user.image, 0, user.image!!.size))
+                }
 
-            if(user.image != null){
-                image.setImageBitmap(BitmapFactory.decodeByteArray(user.image, 0, user.image!!.size))
-            }
 
         }
 
@@ -46,7 +49,7 @@ class MembersListAdapter(
         parent: ViewGroup,
         viewType: Int
     ): MembersListAdapterViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_card_minimal,parent,false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_members_card,parent,false)
         return MembersListAdapterViewHolder(view)
     }
 
@@ -56,9 +59,12 @@ class MembersListAdapter(
 
     override fun onBindViewHolder(holder: MembersListAdapterViewHolder, position: Int) {
 
+
         holder.bind(users[position])
+
+
         holder.card.apply {
-            setBackgroundResource(R.drawable.memebrs_card_design)
+            setBackgroundResource(R.drawable.shape_button_curved_white)
             elevation=30F
             setOnClickListener {
                 clickListener.onItemClick(users[position].userID)

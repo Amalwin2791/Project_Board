@@ -54,4 +54,7 @@ interface ProjectsDao {
     @Query("SELECT * FROM Users INNER JOIN UserProjectCrossRef ON Users.userID = UserProjectCrossRef.userID WHERE UserProjectCrossRef.projectID = :projectId")
     fun getUsersByProjectId(projectId: Int): LiveData<List<User>>
 
+    @Query("SELECT EXISTS(SELECT 1 FROM UserProjectCrossRef WHERE userID = :userID AND projectID = :projectID LIMIT 1)")
+    suspend fun exists(userID: Int, projectID: Int): Boolean
+
 }

@@ -29,4 +29,10 @@ class TaskTitlesRepoImp @Inject constructor(
     override fun getLastTaskTitleID(): LiveData<Int?> {
         return lastTaskTitleID
     }
+
+    override suspend fun getAllTaskTitleNamesOfProject(projectID: Int): List<String?> {
+        return dao.getAllTaskTitleNamesOfProject(projectID)
+    }
+
+
 }

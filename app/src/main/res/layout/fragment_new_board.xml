@@ -14,99 +14,99 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-        <ScrollView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            >
+            android:background="@drawable/shape_button_curved_white">
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/board_image"
+                android:layout_width="@dimen/boardImageSizeWidth"
+                android:layout_height="@dimen/boardImageSizeHeight"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                android:src="@drawable/ic_image_place_holder"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.152" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:id="@+id/new_board_name_ref"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/board_image"
+                app:layout_constraintHorizontal_bias="0.538"
+                app:layout_constraintStart_toStartOf="@id/board_image"
+                app:layout_constraintTop_toBottomOf="@id/board_image"
+                app:layout_constraintVertical_bias="0.108"
+                app:helperText="@string/required"
+                app:helperTextTextColor="@color/red"
+                style="@style/MyTextInputLayoutStyle"
+                app:counterEnabled="true"
+                app:counterMaxLength="15"
+                app:endIconMode="clear_text"
+                app:layout_constraintWidth_percent=".8">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/new_board_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_button_curved_white">
+                    android:layout_height="match_parent"
+                    android:hint="@string/boardName"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    android:inputType="text"
+                    android:maxLength="15"
+                    android:textAlignment="center" />
 
+            </com.google.android.material.textfield.TextInputLayout>
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/board_image"
-                            android:layout_width="@dimen/boardImageSizeWidth"
-                            android:layout_height="@dimen/boardImageSizeHeight"
-                            android:layout_gravity="center"
-                            android:foregroundGravity="center"
-                            android:src="@drawable/ic_image_place_holder"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.495"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.152" />
+            <Button
+                android:id="@+id/create_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/shape_button_curved_white"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="@string/create"
+                android:textColor="@color/material_dynamic_primary30"
+                android:textSize="@dimen/signUpSize"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/new_board_name_ref"
+                app:layout_constraintWidth_percent=".4"
+                android:layout_marginTop="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="20dp"/>
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:id="@+id/new_board_name_ref"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@id/board_image"
-                            app:layout_constraintHorizontal_bias="0.538"
-                            app:layout_constraintStart_toStartOf="@id/board_image"
-                            app:layout_constraintTop_toBottomOf="@id/board_image"
-                            app:layout_constraintVertical_bias="0.108"
-                            app:helperText="@string/required"
-                            app:helperTextTextColor="@color/red"
-                            style="@style/MyTextInputLayoutStyle"
-                            app:counterEnabled="true"
-                            app:counterMaxLength="15"
-                            app:endIconMode="clear_text"
-                            app:layout_constraintWidth_percent=".8">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/new_board_name"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:hint="@string/boardName"
-                                    android:textColor="@color/black"
-                                    android:textColorHint="@color/grey"
-                                    android:inputType="text"
-                                    android:maxLength="15"
-                                    android:textAlignment="center" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <Button
-                            android:id="@+id/create_button"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:background="@drawable/shape_button_curved_white"
-                            android:fontFamily="sans-serif-condensed-medium"
-                            android:text="@string/create"
-                            android:textColor="@color/material_dynamic_primary30"
-                            android:textSize="@dimen/signUpSize"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/new_board_name_ref"
-                            app:layout_constraintWidth_percent=".4"
-                            android:layout_marginTop="50dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_marginBottom="20dp"/>
-
-                        <Button
-                            android:id="@+id/cancel_button"
-                            android:layout_width="0dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/shape_button_curved_white"
-                            android:fontFamily="sans-serif-condensed-medium"
-                            android:text="@string/cancel"
-                            android:textColor="@color/material_dynamic_primary30"
-                            android:textSize="@dimen/signUpSize"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/new_board_name_ref"
-                            app:layout_constraintWidth_percent=".4"
-                            android:layout_marginTop="50dp"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+            <Button
+                android:id="@+id/cancel_button"
+                android:layout_width="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button_curved_white"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="@string/cancel"
+                android:textColor="@color/material_dynamic_primary30"
+                android:textSize="@dimen/signUpSize"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/new_board_name_ref"
+                app:layout_constraintWidth_percent=".4"
+                android:layout_marginTop="50dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

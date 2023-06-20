@@ -60,6 +60,7 @@ class EditTaskDetailsFragment(
                     val value =  parent.getItemAtPosition(position) as User
                     setText(value.userName)
                     task.assignedTo = value.userID
+                    task.assignedToName =value.userName
                 }
             }
 
@@ -67,7 +68,6 @@ class EditTaskDetailsFragment(
                 if(validate()){
                     task.taskName = editTaskName.text.toString().trim()
                     task.priority = editTaskPriority.text.toString()
-                    task.assignedToName = editTaskMember.text.toString()
                     task.deadLine = editTaskDueDate.text.toString()
                     viewModel.updateTask(task)
                     parentFragmentManager.popBackStack()
@@ -80,16 +80,16 @@ class EditTaskDetailsFragment(
     private fun validate():Boolean{
         binding.apply {
             when{
-                editTaskName.text.isNullOrEmpty()->{
+                editTaskName.text.isNullOrBlank()->{
                     editTaskNameLayout.error = "Task Name Cannot Be Empty"
                 }
-                editTaskPriority.text.isNullOrEmpty()->{
+                editTaskPriority.text.isNullOrBlank()->{
                     editTaskPriorityLayout.error ="Select A Priority"
                 }
-                editTaskMember.text.isNullOrEmpty()->{
+                editTaskMember.text.isNullOrBlank()->{
                     editTaskMemberLayout.error= "Select A Member"
                 }
-                editTaskDueDate.text.isNullOrEmpty()->{
+                editTaskDueDate.text.isNullOrBlank()->{
                     editTaskDueDate.error = "Select A Deadline"
                 }
                 else->{

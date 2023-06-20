@@ -72,7 +72,7 @@ class ChangePasswordFragment : Fragment() {
                 !passwordRegex.matches(newPassword.text.toString().trim()) -> {
                     newPasswordLayout.error = "Password doesn't meet the requirements"
                 }
-                oldPassword.text.isNullOrEmpty() -> {
+                oldPassword.text.isNullOrBlank() -> {
                     oldPasswordLayout.error = "Old Password cannot be empty"
                 }
                 oldPassword.text.toString().trim() != currentPassword -> {
@@ -84,10 +84,10 @@ class ChangePasswordFragment : Fragment() {
                 newPassword.text.toString().trim() != newRetypePassword.text.toString().trim() -> {
                     newRetypePasswordLayout.error = "New passwords don't match"
                 }
-                newPassword.text.isNullOrEmpty() -> {
+                newPassword.text.isNullOrBlank() -> {
                     newPasswordLayout.error = "New Password cannot be empty"
                 }
-                newRetypePassword.text.isNullOrEmpty() -> {
+                newRetypePassword.text.isNullOrBlank() -> {
                     newRetypePasswordLayout.error = "Please retype your new password"
                 }
                 else -> {

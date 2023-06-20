@@ -25,4 +25,6 @@ interface ProjectsRepo {
     suspend fun getProjectIdByProjectCode(projectCode: String): Int?
 
     fun getUsersByProjectId(projectId: Int): LiveData<List<User>>
+
+    suspend fun exists(userID: Int, projectID: Int): Boolean
 }

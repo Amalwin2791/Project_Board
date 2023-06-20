@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.ActivityMemebersBinding
 import com.example.boardsdraft.view.adapter.MembersListAdapter
+import com.example.boardsdraft.view.fragments.EditMembersFragment
+import com.example.boardsdraft.view.fragments.EditMyProfileFragment
 import com.example.boardsdraft.view.fragments.InputBottomSheetFragment
 import com.example.boardsdraft.view.fragments.ShowProfileFragment
 import com.example.boardsdraft.view.viewModel.MembersViewModel
@@ -33,8 +35,38 @@ class MembersActivity : AppCompatActivity(), InputBottomSheetFragment.OnItemClic
 
         binding.membersToolbar.apply {
             title = "Members"
+            inflateMenu(R.menu.profile_menu_item)
             setNavigationOnClickListener {
-                finish()
+                val fragmentManager = supportFragmentManager
+                val backStackEntryCount = fragmentManager.backStackEntryCount
+                if (backStackEntryCount > 0){
+                    val currentFragmentTag = fragmentManager.getBackStackEntryAt(backStackEntryCount - 1).name
+                    val editMembersFragment = EditMembersFragment::class.java.simpleName
+                    if (currentFragmentTag == editMembersFragment){
+                        fragmentManager.popBackStack()
+
+                    }else{
+                        finish()
+                    }
+                }
+                else{
+                    finish()
+                }
+            }
+            setOnMenuItemClickListener {
+                when(it.itemId){
+                    R.id.edit -> {
+                        val bundle= Bundle()
+                        bundle.putInt("projectID",intent.getIntExtra("projectID",0))
+                        val editMembersFragment = EditMembersFragment()
+                        editMembersFragment.arguments = bundle
+                        supportFragmentManager.beginTransaction()
+                            .replace(binding.membersLinearLayout.id, editMembersFragment)
+                            .addToBackStack("EditMembersFragment")
+                            .commit()
+                    }
+                }
+                true
             }
         }
 

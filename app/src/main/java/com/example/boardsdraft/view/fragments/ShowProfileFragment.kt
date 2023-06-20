@@ -61,12 +61,12 @@ class ShowProfileFragment(
                     profileEmailDisplay.text = viewModel.getCurrentUserEmailID()
 
 
-                    if (viewModel.getCurrentUserDesignation().isNullOrEmpty()) {
+                    if (viewModel.getCurrentUserDesignation().isNullOrBlank()) {
                         profileDesignationDisplay.text = resources.getString(R.string.unknown)
                     } else {
                         profileDesignationDisplay.text = viewModel.getCurrentUserDesignation()
                     }
-                    if (viewModel.getCurrentUserDepartment().isNullOrEmpty()) {
+                    if (viewModel.getCurrentUserDepartment().isNullOrBlank()) {
                         profileOrganizationDisplay.text = resources.getString(R.string.unknown)
                     } else {
                         profileOrganizationDisplay.text = viewModel.getCurrentUserDepartment()

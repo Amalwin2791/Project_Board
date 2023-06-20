@@ -76,8 +76,12 @@ class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSh
 
     private fun displayBoards(){
         viewModel.allBoardsOfUser.observe(viewLifecycleOwner, Observer {
-            adapter.setBoards(it)
-            adapter.notifyDataSetChanged()
+            if(it.isNotEmpty()){
+                adapter.setBoards(it)
+                adapter.notifyDataSetChanged()
+                binding.noBoards.visibility = View.GONE
+            }
+
         })
 
     }
@@ -101,10 +105,21 @@ class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSh
     override fun joinBoard(value: String) {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             val projectID = viewModel.getProjectIdByProjectCode(value)
-            if (projectID != null) {
-                viewModel.insertUserProjectCrossRef(projectID)
-                adapter.notifyDataSetChanged()
-            } else {
+            if (projectID!=null){
+                viewModel.isUserAlreadyMember(projectID)
+
+                viewModel.exists.observe(viewLifecycleOwner, Observer {
+                    if(!it){
+                        viewModel.insertUserProjectCrossRef(projectID)
+                        adapter.notifyDataSetChanged()
+                    }
+                    else{
+                        Toast.makeText(requireContext(), "You Are Already A Member", Toast.LENGTH_SHORT).show()
+                    }
+                })
+
+            }
+            if(projectID == null){
                 Toast.makeText(requireContext(), "No Board Exists For That Code", Toast.LENGTH_SHORT).show()
             }
         }

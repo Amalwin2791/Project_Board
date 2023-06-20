@@ -88,9 +88,7 @@ class TaskListAdapter(
                 }
                 else{
                     addTaskButton.visibility = View.GONE
-                    tasksLayout.visibility = View.VISIBLE
                     taskListName.visibility = View.GONE
-                    titleName.text = newTaskListName.text.toString().trim()
                     clickListener.insertTaskTitle(TaskTitles(taskTitleID = taskTitleID,
                         taskTitle = newTaskListName.text.toString().trim(),
                         projectID = projectID))
@@ -119,7 +117,7 @@ class TaskListAdapter(
                     if (existingTitle != null) {
                         clickListener.updateTaskTitle(existingTitle,oldTitle)
                     }
-                    taskListTitle.text =editTaskListName.text.toString()
+//                    taskListTitle.text =editTaskListName.text.toString()
                     editTitleCardView.visibility = View.GONE
                     editTitleLayout.visibility = View.VISIBLE
                 }
@@ -167,12 +165,12 @@ class TaskListAdapter(
     inner class TasksViewHolder(view: View): RecyclerView.ViewHolder(view){
         val addTaskButton: TextView = view.findViewById(R.id.tv_add_task_list)
         val tasksLayout : LinearLayout = view.findViewById(R.id.ll_task_item)
-        val taskListTitle: TextView = view.findViewById(R.id.tv_task_list_title)
+        private val taskListTitle: TextView = view.findViewById(R.id.tv_task_list_title)
         val taskListName: CardView = view.findViewById(R.id.cv_add_task_list_name)
         val closeListName : ImageButton = view.findViewById(R.id.ib_close_list_name)
         val doneListName : ImageButton = view.findViewById(R.id.ib_done_list_name)
         val newTaskListName : EditText= view.findViewById(R.id.et_task_list_name)
-        val titleName: TextView = view.findViewById(R.id.tv_task_list_title)
+//        val titleName: TextView = view.findViewById(R.id.tv_task_list_title)
         val editListName :ImageButton = view.findViewById(R.id.ib_edit_list_name)
         val editTitleLayout : LinearLayout = view.findViewById(R.id.ll_title_view)
         val editTaskListName : EditText = view.findViewById(R.id.et_edit_task_list_name)

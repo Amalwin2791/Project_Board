@@ -51,5 +51,9 @@ class ProjectsRepoImp @Inject constructor(
         return dao.getUsersByProjectId(projectId)
     }
 
+    override suspend fun exists(userID: Int, projectID: Int): Boolean {
+        return dao.exists(userID,projectID)
+    }
+
 
 }

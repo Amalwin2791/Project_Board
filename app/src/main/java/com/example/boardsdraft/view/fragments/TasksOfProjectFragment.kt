@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -95,15 +96,37 @@ class TasksOfProjectFragment : Fragment() , TaskListAdapter.OnItemClickListener,
 
     }
 
+
     override fun insertTaskTitle(taskTitle: TaskTitles) {
-        viewModel.insertTaskTitle(taskTitle)
+
+        viewModel.getAllTaskTitleNames(taskTitle.projectID)
+        viewModel.monitor.observe(viewLifecycleOwner,
+            Observer {
+                if(!viewModel.taskTitlesOfProject.contains(taskTitle.taskTitle)){
+                    viewModel.insertTaskTitle(taskTitle)
+
+                }
+                else{
+                    Toast.makeText(requireContext(), "Title Already Present", Toast.LENGTH_SHORT).show()
+                }
+            })
         taskListAdapter.notifyDataSetChanged()
     }
 
     override fun updateTaskTitle(taskTitle: TaskTitles, oldTitle: String?) {
-        viewModel.updateTaskTitle(taskTitle,oldTitle)
-        taskListAdapter.notifyDataSetChanged()
 
+        viewModel.getAllTaskTitleNames(taskTitle.projectID)
+        viewModel.monitor.observe(viewLifecycleOwner,
+            Observer {
+                if(!viewModel.taskTitlesOfProject.contains(taskTitle.taskTitle)){
+                    viewModel.updateTaskTitle(taskTitle,oldTitle)
+
+                }
+                else{
+                    Toast.makeText(requireContext(), "Title Already Present", Toast.LENGTH_SHORT).show()
+                }
+            })
+        taskListAdapter.notifyDataSetChanged()
     }
 
     override fun createNewTask(taskTitle: String) {

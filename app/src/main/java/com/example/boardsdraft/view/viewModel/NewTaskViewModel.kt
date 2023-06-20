@@ -1,13 +1,14 @@
 package com.example.boardsdraft.view.viewModel
 
-import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardsdraft.db.ProjectsRepo
+import com.example.boardsdraft.db.TaskTitlesRepo
 import com.example.boardsdraft.db.TasksRepo
 import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.User
+import com.example.boardsdraft.db.entities.relations.ProjectWithTasks
 import com.example.boardsdraft.view.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class NewTaskViewModel @Inject constructor(
     private val tasksRepo: TasksRepo,
     private val repo : ProjectsRepo,
-    private val sharedPreferences: SessionManager
+    private val sharedPreferences: SessionManager,
+    private val taskTitleRepo : TaskTitlesRepo
 ): ViewModel(){
 
     val lastTaskID = tasksRepo.getLastTaskID()
@@ -27,6 +29,10 @@ class NewTaskViewModel @Inject constructor(
 
     fun getAllUsersOfProject(projectID: Int){
         membersOfProject = repo.getUsersByProjectId(projectID)
+    }
+
+    fun allTasksOfDisplayedProject(projectID: Int): LiveData<List<ProjectWithTasks>?> {
+        return tasksRepo.getTasksOfProject(projectID)
     }
 
     fun insertTask(task: Task){

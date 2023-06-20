@@ -96,14 +96,14 @@ class EditMyProfileFragment : Fragment() {
                     val emailRegex = Regex("^([a-zA-Z0-9_.+-]+)@([a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+)$")
                     viewModel.currentUser.apply {
 
-                        if(editProfileName.text.isNullOrEmpty()){
+                        if(editProfileName.text.isNullOrBlank()){
                             editProfileNameLayout.error = "Name Cannot Be Empty"
                         }
                         else{
                             userName = editProfileName.text.toString().trim()
                         }
 
-                        if(editProfileEmail.text.isNullOrEmpty()){
+                        if(editProfileEmail.text.isNullOrBlank()){
                             editProfileEmailLayout.error = "Email Cannot Be Empty"
                         }
                         if(!emailRegex.matches(editProfileEmail.text.toString().trim())){
@@ -120,10 +120,10 @@ class EditMyProfileFragment : Fragment() {
                             }
                         }
 
-                        if(!editSelectDepartment.text.isNullOrEmpty()){
+                        if(!editSelectDepartment.text.isNullOrBlank()){
                             department = editSelectDepartment.text.toString()
                         }
-                        if(!editSelectDesignation.text.isNullOrEmpty()){
+                        if(!editSelectDesignation.text.isNullOrBlank()){
                             designation = editSelectDesignation.text.toString()
                         }
                         if (compressedImageData!=null){

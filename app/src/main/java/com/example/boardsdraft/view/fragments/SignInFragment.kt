@@ -85,10 +85,10 @@ class SignInFragment : Fragment() {
 
 
     private fun showNullFieldsError() {
-        if(binding.signInEmail.text.isNullOrEmpty()){
+        if(binding.signInEmail.text.isNullOrBlank()){
             binding.signInEmailLayout.error = "Email ID cannot Be Empty"
         }
-        if(binding.signInPassword.text.isNullOrEmpty()){
+        if(binding.signInPassword.text.isNullOrBlank()){
             binding.signInPasswordLayout.error = "Password cannot Be Empty"
         }
     }

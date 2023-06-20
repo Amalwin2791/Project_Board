@@ -29,4 +29,7 @@ interface TaskTitlesDAO {
 
     @Query("SELECT taskTitleID FROM task_titles ORDER BY taskTitleID DESC LIMIT 1")
     fun getLastTaskTitleID(): LiveData<Int?>
+
+    @Query("SELECT taskTitle FROM Task_Titles WHERE projectID = :projectID")
+    suspend fun getAllTaskTitleNamesOfProject(projectID:Int): List<String?>
 }
