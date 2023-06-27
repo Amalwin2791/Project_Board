@@ -11,5 +11,6 @@ data class Project(
     var projectName: String,
     var image : ByteArray?,
     val createdBy: String,
+    val createdByID:Int,
     val projectCode: String
 )

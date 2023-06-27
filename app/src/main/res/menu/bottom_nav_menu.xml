@@ -5,13 +5,13 @@
 
         android:id="@+id/bottom_home"
         android:icon="@drawable/sharp_home_24"
-        android:title="bottomNavHome"/>
+        android:title="Home"/>
     <item
         android:id="@+id/bottom_my_tasks"
         android:icon="@drawable/ic_checklist"
-        android:title="bottomNavTasks"/>
+        android:title="Tasks"/>
     <item
         android:id="@+id/bottom_my_profile"
         android:icon="@drawable/ic_person"
-        android:title="bottomNavProfile"/>
+        android:title="Profile"/>
 </menu>

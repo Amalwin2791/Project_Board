@@ -32,6 +32,7 @@ class InputBottomSheetFragment(
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentInputBottomSheetBinding.bind(view)
@@ -39,7 +40,7 @@ class InputBottomSheetFragment(
         val window = dialog?.window
 
         window?.apply {
-            setDimAmount(0f)
+            setDimAmount(0.5f)
 
             setBackgroundDrawableResource(android.R.color.transparent)
         }
@@ -50,14 +51,27 @@ class InputBottomSheetFragment(
             dialogEmail.hint = customHint
             dialogEmail.hintTextColors.defaultColor
 
+            dialogEmail.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus){
+                    dialogEmailLayout.error= null
+                }
+            }
+
         }
         binding.edfChoiceButton.setOnClickListener {
-            clickListener.action(binding.dialogEmail.text.toString().trim())
-            dismiss()
+            if(binding.dialogEmail.text.isNullOrBlank()){
+                binding.dialogEmailLayout.error = "$customHint Cannot Be Empty"
+            }
+            else{
+                clickListener.action(binding.dialogEmail.text.toString().trim())
+                dismiss()
+            }
+
         }
         binding.edfCancelButton.setOnClickListener {
             dismiss()
         }
+
     }
 
     override fun onDestroy() {
@@ -68,8 +82,4 @@ class InputBottomSheetFragment(
     interface OnItemClickListener{
         fun action(value:String)
     }
-
-
-
-
 }

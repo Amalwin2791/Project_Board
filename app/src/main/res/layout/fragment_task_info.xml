@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/azure"
     android:theme="@style/Theme.Material3.DayNight"
     android:padding="10dp"
     tools:context="com.example.boardsdraft.view.fragments.TaskInfoFragment">
@@ -108,6 +107,35 @@
             />
 
         <TextView
+            android:id="@+id/assigned_to_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintHorizontal_bias=".1"
+            android:text="@string/assigned_to_label"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/profile_label_size"
+            app:layout_constraintStart_toStartOf="@+id/created_by"
+            app:layout_constraintEnd_toEndOf="@+id/created_by"
+            app:layout_constraintTop_toBottomOf="@+id/created_by"
+            app:layout_constraintWidth_percent="0.3"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/assigned_to"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/assigned_to"
+            android:textColor="@color/black"
+            android:textSize="@dimen/profile_text_size"
+            android:layout_marginTop="2dp"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintStart_toStartOf="@+id/assigned_to_label"
+            app:layout_constraintEnd_toEndOf="@+id/assigned_to_label"
+            app:layout_constraintTop_toBottomOf="@+id/assigned_to_label"
+            />
+
+        <TextView
             android:id="@+id/current_status_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -116,9 +144,9 @@
             android:text="@string/current_status_label"
             android:textColor="@color/grey"
             android:textSize="@dimen/profile_label_size"
-            app:layout_constraintStart_toStartOf="@+id/created_by"
-            app:layout_constraintEnd_toEndOf="@+id/created_by"
-            app:layout_constraintTop_toBottomOf="@+id/created_by"
+            app:layout_constraintStart_toStartOf="@+id/assigned_to"
+            app:layout_constraintEnd_toEndOf="@+id/assigned_to"
+            app:layout_constraintTop_toBottomOf="@+id/assigned_to"
             app:layout_constraintWidth_percent="0.3"
             android:layout_marginTop="10dp"/>
 
@@ -237,6 +265,7 @@
             android:layout_marginTop="14dp"
             android:visibility="gone"
             tools:visibility="visible"
+            android:paddingBottom="10dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
             <AutoCompleteTextView
@@ -245,32 +274,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/change_status"
-                android:textColor="@color/black"
-                android:textColorHint="@color/grey"
                 android:textSize="@dimen/et_text_size" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/tasks_save_changes_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintWidth_percent="0.4"
-            android:background="@drawable/shape_button_curved_blue"
             android:text="@string/saveChanges"
             android:textColor="@color/off_white"
             android:fontFamily="sans-serif-condensed-medium"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="@+id/move_to_layout"
-            app:layout_constraintEnd_toEndOf="@+id/move_to_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/move_to_layout"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="20dp"
             android:visibility="gone"
             tools:visibility="visible"
             />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_delete_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:textColor="@color/off_white"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textStyle="bold"
+            android:paddingTop="@dimen/btn_paddingTopBottom"
+            android:paddingBottom="@dimen/btn_paddingTopBottom"
+            android:text="@string/Delete"
+
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/move_to_layout"
+            app:layout_constraintStart_toStartOf="@+id/tasks_save_changes_button"
+            app:layout_constraintEnd_toEndOf="@+id/tasks_save_changes_button"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

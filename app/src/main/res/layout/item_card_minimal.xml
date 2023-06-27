@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_minimal"
     android:layout_width="match_parent"
-    android:layout_height="85dp"
-    android:layout_margin="3dp">
+    android:layout_height="56dp"
+    style="@style/Widget.Material3.CardView.Elevated"
+    app:cardCornerRadius="12dp"
+    android:layout_marginTop="5dp"
+    android:elevation="5dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image_minimal"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_gravity="center|start"
-        android:layout_marginStart="7dp"
-        android:src="@drawable/ic_image_place_holder"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
-
-    <TextView
-        android:id="@+id/name_minimal"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_gravity="center"
-        android:text="@string/boardName"
-        android:textAlignment="center"
-        android:textColor="@color/off_white"
-        android:textSize="20sp" />
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_minimal"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_image_place_holder"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
-</androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/name_minimal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:textAlignment="viewStart"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_minimal"
+            android:layout_marginStart="16dp"
+            android:textSize="16sp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</com.google.android.material.card.MaterialCardView>

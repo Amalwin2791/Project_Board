@@ -12,6 +12,7 @@ data class Task(
     var assignedTo: Int,
     var assignedToName: String,
     val createdBy: String,
+    val createdByID: Int,
     var status: String,
     var priority: String,
     val createdDate: String,

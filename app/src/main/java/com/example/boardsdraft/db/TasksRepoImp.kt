@@ -18,6 +18,10 @@ class TasksRepoImp(
         dao.updateTask(task)
     }
 
+    override suspend fun deleteTask(task: Task) {
+        dao.deleteTask(task)
+    }
+
     override fun getTasksOfCurrentUser(userID: Int): LiveData<List<UserWithTasks>?> {
         return dao.getTaskOfUser(userID)
     }
@@ -36,5 +40,9 @@ class TasksRepoImp(
 
     override suspend fun getTaskByID(taskID: Int): Task {
         return dao.getTaskByID(taskID)
+    }
+
+    override suspend fun deleteTasksByProjectAndUser(projectID: Int, userID: Int) {
+        dao.deleteTasksByProjectAndUser(projectID,userID)
     }
 }

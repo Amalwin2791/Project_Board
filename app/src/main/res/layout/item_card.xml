@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/task_card"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="56dp"
     android:layout_margin="@dimen/item_card_content_margin"
     android:background="?attr/selectableItemBackground"
-    android:elevation="@dimen/item_card_cv_elevation"
+    android:elevation="5dp"
+    app:cardCornerRadius="12dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="24dp"
         android:orientation="vertical">
 
         <View
@@ -23,9 +30,10 @@
         <TextView
             android:id="@+id/tv_card_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textColor="@color/black"
             android:padding="@dimen/item_card_name_text_padding"
+            android:textAlignment="viewStart"
             android:textSize="@dimen/item_card_name_text_size"
             tools:text="Card Name" />
 

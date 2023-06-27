@@ -28,17 +28,19 @@ class EditMembersAdapter(
 
         fun bind(user: User){
 
+            if(user.userID != currentUserID){
+                println(currentUserID)
+                deleteButton.visibility= View.VISIBLE
+                name.text = user.userName
+                if(user.image != null){
+                    image.setImageBitmap(BitmapFactory.decodeByteArray(user.image, 0, user.image!!.size))
+                }
+            }
+
             if(user.userID == currentUserID){
                 name.text = name.context.resources.getString(R.string.you)
                 deleteButton.visibility= View.GONE
             }
-            else{
-                name.text = user.userName
-            }
-            if(user.image != null){
-                image.setImageBitmap(BitmapFactory.decodeByteArray(user.image, 0, user.image!!.size))
-            }
-
 
         }
     }
@@ -58,6 +60,7 @@ class EditMembersAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditMembersViewHolder {
+        println("create view holder")
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_edit_members_card,parent,false)
         return EditMembersViewHolder(view)
     }
@@ -70,9 +73,7 @@ class EditMembersAdapter(
         holder.bind(users[position])
 
 
-        holder.card.apply {
-            setBackgroundResource(R.drawable.shape_button_curved_white)
-            elevation=30F
+        holder.deleteButton.apply {
             setOnClickListener {
                 clickListener.onItemClick(users[position].userID)
             }

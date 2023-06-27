@@ -3,6 +3,7 @@ package com.example.boardsdraft.view.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isEmpty
 import androidx.lifecycle.Observer
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.ActivityTaskManagerBinding
@@ -33,13 +34,21 @@ class TaskManagerActivity : AppCompatActivity() {
                 .replace(R.id.task_manager_fragment_container, TaskInfoFragment(it))
                 .addToBackStack("TaskInfoFragment")
                 .commit()
+
+            if(task.createdByID == viewModel.getCurrentUserID()){
+                binding.toolbar.apply {
+                    if(menu.isEmpty()){
+                        inflateMenu(R.menu.profile_menu_item)
+                    }
+                }
+            }
         })
 
 
-       binding.taskManagerToolbar.apply {
+       binding.toolbar.apply {
            title = intent.getStringExtra("taskName")
 
-           inflateMenu(R.menu.profile_menu_item)
+
 
            setNavigationOnClickListener {
                val fragmentManager = supportFragmentManager
@@ -73,6 +82,23 @@ class TaskManagerActivity : AppCompatActivity() {
 
        }
 
+    }
+
+    override fun onBackPressed() {
+        val fragmentManager = supportFragmentManager
+        val backStackEntryCount = fragmentManager.backStackEntryCount
+        if (backStackEntryCount > 0){
+            val currentFragmentTag = fragmentManager.getBackStackEntryAt(backStackEntryCount - 1).name
+            val editTaskDetailsFragmentName = EditTaskDetailsFragment::class.java.simpleName
+            if (currentFragmentTag == editTaskDetailsFragmentName){
+                fragmentManager.popBackStack()
+            }else{
+                finish()
+            }
+        }
+        else{
+            super.onBackPressed()
+        }
     }
 
 

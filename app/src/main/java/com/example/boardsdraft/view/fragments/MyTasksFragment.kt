@@ -55,7 +55,7 @@ class MyTasksFragment : Fragment(), MyTasksAdapter.OnItemClickListener {
 
 
         viewModel.allTasksOfCurrentUser.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
+            if (it!![0].tasks.isNotEmpty()) {
 
                 binding.myTasksList.apply {
                     layoutManager = LinearLayoutManager(requireContext())
@@ -65,10 +65,13 @@ class MyTasksFragment : Fragment(), MyTasksAdapter.OnItemClickListener {
                 }
 
                 binding.apply {
-                    noTasksHaveBeenAssigned.visibility = View.GONE
                     myTasksList.visibility = View.VISIBLE
                 }
             }
+            else{
+                binding.noTasksHaveBeenAssigned.visibility = View.VISIBLE
+            }
+
 
 
         })
@@ -91,10 +94,10 @@ class MyTasksFragment : Fragment(), MyTasksAdapter.OnItemClickListener {
             }
         }.thenComparing { task ->
             val taskDeadline = dateFormat.parse(task.deadLine)
-            val diffInMilliseconds = taskDeadline?.time ?: (0 - currentDate.time)
-            diffInMilliseconds.toInt()
+            taskDeadline?.time ?: currentDate.time
         })
     }
+
 
 
 

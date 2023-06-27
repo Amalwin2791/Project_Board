@@ -1,5 +1,7 @@
 package com.example.boardsdraft.view.activities
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.boardsDraft.R
@@ -7,6 +9,7 @@ import com.example.boardsDraft.databinding.ActivityManageProfileBinding
 import com.example.boardsdraft.view.fragments.EditMyProfileFragment
 import com.example.boardsdraft.view.fragments.ShowProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.system.measureNanoTime
 
 @AndroidEntryPoint
 class ManageProfileActivity : AppCompatActivity() {
@@ -18,7 +21,8 @@ class ManageProfileActivity : AppCompatActivity() {
         binding = ActivityManageProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.profileToolbar.apply{
+
+        binding.toolbar.apply{
             title = "My Profile"
             setNavigationOnClickListener {
                 val fragmentManager = supportFragmentManager
@@ -66,4 +70,25 @@ class ManageProfileActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
     }
+
+    override fun onBackPressed() {
+        val fragmentManager = supportFragmentManager
+        val backStackEntryCount = fragmentManager.backStackEntryCount
+
+        if (backStackEntryCount > 0) {
+            val currentFragmentTag = fragmentManager.getBackStackEntryAt(backStackEntryCount - 1).name
+            val editMyProfileFragment = EditMyProfileFragment::class.java.simpleName
+
+            if (currentFragmentTag == editMyProfileFragment) {
+                fragmentManager.popBackStack()
+            } else {
+                finish()
+            }
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+
+
 }

@@ -58,16 +58,37 @@ class SignUpFragment : Fragment() {
                     binding.signUpRetypePasswordLayout.error = "Passwords Don't Meet Requirements"
                 }
                 LoginResults.USER_ALREADY_PRESENT -> {
-                    binding.signUpName.text?.clear()
-                    binding.signUpEmail.text?.clear()
-                    binding.signUpPassword.text?.clear()
-                    binding.signUpRetypePassword.text?.clear()
                     Toast.makeText(context,"User Already Present, Sign In",Toast.LENGTH_SHORT).show()
                 }
                 else->{}
 
             }
 
+        }
+
+        binding.apply{
+            signUpName.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    signUpNameLayout.error = null
+                }
+            }
+
+            signUpEmail.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    signUpEmailLayout.error = null
+                }
+            }
+
+            signUpPassword.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    signUpPasswordLayout.error = null
+                }
+            }
+            signUpRetypePassword.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    signUpRetypePasswordLayout.error = null
+                }
+            }
         }
 
     }

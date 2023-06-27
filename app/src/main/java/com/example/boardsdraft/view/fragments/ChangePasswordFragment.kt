@@ -60,6 +60,23 @@ class ChangePasswordFragment : Fragment() {
                 }
 
             }
+            oldPassword.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    oldPasswordLayout.error = null
+                }
+            }
+
+            newPassword.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus){
+                    newPasswordLayout.error= null
+                }
+            }
+            newRetypePassword.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus){
+                    newRetypePasswordLayout.error= null
+                }
+            }
+
         }
     }
 

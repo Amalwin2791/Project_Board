@@ -2,8 +2,8 @@
 <resources>
     <dimen name="splashScreenTextSize">70sp</dimen>
     <dimen name="LoginPageAppNameTextSize">55sp</dimen>
-    <dimen name="signUpSize">20sp</dimen>
-    <dimen name="signInSize">20dp</dimen>
+    <dimen name="signUpSize">18sp</dimen>
+    <dimen name="signInSize">18dp</dimen>
     <dimen name="passwordConstraint">8.75sp</dimen>
     <dimen name="retypeCorrectPass">12sp</dimen>
     <dimen name="fabMargin">16dp</dimen>
@@ -40,10 +40,10 @@
     <dimen name="card_view_elevation">10dp</dimen>
     <dimen name="item_card_label_height">15dp</dimen>
     <dimen name="item_card_name_text_padding">10dp</dimen>
-    <dimen name="item_card_name_text_size">16sp</dimen>
+    <dimen name="item_card_name_text_size">14sp</dimen>
     <dimen name="item_card_members_text_padding">10dp</dimen>
     <dimen name="item_card_members_text_size">14sp</dimen>
-    <dimen name="members_content_padding">16dp</dimen>
+    <dimen name="members_content_padding">8dp</dimen>
     <dimen name="members_cv_marginTop">5dp</dimen>
     <dimen name="item_label_color_height">40dp</dimen>
     <dimen name="item_label_color_margin">5dp</dimen>

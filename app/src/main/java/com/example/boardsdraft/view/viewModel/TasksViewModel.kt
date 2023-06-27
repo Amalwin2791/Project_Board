@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardsdraft.db.TaskTitlesRepo
 import com.example.boardsdraft.db.TasksRepo
+import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.TaskTitles
 import com.example.boardsdraft.db.entities.relations.ProjectWithTasks
 import com.example.boardsdraft.db.entities.relations.TaskTitlesOfProject
@@ -30,6 +31,12 @@ class TasksViewModel @Inject constructor(
     lateinit var taskTitlesOfProject: List<String?>
     fun allTasksOfDisplayedProject(projectID: Int): LiveData<List<ProjectWithTasks>?> {
         return tasksRepo.getTasksOfProject(projectID)
+    }
+
+    fun deleteTask(task: Task){
+        viewModelScope.launch(Dispatchers.IO) {
+            tasksRepo.deleteTask(task)
+        }
     }
 
     fun insertTaskTitle(taskTitle: TaskTitles){

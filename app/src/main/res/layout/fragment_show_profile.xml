@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_gravity="center"
     android:layout_height="match_parent"
-    android:background="@color/azure"
     android:theme="@style/Theme.Material3.DayNight"
     android:layout_marginTop="?attr/actionBarSize"
     tools:context="com.example.boardsdraft.view.fragments.ShowProfileFragment">
@@ -196,7 +195,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:padding="10dp"
-                    android:background="@color/azure"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/projects_in_common_tv"
                     app:layout_constraintStart_toStartOf="@id/projects_in_common_tv"

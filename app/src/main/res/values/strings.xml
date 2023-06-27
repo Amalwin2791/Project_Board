@@ -23,14 +23,15 @@
     <string name="boardName">Board Name</string>
     <string name="createdBy">Created By:</string>
     <string name="create">Create</string>
+    <string name="Delete">Delete</string>
     <string name="creator">Creator</string>
     <string name="cancel">Cancel</string>
     <string name="required">*Required</string>
     <string name="update">UPDATE</string>
     <string name="action_add_list">Add List</string>
-    <string name="hint_list_name">Title(15 chars)</string>
+    <string name="hint_list_name">Title</string>
     <string name="action_add_card">Add Task</string>
-    <string name="hint_card_name">Task Name(15 chars)</string>
+    <string name="hint_card_name">Task Name</string>
     <string name="add_list">Add List</string>
     <string name="todo">TODO</string>
     <string name="inProgress">IN PROGRESS</string>
@@ -77,19 +78,21 @@
     <string name="status">Status</string>
     <string name="status_label">Status:</string>
     <string name="due_by">Due By</string>
-    <string name="due_by_label">Due By:</string>
+    <string name="due_by_label">Due:</string>
     <string name="sort">Sort</string>
     <string name="task_Name_label">Task Name:</string>
     <string name="project_name_label">Project Name:</string>
     <string name="created_by_label">Created By:</string>
     <string name="current_status_label">Current Status:</string>
+    <string name="assigned_to_label">Assigned To:</string>
+    <string name="assigned_to">Assigned To</string>
     <string name="current_status">Current Status:</string>
     <string name="priority_label">Priority:</string>
     <string name="priority">Priority</string>
     <string name="created_on_label">Created On:</string>
     <string name="created_on">Created On</string>
     <string name="deadline_label">Due By:</string>
-    <string name="change_status">Move To</string>
+    <string name="change_status">Move Task To</string>
 
     <string-array name="priorities">
         <item>High</item>

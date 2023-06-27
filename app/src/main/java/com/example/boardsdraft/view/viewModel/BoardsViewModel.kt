@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardsdraft.db.ProjectsRepo
+import com.example.boardsdraft.db.TasksRepo
 import com.example.boardsdraft.db.entities.Project
 import com.example.boardsdraft.db.entities.UserProjectCrossRef
 import com.example.boardsdraft.db.entities.relations.ProjectsWithUsers
@@ -19,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class BoardsViewModel @Inject constructor(
     private val repo : ProjectsRepo,
-    private val sharedPreference: SessionManager
+    private val sharedPreference: SessionManager,
+    private val tasksRepo: TasksRepo
 ) : ViewModel(){
 
     val allBoardsOfUser: LiveData<List<ProjectsWithUsers>> = repo.getBoardsOfUser(getCurrentUserID())
@@ -51,6 +53,7 @@ class BoardsViewModel @Inject constructor(
     fun deleteUserProjectCrossRef(userID: Int, projectID: Int){
         viewModelScope.launch(Dispatchers.IO) {
             repo.deleteUserProjectCrossRef(UserProjectCrossRef(userID,projectID))
+            tasksRepo.deleteTasksByProjectAndUser(projectID,userID)
         }
     }
 

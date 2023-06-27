@@ -31,9 +31,7 @@ class NewTaskViewModel @Inject constructor(
         membersOfProject = repo.getUsersByProjectId(projectID)
     }
 
-    fun allTasksOfDisplayedProject(projectID: Int): LiveData<List<ProjectWithTasks>?> {
-        return tasksRepo.getTasksOfProject(projectID)
-    }
+
 
     fun insertTask(task: Task){
         viewModelScope.launch(Dispatchers.IO) {
@@ -42,6 +40,10 @@ class NewTaskViewModel @Inject constructor(
     }
     fun getCurrentUserName(): String? {
         return sharedPreferences.getLoggedInName()
+    }
+
+    fun getCurrentUserID():Int{
+        return sharedPreferences.getLoggedInID()
     }
 
     fun updateTask(task:Task) {

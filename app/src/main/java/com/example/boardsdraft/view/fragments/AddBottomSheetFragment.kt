@@ -39,7 +39,7 @@ class AddBottomSheetFragment(
         val window = dialog?.window
 
         window?.apply {
-            setDimAmount(0f)
+            setDimAmount(0.5f)
 
             setBackgroundDrawableResource(android.R.color.transparent)
         }
@@ -57,7 +57,7 @@ class AddBottomSheetFragment(
                  }
                  else{
                      val transaction = parentFragmentManager.beginTransaction()
-                     transaction.replace(R.id.boards_list_frame, NewBoardFragment())
+                     transaction.replace(R.id.home, NewBoardFragment())
                      transaction.addToBackStack(null)
                      transaction.commit()
                      dismiss()

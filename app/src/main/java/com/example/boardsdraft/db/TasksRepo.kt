@@ -11,6 +11,8 @@ interface TasksRepo {
 
     suspend fun updateTask(task: Task)
 
+    suspend fun deleteTask(task: Task)
+
     fun getTasksOfCurrentUser(userID: Int): LiveData<List<UserWithTasks>?>
 
     fun getTasksOfProject(projectID: Int): LiveData<List<ProjectWithTasks>?>
@@ -18,4 +20,6 @@ interface TasksRepo {
     fun getLastTaskID(): LiveData<Int?>
     suspend fun updateTaskStatus(oldStatus: String, newStatus: String)
     suspend fun getTaskByID(taskID:Int): Task
+
+    suspend fun deleteTasksByProjectAndUser(projectID: Int, userID: Int)
 }

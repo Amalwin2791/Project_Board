@@ -34,6 +34,7 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
                                 putExtra("projectName", intent.getStringExtra("projectName"))
                                 putExtra("projectID", intent.getIntExtra("projectID", 0))
                                 putExtra("projectCode",intent.getStringExtra("projectCode"))
+                                putExtra("projectCreatedByID",intent.getIntExtra("projectCreatedByID",0))
                             })
                     }
 
@@ -41,6 +42,7 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
                         MyDialogFragment("Are You Sure You Want To Leave this Board?","Yes",
                             this@TasksActivity)
                             .show(supportFragmentManager,"deleteDialog")
+
                     }
                 }
                 true
@@ -80,10 +82,31 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
             viewModel.deleteUserProjectCrossRef(
                 viewModel.getCurrentUserID(),
                 intent.getIntExtra("projectID", 0)
+
             )
             finish()
         }
     }
+
+    override fun onBackPressed() {
+        val fragmentManager = supportFragmentManager
+        val backStackEntryCount = fragmentManager.backStackEntryCount
+
+        if (backStackEntryCount > 0) {
+            val currentFragmentTag = fragmentManager.getBackStackEntryAt(backStackEntryCount - 1).name
+            val tasksOfProjectFragmentTag = TasksOfProjectFragment::class.java.simpleName
+
+            if (currentFragmentTag == tasksOfProjectFragmentTag) {
+                finish()
+            } else {
+                fragmentManager.popBackStackImmediate()
+            }
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+
 
 }
 

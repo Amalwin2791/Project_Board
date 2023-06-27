@@ -15,15 +15,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentBoardsBinding
+import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.view.activities.TasksActivity
 import com.example.boardsdraft.view.adapter.BoardsAdapter
+import com.example.boardsdraft.view.adapter.CardsListAdapter
 import com.example.boardsdraft.view.viewModel.BoardsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSheetFragment.OnItemClickListener {
+class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSheetFragment.OnItemClickListener{
 
     private var _binding: FragmentBoardsBinding? = null
     private val binding get() = _binding!!
@@ -54,16 +56,11 @@ class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSh
 
         val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
         toolbar.title= "Boards"
-        if(toolbar.menu.isEmpty()){
-            toolbar.inflateMenu(R.menu.top_app_bar)
-        }
-        toolbar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.add_new_board -> {
-                    AddBottomSheetFragment(this@BoardsFragment).show(parentFragmentManager,"AddBottomSheet")
-                }
-            }
-            true
+
+
+
+        binding.newBoard.setOnClickListener {
+            AddBottomSheetFragment(this@BoardsFragment).show(parentFragmentManager,"AddBottomSheet")
         }
     }
 
@@ -76,14 +73,17 @@ class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSh
 
     private fun displayBoards(){
         viewModel.allBoardsOfUser.observe(viewLifecycleOwner, Observer {
+            adapter.setBoards(it)
+            adapter.notifyDataSetChanged()
             if(it.isNotEmpty()){
-                adapter.setBoards(it)
-                adapter.notifyDataSetChanged()
                 binding.noBoards.visibility = View.GONE
+
             }
-
+            else{
+                binding.noBoards.visibility = View.VISIBLE
+            }
         })
-
+        adapter.notifyDataSetChanged()
     }
 
     private fun initBoardsList(){
@@ -94,11 +94,12 @@ class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSh
         adapter.notifyDataSetChanged()
     }
 
-    override fun onItemClick(projectName: String, projectID: Int,projectCode:String) {
+    override fun onItemClick(projectName: String, projectID: Int,projectCode:String,projectCreatedBy: Int) {
         val intent = Intent(requireContext(), TasksActivity::class.java).apply {
             putExtra("projectName", projectName)
             putExtra("projectID", projectID)
             putExtra("projectCode",projectCode)
+            putExtra("projectCreatedByID",projectCreatedBy)
         }
         startActivity(intent)
     }
@@ -124,5 +125,12 @@ class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSh
             }
         }
     }
+
+//    override fun onItemClick(task: Task) {
+//        parentFragmentManager.beginTransaction()
+//            .replace(R.id.boards_list_frame, TaskInfoFragment(task))
+//            .addToBackStack("TaskInfoFragment")
+//            .commit()
+//    }
 
 }

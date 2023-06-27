@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentTasksOfProjectBinding
+import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.TaskTitles
 import com.example.boardsdraft.view.adapter.TaskListAdapter
 import com.example.boardsdraft.view.viewModel.TasksViewModel
@@ -143,6 +144,14 @@ class TasksOfProjectFragment : Fragment() , TaskListAdapter.OnItemClickListener,
             .commit()
         taskListAdapter.notifyDataSetChanged()
     }
+
+    override fun showTask(task: Task) {
+            parentFragmentManager.beginTransaction()
+            .replace(R.id.tasks_view,TaskInfoFragment(task))
+            .addToBackStack("TaskInfoFragment")
+            .commit()
+    }
+
 
     override fun result(choice: String) {
         if(choice == "YES"){

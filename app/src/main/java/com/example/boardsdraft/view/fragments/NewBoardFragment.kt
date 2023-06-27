@@ -27,6 +27,7 @@ import kotlin.math.pow
 class NewBoardFragment : Fragment() {
 
     private var _binding : FragmentNewBoardBinding? = null
+
     private val binding get() = _binding!!
     private val viewModel : BoardsViewModel by viewModels()
     private var compressedImageData :ByteArray? = null
@@ -62,13 +63,19 @@ class NewBoardFragment : Fragment() {
             if (binding.newBoardName.text.isNullOrBlank()) {
                 binding.newBoardName.error = "Board Name Cannot Be Empty"
             } else {
+                viewModel.insertUserProjectCrossRef(projectID)
                 val projectName = binding.newBoardName.text.toString()
                 val projectCode = generateRandomString()
                 val board = Project(projectID=projectID, projectName = projectName, image = compressedImageData,
-                    createdBy =viewModel.getCurrentUserName()!!, projectCode = projectCode)
+                    createdBy =viewModel.getCurrentUserName()!!, createdByID = viewModel.getCurrentUserID(), projectCode = projectCode)
                 viewModel.insertBoard(board)
-                viewModel.insertUserProjectCrossRef(board.projectID)
                 parentFragmentManager.popBackStack()
+            }
+        }
+
+        binding.newBoardName.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.newBoardNameRef.error = null
             }
         }
 
@@ -94,7 +101,7 @@ class NewBoardFragment : Fragment() {
             val selectedImageUri: Uri? = data?.data
             binding.boardImage.setImageURI(selectedImageUri)
             selectedImageUri?.let { uri ->
-                compressedImageData = compressImage(uri, 1000 * 1024)
+                compressedImageData = compressImage(uri, 2000 * 1024)
             }
         }
     }
@@ -123,7 +130,6 @@ class NewBoardFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        requireActivity().findViewById<Toolbar>(R.id.toolbar).inflateMenu(R.menu.top_app_bar)
         requireActivity().findViewById<Toolbar>(R.id.toolbar).title = "Boards"
         _binding= null
 

@@ -12,7 +12,6 @@ import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.ActivityMemebersBinding
 import com.example.boardsdraft.view.adapter.MembersListAdapter
 import com.example.boardsdraft.view.fragments.EditMembersFragment
-import com.example.boardsdraft.view.fragments.EditMyProfileFragment
 import com.example.boardsdraft.view.fragments.InputBottomSheetFragment
 import com.example.boardsdraft.view.fragments.ShowProfileFragment
 import com.example.boardsdraft.view.viewModel.MembersViewModel
@@ -33,9 +32,12 @@ class MembersActivity : AppCompatActivity(), InputBottomSheetFragment.OnItemClic
         binding = ActivityMemebersBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.membersToolbar.apply {
+        binding.toolbar.apply {
             title = "Members"
-            inflateMenu(R.menu.profile_menu_item)
+            if (viewModel.getCurrentUserID() == intent.getIntExtra("projectCreatedByID",0) ){
+                inflateMenu(R.menu.profile_menu_item)
+            }
+
             setNavigationOnClickListener {
                 val fragmentManager = supportFragmentManager
                 val backStackEntryCount = fragmentManager.backStackEntryCount
@@ -60,8 +62,9 @@ class MembersActivity : AppCompatActivity(), InputBottomSheetFragment.OnItemClic
                         bundle.putInt("projectID",intent.getIntExtra("projectID",0))
                         val editMembersFragment = EditMembersFragment()
                         editMembersFragment.arguments = bundle
+                        binding.membersLinearLayout.visibility = View.GONE
                         supportFragmentManager.beginTransaction()
-                            .replace(binding.membersLinearLayout.id, editMembersFragment)
+                            .replace(binding.membersLayout.id, editMembersFragment)
                             .addToBackStack("EditMembersFragment")
                             .commit()
                     }
@@ -74,7 +77,7 @@ class MembersActivity : AppCompatActivity(), InputBottomSheetFragment.OnItemClic
         membersListAdapter = MembersListAdapter(this@MembersActivity)
         binding.rvMembersList.adapter = membersListAdapter
 
-        binding.fab.apply {
+        binding.membersFab.apply {
             setOnClickListener {
                 InputBottomSheetFragment("Enter The Email ID", "Invite","Email",
                     this@MembersActivity).show(supportFragmentManager,"BottomFrag")
@@ -83,7 +86,7 @@ class MembersActivity : AppCompatActivity(), InputBottomSheetFragment.OnItemClic
         }
         viewModel.membersOfProject.observe(this@MembersActivity, Observer {
             viewModel.membersOfProject.value?.let { it1 ->
-                membersListAdapter.setUsers(it1).apply {
+                membersListAdapter.setUsers(it1).also {
                     membersListAdapter.setCurrentUser(viewModel.getCurrentUserID())
                     membersListAdapter.notifyDataSetChanged()
                 }
@@ -110,19 +113,42 @@ class MembersActivity : AppCompatActivity(), InputBottomSheetFragment.OnItemClic
     }
 
     override fun onItemClick(userID: Int) {
-        val bundle = Bundle()
-        val showProfile = ShowProfileFragment("NO")
-        bundle.putInt("userID",userID)
-
-        showProfile.arguments = bundle
 
         if(userID != viewModel.getCurrentUserID()){
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.members_layout,showProfile)
-                .addToBackStack(null)
-                .commit()
+            val bundle = Bundle()
+            val showProfile = ShowProfileFragment("NO")
+            bundle.putInt("userID",userID)
+
+            showProfile.arguments = bundle
+            if(userID != viewModel.getCurrentUserID()){
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.members_layout,showProfile)
+                    .addToBackStack(null)
+                    .commit()
+            }
+            binding.membersFab.visibility = View.GONE
+            binding.toolbar.menu.clear()
         }
 
+
+    }
+
+    override fun onBackPressed() {
+        val fragmentManager = supportFragmentManager
+        val backStackEntryCount = fragmentManager.backStackEntryCount
+        if (backStackEntryCount > 0){
+            val currentFragmentTag = fragmentManager.getBackStackEntryAt(backStackEntryCount - 1).name
+            val editMembersFragment = EditMembersFragment::class.java.simpleName
+            if (currentFragmentTag == editMembersFragment){
+                fragmentManager.popBackStack()
+
+            }else{
+                finish()
+            }
+        }
+        else{
+            super.onBackPressed()
+        }
     }
 
 

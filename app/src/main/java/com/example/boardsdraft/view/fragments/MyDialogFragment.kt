@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.boardsDraft.databinding.FragmentMyDialogBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyDialogFragment(
     private val displayMessage: String,
     private val choice : String,
@@ -45,6 +47,8 @@ class MyDialogFragment(
             clickListener.result("YES")
             dismiss()
         }
+
+
     }
 
     override fun onDestroy() {

@@ -16,12 +16,13 @@ import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.TaskTitles
 import com.example.boardsdraft.db.entities.relations.ProjectWithTasks
 import com.example.boardsdraft.db.entities.relations.TaskTitlesOfProject
+import com.google.android.material.textfield.TextInputLayout
 
 class TaskListAdapter(
     private val clickListener: OnItemClickListener,
     private val taskTitleID: Int,
     private val projectID: Int,
-) : RecyclerView.Adapter<TaskListAdapter.TasksViewHolder>() {
+) : RecyclerView.Adapter<TaskListAdapter.TasksViewHolder>(),CardsListAdapter.OnItemClickListener  {
 
     private val taskList = ArrayList<ProjectWithTasks>()
     private val taskTitlesList = ArrayList<TaskTitlesOfProject>()
@@ -83,7 +84,7 @@ class TaskListAdapter(
                 taskListName.visibility = View.GONE
             }
             doneListName.setOnClickListener {
-                if(newTaskListName.text.isNullOrEmpty()){
+                if(newTaskListName.text.isNullOrBlank()){
                     newTaskListName.error = "Task List Title Cannot Be empty"
                 }
                 else{
@@ -107,7 +108,7 @@ class TaskListAdapter(
             }
 
             titleEditDone.setOnClickListener {
-                if(editTaskListName.text.isNullOrEmpty()){
+                if(editTaskListName.text.isNullOrBlank()){
                     editTaskListName.error = " Task Title Cannot be null"
                 }
                 else{
@@ -135,10 +136,22 @@ class TaskListAdapter(
                 cardsList.apply {
                     layoutManager = LinearLayoutManager(context)
                     setHasFixedSize(true)
-                    cardsAdapter = CardsListAdapter()
+                    cardsAdapter = CardsListAdapter(this@TaskListAdapter)
                     adapter = cardsAdapter
                     setCards(filterTasksByStatus(taskTitlesList[0].taskTitles[position]!!.taskTitle))
                     cardsAdapter.notifyDataSetChanged()
+                }
+            }
+
+            newTaskListName.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    newTaskListNameLayout.error = null
+                }
+            }
+
+            editTaskListName.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    editTaskListNameLayout.error = null
                 }
             }
 
@@ -170,10 +183,11 @@ class TaskListAdapter(
         val closeListName : ImageButton = view.findViewById(R.id.ib_close_list_name)
         val doneListName : ImageButton = view.findViewById(R.id.ib_done_list_name)
         val newTaskListName : EditText= view.findViewById(R.id.et_task_list_name)
-//        val titleName: TextView = view.findViewById(R.id.tv_task_list_title)
+        val newTaskListNameLayout : TextInputLayout  = view.findViewById(R.id.tl_task_list_name)
         val editListName :ImageButton = view.findViewById(R.id.ib_edit_list_name)
         val editTitleLayout : LinearLayout = view.findViewById(R.id.ll_title_view)
         val editTaskListName : EditText = view.findViewById(R.id.et_edit_task_list_name)
+        val editTaskListNameLayout: TextInputLayout =  view.findViewById(R.id.tl_edit_task_list_name)
         val editTitleCardView :CardView = view.findViewById(R.id.cv_edit_task_list_name)
         val closeEditTitle : ImageButton = view.findViewById(R.id.ib_close_editable_view)
         val titleEditDone : ImageButton = view.findViewById(R.id.ib_done_edit_list_name)
@@ -190,6 +204,12 @@ class TaskListAdapter(
         fun insertTaskTitle(taskTitle: TaskTitles)
         fun updateTaskTitle(taskTitle: TaskTitles, oldTitle: String?)
         fun createNewTask(taskTitle: String)
+
+        fun showTask(task:Task)
+    }
+
+    override fun onItemClick(task: Task) {
+        clickListener.showTask(task)
     }
 
 

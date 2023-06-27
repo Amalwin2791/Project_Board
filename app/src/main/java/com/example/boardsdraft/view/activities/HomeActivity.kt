@@ -29,8 +29,7 @@ class HomeActivity : AppCompatActivity() {
             else replaceFragment(MyProfileFragment(), R.id.home, "MY_PROFILE")
         }
         else{
-            supportFragmentManager.beginTransaction().replace(binding.home.id, BoardsFragment()).commit()
-            viewModel.currentFragment = "BOARDS"
+            replaceFragment(BoardsFragment(), R.id.home, "BOARDS")
         }
         bottomNav()
     }

@@ -45,12 +45,14 @@ class ShowProfileFragment(
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentShowProfileBinding.bind(view)
 
-        val toolBar: Toolbar = requireActivity().findViewById(R.id.profile_toolbar)
+        val toolBar: Toolbar = requireActivity().findViewById(R.id.toolbar)
 
         toolBar.apply {
-            title= "My Profile"
-            if(menu.isEmpty()){
-                inflateMenu(R.menu.profile_menu_item)
+            title= "Profile"
+            if(editable == "YES"){
+                if(menu.isEmpty()){
+                    inflateMenu(R.menu.profile_menu_item)
+                }
             }
         }
 

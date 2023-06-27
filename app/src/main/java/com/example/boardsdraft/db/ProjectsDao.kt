@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
+import androidx.room.Upsert
 import com.example.boardsdraft.db.entities.Project
 import com.example.boardsdraft.db.entities.User
 import com.example.boardsdraft.db.entities.UserProjectCrossRef
@@ -25,7 +25,7 @@ interface ProjectsDao {
     @Query("SELECT * FROM Projects")
     fun getAllProjects():LiveData<List<Project>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun insertUserProjectCrossRef(crossRef: UserProjectCrossRef)
 
     @Delete

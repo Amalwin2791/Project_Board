@@ -99,7 +99,9 @@ class TaskDetailsFragment : Fragment() {
             datePickerDialog.datePicker.minDate = currentDate.timeInMillis
 
             datePickerDialog.show()
+            binding.tvSelectDueDate.error = null
         }
+
 
         binding.apply {
             btnUpdateCardDetails.setOnClickListener {
@@ -109,12 +111,32 @@ class TaskDetailsFragment : Fragment() {
                     val task= Task(taskName = etNameCardDetails.text.toString().trim(),
                         projectID = requireArguments().getInt("projectID"), projectName = requireArguments().getString("projectName",null),
                     assignedTo = assignedToID!!, assignedToName = assignedToName!!,
-                    createdBy = viewModel.getCurrentUserName()!!, status = requireArguments().getString("taskTitle",null),
+                    createdBy = viewModel.getCurrentUserName()!!, createdByID = viewModel.getCurrentUserID(),status = requireArguments().getString("taskTitle",null),
                         priority = selectPriorityColor.text.toString(), createdDate = creationDate!!, deadLine = assignedDate!!, taskID = taskID)
+
                     viewModel.insertTask(task)
                     parentFragmentManager.popBackStack()
                 }
             }
+
+            etNameCardDetails.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    taskNameLayout.error = null
+                }
+            }
+
+            selectPriorityColor.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    selectPriorityLayout.error = null
+                }
+            }
+
+            selectMemberForTask.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    selectMemberLayout.error = null
+                }
+            }
+
         }
 
     }
@@ -132,7 +154,7 @@ class TaskDetailsFragment : Fragment() {
                 selectMemberForTask.text.isNullOrBlank()->{
                     selectMemberLayout.error= "Select A Member"
                 }
-                tvSelectDueDate.text.isNullOrBlank()->{
+                assignedDate.isNullOrBlank()->{
                     tvSelectDueDate.error = "Select A Deadline"
                 }
                 else->{

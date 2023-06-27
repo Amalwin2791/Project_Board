@@ -55,9 +55,8 @@ class MyTasksAdapter(private val clickListener: OnItemClickListener): RecyclerVi
         holder.bind(myTasks[position]!!)
 
         holder.card.apply {
-            setBackgroundResource(R.drawable.shape_button_curved_white)
-            elevation=10F
             setOnClickListener {
+
                 clickListener.onItemClick(myTasks[position]!!.taskID,myTasks[position]!!.taskName)
             }
         }

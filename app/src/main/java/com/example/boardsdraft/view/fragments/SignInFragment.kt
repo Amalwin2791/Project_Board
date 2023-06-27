@@ -58,6 +58,18 @@ class SignInFragment : Fragment() {
                 binding.signInPassword.text.toString().trim()
             )
         }
+        binding.apply {
+            signInEmail.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    signInEmailLayout.error = null
+                }
+            }
+            signInPassword.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    signInPasswordLayout.error = null
+                }
+            }
+        }
 
         viewModel.signInStatus.observe(viewLifecycleOwner) { signInStatus ->
             when (signInStatus) {
@@ -70,13 +82,10 @@ class SignInFragment : Fragment() {
                 }
                 LoginResults.FIELD_IS_NULL -> showNullFieldsError()
                 LoginResults.USER_NOT_PRESENT -> {
-                    binding.signInEmail.setText("")
-                    binding.signInPassword.setText("")
                     Toast.makeText(requireContext(), "Sign Up To login", Toast.LENGTH_SHORT).show()
                 }
                 LoginResults.INVALID_PASSWORD -> {
                     binding.signInPasswordLayout.error = "Enter Valid Password"
-                    binding.signInPassword.setText("")
                 }
                 else -> {}
             }

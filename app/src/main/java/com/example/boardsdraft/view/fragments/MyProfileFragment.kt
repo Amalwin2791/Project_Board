@@ -19,7 +19,7 @@ import com.example.boardsdraft.view.viewModel.MyProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MyProfileFragment: Fragment() {
+class MyProfileFragment: Fragment(),MyDialogFragment.OnItemClickListener {
 
     private var _binding : FragmentMyProfileBinding? = null
     private val binding get() = _binding!!
@@ -59,9 +59,10 @@ class MyProfileFragment: Fragment() {
         })
 
         binding.logOut.setOnClickListener {
-            viewModel.clearSession()
-            requireContext().startActivity(Intent(requireContext(), LoginActivity::class.java))
-            requireActivity().finish()
+
+            MyDialogFragment("  Are You Sure You Want To Log Out?","Yes",
+                this@MyProfileFragment)
+                .show(parentFragmentManager,"logOutDialog")
         }
         binding.viewMyProfile.setOnClickListener {
             startActivity(Intent(requireContext(),ManageProfileActivity::class.java)
@@ -90,6 +91,14 @@ class MyProfileFragment: Fragment() {
         super.onDestroyView()
         _binding= null
 
+    }
+
+    override fun result(choice: String) {
+        if(choice == "YES"){
+            viewModel.clearSession()
+            requireContext().startActivity(Intent(requireContext(), LoginActivity::class.java))
+            requireActivity().finish()
+        }
     }
 
 

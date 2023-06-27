@@ -1,5 +1,6 @@
 package com.example.boardsdraft.view.fragments
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isEmpty
 import androidx.fragment.app.viewModels
@@ -18,6 +20,9 @@ import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.User
 import com.example.boardsdraft.view.viewModel.NewTaskViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 @AndroidEntryPoint
 class EditTaskDetailsFragment(
@@ -28,6 +33,7 @@ class EditTaskDetailsFragment(
     private val binding get() = _binding!!
 
     private val viewModel : NewTaskViewModel by viewModels()
+    private var assignedDate: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +53,7 @@ class EditTaskDetailsFragment(
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentEditTaskDetailsBinding.bind(view)
 
-        val toolBar: Toolbar = requireActivity().findViewById(R.id.task_manager_toolbar)
+        val toolBar: Toolbar = requireActivity().findViewById(R.id.toolbar)
         toolBar.menu.clear()
         binding.apply {
             editTaskName.setText(task.taskName)
@@ -64,6 +70,40 @@ class EditTaskDetailsFragment(
                 }
             }
 
+            val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(year, monthOfYear, dayOfMonth)
+
+                val currentDate = Calendar.getInstance()
+
+                if (selectedDate.before(currentDate)) {
+                    Toast.makeText(requireContext(), "Please select a date after today", Toast.LENGTH_SHORT).show()
+                    return@OnDateSetListener
+                }
+
+                val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(selectedDate.time)
+                editTaskDueDate.text = formattedDate
+                assignedDate = formattedDate
+            }
+
+            editTaskDueDate.setOnClickListener {
+                val currentDate = Calendar.getInstance()
+                val year = currentDate.get(Calendar.YEAR)
+                val month = currentDate.get(Calendar.MONTH)+1
+                val day = currentDate.get(Calendar.DAY_OF_MONTH)
+
+
+
+                val datePickerDialog = DatePickerDialog(requireContext(), dateSetListener, year, month, day)
+
+                datePickerDialog.datePicker.minDate = currentDate.timeInMillis
+
+                datePickerDialog.show()
+            }
+
+
+
+
             btnEditTaskDetails.setOnClickListener {
                 if(validate()){
                     task.taskName = editTaskName.text.toString().trim()
@@ -71,6 +111,28 @@ class EditTaskDetailsFragment(
                     task.deadLine = editTaskDueDate.text.toString()
                     viewModel.updateTask(task)
                     parentFragmentManager.popBackStack()
+                }
+            }
+
+            editTaskName.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus){
+                    editTaskNameLayout.error= null
+                }
+            }
+
+            editTaskPriority.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus){
+                    editTaskPriorityLayout.error= null
+                }
+            }
+            editTaskMember.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus){
+                    editTaskMemberLayout.error= null
+                }
+            }
+            editTaskDueDate.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus){
+                    editTaskDueDate.error= null
                 }
             }
         }
@@ -123,8 +185,8 @@ class EditTaskDetailsFragment(
         super.onDestroy()
         _binding = null
 
-        if(requireActivity().findViewById<Toolbar>(R.id.task_manager_toolbar).menu.isEmpty()){
-            requireActivity().findViewById<Toolbar>(R.id.task_manager_toolbar).inflateMenu(R.menu.profile_menu_item)
+        if(requireActivity().findViewById<Toolbar>(R.id.toolbar).menu.isEmpty()){
+            requireActivity().findViewById<Toolbar>(R.id.toolbar).inflateMenu(R.menu.profile_menu_item)
         }
 
     }

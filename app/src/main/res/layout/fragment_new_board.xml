@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:clickable="true"
     android:focusable="true"
     android:padding="10dp"
-    android:background="@color/azure"
     tools:context="com.example.boardsdraft.view.fragments.NewBoardFragment"
-    android:theme="@style/Theme.Material3.DayNight"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:theme="@style/Theme.Material3.DayNight">
 
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="match_parent"
         >
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_button_curved_white"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_button_curved_white">
+            >
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -52,9 +51,6 @@
                 app:layout_constraintStart_toStartOf="@id/board_image"
                 app:layout_constraintTop_toBottomOf="@id/board_image"
                 app:layout_constraintVertical_bias="0.108"
-                app:helperText="@string/required"
-                app:helperTextTextColor="@color/red"
-                style="@style/MyTextInputLayoutStyle"
                 app:counterEnabled="true"
                 app:counterMaxLength="15"
                 app:endIconMode="clear_text"
@@ -65,47 +61,43 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/boardName"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey"
                     android:inputType="text"
-                    android:maxLength="15"
-                    android:textAlignment="center" />
+                    android:maxLength="15"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/create_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/shape_button_curved_white"
+                android:layout_marginEnd="36dp"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:text="@string/create"
-                android:textColor="@color/material_dynamic_primary30"
+                android:textSize="@dimen/signUpSize"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/new_board_name_ref"
+                app:layout_constraintWidth_percent=".35"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                style="?attr/materialButtonOutlinedStyle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="20dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancel_button"
+                android:layout_width="0dp"
+                android:layout_marginStart="36dp"
+
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="@string/cancel"
                 android:textSize="@dimen/signUpSize"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/new_board_name_ref"
-                app:layout_constraintWidth_percent=".4"
-                android:layout_marginTop="50dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="20dp"/>
-
-            <Button
-                android:id="@+id/cancel_button"
-                android:layout_width="0dp"
-                android:layout_marginEnd="16dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_button_curved_white"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:text="@string/cancel"
-                android:textColor="@color/material_dynamic_primary30"
-                android:textSize="@dimen/signUpSize"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/new_board_name_ref"
-                app:layout_constraintWidth_percent=".4"
-                android:layout_marginTop="50dp"/>
+                app:layout_constraintWidth_percent=".35"
+                android:layout_marginTop="40dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

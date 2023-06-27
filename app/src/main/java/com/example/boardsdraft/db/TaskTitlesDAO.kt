@@ -32,4 +32,6 @@ interface TaskTitlesDAO {
 
     @Query("SELECT taskTitle FROM Task_Titles WHERE projectID = :projectID")
     suspend fun getAllTaskTitleNamesOfProject(projectID:Int): List<String?>
+
+
 }

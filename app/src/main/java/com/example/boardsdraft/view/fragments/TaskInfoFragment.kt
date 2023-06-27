@@ -12,8 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentTaskInfoBinding
-import com.example.boardsDraft.databinding.FragmentTasksOfProjectBinding
-import com.example.boardsDraft.databinding.ItemPriorityColorBinding
 import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.TaskTitles
 import com.example.boardsdraft.view.viewModel.MyTasksViewModel
@@ -22,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TaskInfoFragment(
     private val task: Task
-) : Fragment() {
+) : Fragment(),MyDialogFragment.OnItemClickListener {
 
     private var _binding: FragmentTaskInfoBinding? = null
 
@@ -47,6 +45,10 @@ class TaskInfoFragment(
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentTaskInfoBinding.bind(view)
 
+//        val toolBar:androidx.appcompat.widget.Toolbar = requireActivity().findViewById(R.id.toolbar)
+//        if(toolBar.menu.isEmpty()){
+//            toolBar.inflateMenu(R.menu.profile_menu_item)
+//        }
 
 
         binding.apply {
@@ -57,6 +59,15 @@ class TaskInfoFragment(
             taskPriority.text = task.priority
             createdOn.text = task.createdDate
             deadline.text = task.deadLine
+            assignedTo.text = task.assignedToName
+
+
+            binding.moveTo.apply {
+                setOnItemClickListener { parent, _, position, _ ->
+                    val value = parent.getItemAtPosition(position) as TaskTitles
+                    setText(value.taskTitle)
+                }
+            }
 
             tasksSaveChangesButton.setOnClickListener {
                 if(moveTo.text.isNullOrEmpty()){
@@ -65,7 +76,13 @@ class TaskInfoFragment(
                 else{
                     task.status = moveTo.text.toString()
                     viewModel.updateTask(task)
+                    requireActivity().finish()
                 }
+            }
+            btnDeleteCard.setOnClickListener {
+                MyDialogFragment("Are You Sure You Want To Delete this Task?","Delete",
+                    this@TaskInfoFragment)
+                    .show(parentFragmentManager,"deleteTaskDialog")
             }
         }
 
@@ -79,13 +96,21 @@ class TaskInfoFragment(
         viewModel.getTaskTitlesOfProject(task.projectID).observe(viewLifecycleOwner,
             Observer {
                 if(it != null){
-                    if(it[0].taskTitles.size>1 && viewModel.getCurrentUserID() == task.assignedTo ){
+
+                    if(viewModel.getCurrentUserID() == task.createdByID ){
                         binding.apply {
+                            moveTo.setAdapter(TitlesArrayAdapter(requireContext(),it[0].taskTitles))
                             moveToLayout.visibility = View.VISIBLE
                             tasksSaveChangesButton.visibility = View.VISIBLE
+                            btnDeleteCard.visibility = View.VISIBLE
                         }
-                        binding.moveTo.apply {
-                            setAdapter(TitlesArrayAdapter(requireContext(),it[0].taskTitles))
+                    }
+
+                    if(viewModel.getCurrentUserID() == task.assignedTo){
+                        binding.apply {
+                            moveTo.setAdapter(TitlesArrayAdapter(requireContext(),it[0].taskTitles))
+                            moveToLayout.visibility = View.VISIBLE
+                            tasksSaveChangesButton.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -98,6 +123,13 @@ class TaskInfoFragment(
 
     }
 
+    override fun result(choice: String) {
+        if(choice=="YES"){
+            viewModel.deleteTask(task)
+            requireActivity().finish()
+        }
+    }
+
 }
 
 private class TitlesArrayAdapter(private val context: Context,private val titles: List<TaskTitles?>):ArrayAdapter<TaskTitles>(context,R.layout.item_priority_color,titles){
@@ -106,6 +138,7 @@ private class TitlesArrayAdapter(private val context: Context,private val titles
         val inflater: LayoutInflater = LayoutInflater.from(context)
         val view: View = inflater.inflate(R.layout.item_priority_color,null)
         val status: TextView = view.findViewById(R.id.drop_down_tv)
+        println(titles[position]!!.taskTitle)
         status.text = titles[position]!!.taskTitle
 
         return view

@@ -48,15 +48,13 @@ class BoardsAdapter(private val clickListener: OnItemClickListener): RecyclerVie
         holder.bind(boards[position])
 
         holder.card.apply {
-            setBackgroundResource(R.drawable.card_design_drawable)
-            elevation=30F
             setOnClickListener {
-                clickListener.onItemClick(boards[position].project.projectName, boards[position].project.projectID,boards[position].project.projectCode)
+                clickListener.onItemClick(boards[position].project.projectName, boards[position].project.projectID,boards[position].project.projectCode,boards[position].project.createdByID)
             }
         }
     }
     interface OnItemClickListener {
-        fun onItemClick(projectName: String, projectID: Int,projectCode:String)
+        fun onItemClick(projectName: String, projectID: Int,projectCode:String,projectCreatedBy:Int)
     }
 
 }

@@ -64,8 +64,6 @@ class MembersListAdapter(
 
 
         holder.card.apply {
-            setBackgroundResource(R.drawable.shape_button_curved_white)
-            elevation=30F
             setOnClickListener {
                 clickListener.onItemClick(users[position].userID)
             }

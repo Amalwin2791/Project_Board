@@ -56,7 +56,7 @@ class EditMyProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentEditMyProfileBinding.bind(view)
 
-        val toolbar: androidx.appcompat.widget.Toolbar = requireActivity().findViewById(R.id.profile_toolbar)
+        val toolbar: androidx.appcompat.widget.Toolbar = requireActivity().findViewById(R.id.toolbar)
         toolbar.apply {
             title = "Edit Profile"
             menu.clear()
@@ -93,50 +93,83 @@ class EditMyProfileFragment : Fragment() {
 
 
                 saveChangesToProfile.setOnClickListener{
-                    val emailRegex = Regex("^([a-zA-Z0-9_.+-]+)@([a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+)$")
-                    viewModel.currentUser.apply {
 
-                        if(editProfileName.text.isNullOrBlank()){
-                            editProfileNameLayout.error = "Name Cannot Be Empty"
-                        }
-                        else{
-                            userName = editProfileName.text.toString().trim()
-                        }
+//                            emailRegex.matches(editProfileEmail.text.toString().trim()) -> {
+//                                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+//                                    if (viewModel.doesEmailExist(editProfileEmail.text.toString().trim())) {
+//                                        editProfileEmailLayout.error = "Email Already Present"
+//                                    } else {
+//                                        email = editProfileEmail.text.toString().trim()
+//                                    }
+//                                }
+//                            }
 
-                        if(editProfileEmail.text.isNullOrBlank()){
-                            editProfileEmailLayout.error = "Email Cannot Be Empty"
-                        }
-                        if(!emailRegex.matches(editProfileEmail.text.toString().trim())){
-                            editProfileEmailLayout.error = "Enter Valid Email"
-                        }
-                        else{
-                            viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-                                if(viewModel.doesEmailExist(editProfileEmail.text.toString().trim())){
-                                    editProfileEmailLayout.error = "Email Already Present"
-                                }
-                                else{
-                                    email = editProfileEmail.text.toString().trim()
-                                }
-                            }
-                        }
-
-                        if(!editSelectDepartment.text.isNullOrBlank()){
-                            department = editSelectDepartment.text.toString()
-                        }
-                        if(!editSelectDesignation.text.isNullOrBlank()){
-                            designation = editSelectDesignation.text.toString()
-                        }
-                        if (compressedImageData!=null){
-                            image = compressedImageData
-                        }
+                    if (validateInputs()){
+                        viewModel.updateUser(viewModel.currentUser)
+                        parentFragmentManager.popBackStack()
                     }
-
-                    viewModel.updateUser(viewModel.currentUser)
-                    parentFragmentManager.popBackStack()
                 }
             }
         })
+
+        binding.apply {
+            editProfileName.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus){
+                    editProfileNameLayout.error= null
+                }
+            }
+
+            editProfileEmail.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus){
+                    editProfileEmailLayout.error= null
+                }
+            }
+        }
     }
+
+    private fun validateInputs(): Boolean {
+        binding.apply {
+            val emailRegex = Regex("^[a-z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
+            val isNameEmpty = editProfileName.text.isNullOrBlank()
+            val isEmailInvalid = !emailRegex.matches(editProfileEmail.text.toString().trim())
+            val isDepartmentNotEmpty = !editSelectDepartment.text.isNullOrBlank()
+            val isDesignationNotEmpty = !editSelectDesignation.text.isNullOrBlank()
+
+            viewModel.currentUser.apply {
+                if (isNameEmpty) {
+                    editProfileNameLayout.error = "Name Cannot Be Empty"
+                    return false
+                }
+
+                if (isEmailInvalid) {
+                    editProfileEmailLayout.error = "Enter Valid Email"
+                    return false
+                }
+
+                email = editProfileEmail.text.toString().trim()
+
+                if (isDepartmentNotEmpty) {
+                    department = editSelectDepartment.text.toString()
+                }
+
+                if (isDesignationNotEmpty) {
+                    designation = editSelectDesignation.text.toString()
+                }
+
+                if (editProfileName.text?.isNotBlank() == true) {
+                    userName = editProfileName.text.toString().trim()
+                }
+
+                if (compressedImageData != null) {
+                    image = compressedImageData
+                }
+            }
+
+            return true
+        }
+    }
+
+
 
     override fun onResume() {
         super.onResume()
@@ -169,7 +202,7 @@ class EditMyProfileFragment : Fragment() {
             val selectedImageUri: Uri? = data?.data
             binding.editProfileImage.setImageURI(selectedImageUri)
             selectedImageUri?.let { uri ->
-                compressedImageData = compressImage(uri, 1000 * 1024)
+                compressedImageData = compressImage(uri, 2000 * 1024)
             }
         }
     }

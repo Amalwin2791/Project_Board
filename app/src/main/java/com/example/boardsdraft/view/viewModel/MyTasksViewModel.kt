@@ -36,6 +36,11 @@ class MyTasksViewModel @Inject constructor(
         return taskTitleRepo.getTaskTitlesOfProject(projectID)
     }
 
+    fun deleteTask(task:Task){
+        viewModelScope.launch(Dispatchers.IO) {
+            tasksRepo.deleteTask(task)
+        }
+    }
     fun updateTask(task: Task){
         viewModelScope.launch(Dispatchers.IO) {
             tasksRepo.updateTask(task)
@@ -47,6 +52,8 @@ class MyTasksViewModel @Inject constructor(
             _task.value = tasksRepo.getTaskByID(taskID)
         }
     }
+
+
 
 
 
