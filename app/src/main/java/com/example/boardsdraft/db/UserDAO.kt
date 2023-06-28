@@ -29,7 +29,7 @@ interface UserDAO {
     @Query("SELECT Projects.* FROM Projects INNER JOIN UserProjectCrossRef ON Projects.projectID = UserProjectCrossRef.projectID WHERE UserProjectCrossRef.userID = :currentUserID AND UserProjectCrossRef.userID = :otherUserID")
     suspend fun getCommonProjects(currentUserID: Int, otherUserID: Int): List<Project>
 
-    @Query("SELECT COUNT(*) FROM Users WHERE email = :emailId")
-    suspend fun doesEmailIdExists(emailId: String): Boolean
+//    @Query("SELECT COUNT(*) FROM Users WHERE email = :emailId")
+//    suspend fun doesEmailIdExists(emailId: String): Boolean
 
 }

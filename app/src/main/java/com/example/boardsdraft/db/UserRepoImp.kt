@@ -61,9 +61,9 @@ class UserRepoImp @Inject constructor(
         return dao.getCommonProjects(currentUserID,otherUserID)
     }
 
-    override suspend fun doesEmailIdExists(emailId: String): Boolean {
-        return dao.doesEmailIdExists(emailId)
-    }
+//    override suspend fun doesEmailIdExists(emailId: String): Boolean {
+//        return dao.doesEmailIdExists(emailId)
+//    }
 
     override suspend fun updateUser(user: User) {
         dao.updateUser(user)

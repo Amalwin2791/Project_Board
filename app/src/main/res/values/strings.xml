@@ -44,6 +44,7 @@
     <string name="message">Message</string>
     <string name="label_color">Priority</string>
     <string name="members">Members</string>
+    <string name="edit_board">Edit Board</string>
     <string name="sort_by_due_date">By Deadline</string>
     <string name="sort_by_priority">By Priority</string>
     <string name="select_color">Select Priority</string>
@@ -60,7 +61,7 @@
     <string name="you">You</string>
     <string name="edit">Edit</string>
     <string name="confirm">Confirm</string>
-    <string name="YouArePartOfNoBoard">Join A Board To Start Working!</string>
+    <string name="YouArePartOfNoBoard">Join Board To Start Working!</string>
     <string name="myProfile">My Profile</string>
     <string name="changePassword">Change Password</string>
     <string name="noTasksHaveBeenAssigned">No Tasks Have Been Assigned</string>

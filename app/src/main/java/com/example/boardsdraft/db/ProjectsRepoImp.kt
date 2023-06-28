@@ -23,6 +23,10 @@ class ProjectsRepoImp @Inject constructor(
         return boards
     }
 
+    override suspend fun updateBoard(project: Project) {
+        dao.updateBoard(project)
+    }
+
     override fun getLastProjectID(): LiveData<Int?> {
         return lastBoardID
     }
@@ -53,6 +57,10 @@ class ProjectsRepoImp @Inject constructor(
 
     override suspend fun exists(userID: Int, projectID: Int): Boolean {
         return dao.exists(userID,projectID)
+    }
+
+    override suspend fun getProjectByID(projectID: Int): Project {
+        return dao.getProjectByID(projectID)
     }
 
 

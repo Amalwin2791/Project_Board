@@ -9,11 +9,13 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boardsDraft.R
 import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.TaskTitles
+import com.example.boardsdraft.db.entities.User
 import com.example.boardsdraft.db.entities.relations.ProjectWithTasks
 import com.example.boardsdraft.db.entities.relations.TaskTitlesOfProject
 import com.google.android.material.textfield.TextInputLayout
@@ -26,13 +28,14 @@ class TaskListAdapter(
 
     private val taskList = ArrayList<ProjectWithTasks>()
     private val taskTitlesList = ArrayList<TaskTitlesOfProject>()
+    private val members = ArrayList<User>()
     private var taskTitlesListSize =0
     private lateinit var cardsAdapter : CardsListAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_task_card, parent, false)
         val layoutParameters = LinearLayout.LayoutParams(
-            (parent.width * 0.75).toInt(),LinearLayout.LayoutParams.WRAP_CONTENT)
+            (parent.width * 0.65).toInt(),LinearLayout.LayoutParams.WRAP_CONTENT)
         layoutParameters.setMargins((15.toDP().toPx()),0,(40.toDP().toPx()),0)
         view.layoutParams = layoutParameters
         return TasksViewHolder(view)
@@ -45,6 +48,11 @@ class TaskListAdapter(
     fun setTaskList(tasks: List<ProjectWithTasks>){
         this.taskList.clear()
         this.taskList.addAll(tasks)
+    }
+
+    fun setMembers(members: List<User>){
+        this.members.clear()
+        this.members.addAll(members)
     }
     fun setTaskTitlesList(taskTitles: List<TaskTitlesOfProject>) {
         this.taskTitlesList.clear()
@@ -139,6 +147,7 @@ class TaskListAdapter(
                     cardsAdapter = CardsListAdapter(this@TaskListAdapter)
                     adapter = cardsAdapter
                     setCards(filterTasksByStatus(taskTitlesList[0].taskTitles[position]!!.taskTitle))
+                    setMembersForCards(members)
                     cardsAdapter.notifyDataSetChanged()
                 }
             }
@@ -155,10 +164,15 @@ class TaskListAdapter(
                 }
             }
 
+
         }}
     }
     private fun setCards(tasks: List<Task>) {
         cardsAdapter.setCardsList(tasks)
+    }
+
+    private fun setMembersForCards(members:List<User>){
+        cardsAdapter.setMembers(members)
     }
 
     private fun filterTasksByStatus(status: String): List<Task> {

@@ -22,4 +22,6 @@ interface TasksRepo {
     suspend fun getTaskByID(taskID:Int): Task
 
     suspend fun deleteTasksByProjectAndUser(projectID: Int, userID: Int)
+
+    suspend fun deleteTaskByTitle(title:String)
 }

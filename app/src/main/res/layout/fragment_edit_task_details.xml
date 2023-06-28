@@ -61,7 +61,6 @@
             style="@style/Widget.Material3.CardView.Elevated"
             android:elevation="@dimen/card_view_elevation"
 
-            android:background="@drawable/shape_button_curved_white"
             app:cardCornerRadius="@dimen/card_view_corner_radius">
 
             <LinearLayout

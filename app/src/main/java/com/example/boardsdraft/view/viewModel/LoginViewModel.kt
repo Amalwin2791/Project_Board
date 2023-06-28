@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardsdraft.db.UserRepo
+import com.example.boardsdraft.db.entities.User
 import com.example.boardsdraft.view.SessionManager
 import com.example.boardsdraft.view.enums.LoginResults
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,10 @@ class LoginViewModel @Inject constructor(
 
     private val _signUpStatus = MutableLiveData<LoginResults>()
     val signUpStatus: LiveData<LoginResults> = _signUpStatus
+
+    private val _user = MutableLiveData<User?>()
+    val user: LiveData<User?>
+        get() = _user
 
     fun signIn(email: String?, password: String?) {
         if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
@@ -45,6 +50,12 @@ class LoginViewModel @Inject constructor(
             }
             _signInStatus.value = success
 
+        }
+    }
+
+    fun getUserByEmailID(emailID:String){
+        viewModelScope.launch {
+            _user.value = repo.getUser(emailID)
         }
     }
 

@@ -12,6 +12,8 @@ interface ProjectsRepo {
 
     fun allBoards() : LiveData<List<Project>>
 
+    suspend fun updateBoard(project: Project)
+
     suspend fun insertUserProjectCrossRef(crossRef: UserProjectCrossRef)
 
     suspend fun deleteUserProjectCrossRef(crossRef: UserProjectCrossRef)
@@ -27,4 +29,6 @@ interface ProjectsRepo {
     fun getUsersByProjectId(projectId: Int): LiveData<List<User>>
 
     suspend fun exists(userID: Int, projectID: Int): Boolean
+
+    suspend fun getProjectByID(projectID: Int): Project
 }

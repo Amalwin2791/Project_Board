@@ -42,4 +42,7 @@ interface TasksDAO {
 
     @Query("DELETE FROM Tasks WHERE projectID = :projectID AND assignedTo = :userID")
     suspend fun deleteTasksByProjectAndUser(projectID: Int, userID: Int)
+
+    @Query("DELETE FROM Tasks WHERE status = :title")
+    suspend fun deleteTaskByTitle(title:String)
 }

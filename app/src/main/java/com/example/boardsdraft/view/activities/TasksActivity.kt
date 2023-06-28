@@ -2,10 +2,12 @@ package com.example.boardsdraft.view.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.ActivityTasksBinding
+import com.example.boardsdraft.view.fragments.EditBoardFragment
 import com.example.boardsdraft.view.fragments.MyDialogFragment
 import com.example.boardsdraft.view.fragments.TasksOfProjectFragment
 import com.example.boardsdraft.view.viewModel.BoardsViewModel
@@ -44,6 +46,29 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
                             .show(supportFragmentManager,"deleteDialog")
 
                     }
+
+                    R.id.edit_board -> {
+                        
+                        if(viewModel.getCurrentUserID() == intent.getIntExtra("projectCreatedByID",0)){
+
+                            val bundle = Bundle()
+                            bundle.putInt("projectID", intent.getIntExtra("projectID", 0))
+                            bundle.putString("projectName",intent.getStringExtra("projectName"))
+
+                            val editBoardFragment = EditBoardFragment()
+                            editBoardFragment.arguments = bundle
+                            supportFragmentManager.beginTransaction()
+                                .replace(binding.tasksView.id,editBoardFragment)
+                                .addToBackStack("EditBoardFragment")
+                                .commit()
+                            
+                        }
+                        else{
+                            Toast.makeText(this@TasksActivity, "Only The Board Creator Is Allowed To Edit", Toast.LENGTH_SHORT).show()
+                        }
+
+                        
+                    }
                 }
                 true
             }
@@ -66,13 +91,18 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
                     finish()
                 }
             }
+
             val bundle = Bundle()
             val tasksOfProjectFragment = TasksOfProjectFragment()
+
             bundle.putInt("projectID", intent.getIntExtra("projectID", 0))
             bundle.putString("projectName",intent.getStringExtra("projectName"))
             tasksOfProjectFragment.arguments = bundle
+
             supportFragmentManager.beginTransaction()
-                .replace(binding.tasksView.id, tasksOfProjectFragment).commit()
+                .replace(binding.tasksView.id, tasksOfProjectFragment)
+                .addToBackStack("TasksOfProjectFragment")
+                .commit()
         }
 
     }

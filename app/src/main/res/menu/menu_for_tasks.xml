@@ -6,9 +6,15 @@
         android:orderInCategory="1"
         android:title="@string/members"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/edit_board"
+        android:orderInCategory="2"
+        android:title="@string/edit_board"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/leaveBoard"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         android:title="@string/leaveBoards"
         app:showAsAction="never"/>
 </menu>

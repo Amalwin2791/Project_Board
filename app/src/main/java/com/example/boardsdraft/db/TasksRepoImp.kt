@@ -45,4 +45,8 @@ class TasksRepoImp(
     override suspend fun deleteTasksByProjectAndUser(projectID: Int, userID: Int) {
         dao.deleteTasksByProjectAndUser(projectID,userID)
     }
+
+    override suspend fun deleteTaskByTitle(title: String) {
+        dao.deleteTaskByTitle(title)
+    }
 }

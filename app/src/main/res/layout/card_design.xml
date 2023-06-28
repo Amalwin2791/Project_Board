@@ -50,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/createdBy"
                     android:textSize="14sp"
+
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="2dp"
                     app:layout_constraintStart_toEndOf="@+id/cd_board_image"
@@ -66,7 +67,7 @@
             app:layout_constraintStart_toEndOf="@id/cd_board_creator_label"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="6dp"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="3dp"/>
 <!--            android:paddingStart="6dp"-->
 <!--            android:paddingBottom="3dp"-->
 

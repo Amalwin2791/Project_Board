@@ -8,12 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.core.view.isEmpty
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentTaskInfoBinding
 import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.TaskTitles
+import com.example.boardsdraft.view.activities.TaskManagerActivity
+import com.example.boardsdraft.view.activities.TasksActivity
 import com.example.boardsdraft.view.viewModel.MyTasksViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,10 +48,10 @@ class TaskInfoFragment(
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentTaskInfoBinding.bind(view)
 
-//        val toolBar:androidx.appcompat.widget.Toolbar = requireActivity().findViewById(R.id.toolbar)
-//        if(toolBar.menu.isEmpty()){
-//            toolBar.inflateMenu(R.menu.profile_menu_item)
-//        }
+        val toolBar:androidx.appcompat.widget.Toolbar = requireActivity().findViewById(R.id.toolbar)
+        if(toolBar.menu.isEmpty()){
+            toolBar.inflateMenu(R.menu.profile_menu_item)
+        }
 
 
         binding.apply {
@@ -66,6 +69,7 @@ class TaskInfoFragment(
                 setOnItemClickListener { parent, _, position, _ ->
                     val value = parent.getItemAtPosition(position) as TaskTitles
                     setText(value.taskTitle)
+                    keyListener = null
                 }
             }
 
@@ -76,7 +80,14 @@ class TaskInfoFragment(
                 else{
                     task.status = moveTo.text.toString()
                     viewModel.updateTask(task)
-                    requireActivity().finish()
+
+//                    if(activity is TaskManagerActivity){
+                        requireActivity().finish()
+//                    }
+//                    if(activity is TasksActivity){
+//                        parentFragmentManager.popBackStack()
+//                    }
+
                 }
             }
             btnDeleteCard.setOnClickListener {

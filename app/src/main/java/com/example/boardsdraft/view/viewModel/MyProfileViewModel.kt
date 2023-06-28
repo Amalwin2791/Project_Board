@@ -72,7 +72,7 @@ class MyProfileViewModel @Inject constructor(
         sharedPreference.clearSession()
     }
 
-    suspend fun doesEmailExist(email: String):Boolean{
-        return repo.doesEmailIdExists(email)
-    }
+//    suspend fun doesEmailExist(email: String):Boolean{
+//        return repo.doesEmailIdExists(email)
+//    }
 }

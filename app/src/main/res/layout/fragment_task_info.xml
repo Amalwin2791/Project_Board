@@ -99,6 +99,7 @@
             android:text="@string/createdBy"
             android:textColor="@color/black"
             android:textSize="@dimen/profile_text_size"
+
             android:layout_marginTop="2dp"
             app:layout_constraintWidth_percent="0.3"
             app:layout_constraintStart_toStartOf="@+id/created_by_label"

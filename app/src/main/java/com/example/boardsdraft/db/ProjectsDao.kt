@@ -34,9 +34,6 @@ interface ProjectsDao {
     @Query("DELETE FROM Projects WHERE projectID = :projectID")
     suspend fun deleteProject(projectID: Int)
 
-//    @Transaction
-//    @Query("SELECT * FROM Projects WHERE projectName = :projectName")
-//    suspend fun getUsersOfBoard(projectName: String): List<ProjectsWithUsers>
 
     @Transaction
     @Query("SELECT * FROM Projects " +
@@ -56,5 +53,8 @@ interface ProjectsDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM UserProjectCrossRef WHERE userID = :userID AND projectID = :projectID LIMIT 1)")
     suspend fun exists(userID: Int, projectID: Int): Boolean
+
+    @Query("SELECT * FROM Projects WHERE projectID = :projectID")
+    suspend fun getProjectByID(projectID: Int): Project
 
 }
