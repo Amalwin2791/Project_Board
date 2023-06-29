@@ -1,7 +1,13 @@
 package com.example.boardsdraft.view.fragments
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isEmpty
 import androidx.fragment.app.viewModels
@@ -18,6 +25,11 @@ import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentEditTaskDetailsBinding
 import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.User
+import com.example.boardsdraft.view.Notification
+import com.example.boardsdraft.view.channelID
+import com.example.boardsdraft.view.messageExtra
+import com.example.boardsdraft.view.notificationID
+import com.example.boardsdraft.view.titleExtra
 import com.example.boardsdraft.view.viewModel.NewTaskViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -34,7 +46,7 @@ class EditTaskDetailsFragment(
 
     private val viewModel : NewTaskViewModel by viewModels()
     private var assignedDate: String? = null
-
+    private var selectedDateLong: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +61,12 @@ class EditTaskDetailsFragment(
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentEditTaskDetailsBinding.bind(view)
+
+        createNotificationChannel()
 
         val toolBar: Toolbar = requireActivity().findViewById(R.id.toolbar)
         toolBar.menu.clear()
@@ -73,6 +88,8 @@ class EditTaskDetailsFragment(
             val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 val selectedDate = Calendar.getInstance()
                 selectedDate.set(year, monthOfYear, dayOfMonth)
+
+                selectedDateLong = selectedDate.timeInMillis
 
                 val currentDate = Calendar.getInstance()
 
@@ -111,6 +128,8 @@ class EditTaskDetailsFragment(
                     task.deadLine = editTaskDueDate.text.toString()
                     viewModel.updateTask(task)
                     parentFragmentManager.popBackStack()
+
+                    scheduleNotification()
                 }
             }
 
@@ -137,6 +156,41 @@ class EditTaskDetailsFragment(
             }
         }
 
+    }
+
+    private fun scheduleNotification() {
+
+        val intent = Intent(requireContext().applicationContext, Notification::class.java)
+        val title =  "Task Deadline Alert"
+        val message = "The Task ${binding.editTaskName.text.toString().trim()} is due Today."
+        intent.putExtra(titleExtra,title)
+        intent.putExtra(messageExtra,message)
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            requireContext().applicationContext,
+            notificationID,
+            intent,
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            selectedDateLong,
+            pendingIntent
+        )
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createNotificationChannel() {
+        val name = "Project Board Notification Channel"
+        val description = "Deadline Alerts"
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(channelID, name,importance)
+        channel.description = description
+
+        val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 
     private fun validate():Boolean{

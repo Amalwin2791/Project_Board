@@ -9,7 +9,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="signIn">Sign In</string>
-    <string name="forgotPassword">forgot Password</string>
+    <string name="forgotPassword">Forgot Password</string>
     <string name="signUp">Sign Up</string>
     <string name="retypePassword">Retype Password</string>
     <string name="passwordConstraints">*must have 8–20 chars,at least 1 uppercase,1 number,1 special char,1 lower case</string>

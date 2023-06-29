@@ -53,6 +53,11 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun updateUser(user:User){
+        viewModelScope.launch {
+            repo.updateUser(user)
+        }
+    }
     fun getUserByEmailID(emailID:String){
         viewModelScope.launch {
             _user.value = repo.getUser(emailID)

@@ -50,7 +50,7 @@ class AddBottomSheetFragment(
             adapter = ArrayAdapter(requireContext(),R.layout.item_priority_color,options)
              setOnItemClickListener { _, _, position, _ ->
                  if(position == 0){
-                     InputBottomSheetFragment("Enter Board ID", "Join","Project Code",
+                     InputBottomSheetFragment("Enter Board Code", "Join","Project Code",
                          this@AddBottomSheetFragment).show(parentFragmentManager,"BottomFrag")
                      dismiss()
 

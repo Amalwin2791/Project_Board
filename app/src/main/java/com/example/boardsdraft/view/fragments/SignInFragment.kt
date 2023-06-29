@@ -123,17 +123,24 @@ class SignInFragment : Fragment(),InputBottomSheetFragment.OnItemClickListener {
 
         viewModel.user.observe(viewLifecycleOwner, Observer {
             if(it != null){
+                val newPassword = generatePassword()
+                viewModel.user.value!!.password = newPassword
+                viewModel.updateUser(viewModel.user.value!!)
                 val emailIntent= Intent(Intent.ACTION_SENDTO)
                 emailIntent.apply {
                     data = Uri.parse("mailto:")
                     putExtra(Intent.EXTRA_EMAIL,value)
                     putExtra(Intent.EXTRA_SUBJECT,"New Password")
                     putExtra(
-                        Intent.EXTRA_TEXT,"Your New Password is ${generatePassword()}, Use the Entered Email ID To Login.")
+                        Intent.EXTRA_TEXT,"Your New Password is $newPassword, Use the Entered Email ID To Login.")
                     if (emailIntent.resolveActivity(requireActivity().packageManager) != null) {
                         requireActivity().startActivity(Intent.createChooser(emailIntent, "Choose An App"))
                     }
                 }
+
+
+
+
             }
             else{
                 Toast.makeText(requireContext(), "Enter The Correct Email ID", Toast.LENGTH_SHORT).show()

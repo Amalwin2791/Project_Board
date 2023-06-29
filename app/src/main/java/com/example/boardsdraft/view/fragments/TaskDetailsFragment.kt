@@ -1,7 +1,15 @@
 package com.example.boardsdraft.view.fragments
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -16,6 +25,11 @@ import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentTaskDetailsBinding
 import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.User
+import com.example.boardsdraft.view.Notification
+import com.example.boardsdraft.view.channelID
+import com.example.boardsdraft.view.messageExtra
+import com.example.boardsdraft.view.notificationID
+import com.example.boardsdraft.view.titleExtra
 import com.example.boardsdraft.view.viewModel.NewTaskViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -36,6 +50,8 @@ class TaskDetailsFragment : Fragment() {
     private var assignedToID:Int? = null
     private var assignedDate: String? = null
     private var creationDate : String? = null
+    private var assignedToEmail: String? = null
+    private var selectedDate: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.getAllUsersOfProject(requireArguments().getInt("projectID"))
@@ -50,10 +66,12 @@ class TaskDetailsFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentTaskDetailsBinding.bind(view)
 
+        createNotificationChannel()
 
         viewModel.lastTaskID.observe(viewLifecycleOwner, Observer {
             taskID = viewModel.lastTaskID.value?.plus(1) ?: 1
@@ -66,6 +84,7 @@ class TaskDetailsFragment : Fragment() {
                     setText(value.userName)
                     assignedToName = value.userName
                     assignedToID = value.userID
+                    assignedToEmail = value.email
                 }
             }
         }
@@ -73,6 +92,8 @@ class TaskDetailsFragment : Fragment() {
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             val selectedDate = Calendar.getInstance()
             selectedDate.set(year, monthOfYear, dayOfMonth)
+
+            this.selectedDate = selectedDate.timeInMillis
 
             val currentDate = Calendar.getInstance()
 
@@ -99,13 +120,13 @@ class TaskDetailsFragment : Fragment() {
             datePickerDialog.datePicker.minDate = currentDate.timeInMillis
 
             datePickerDialog.show()
+
             binding.tvSelectDueDate.error = null
         }
 
 
         binding.apply {
             btnUpdateCardDetails.setOnClickListener {
-
 
                 if(validate()){
                     val task= Task(taskName = etNameCardDetails.text.toString().trim(),
@@ -116,6 +137,8 @@ class TaskDetailsFragment : Fragment() {
 
                     viewModel.insertTask(task)
                     parentFragmentManager.popBackStack()
+
+                    scheduleNotification()
                 }
             }
 
@@ -140,6 +163,42 @@ class TaskDetailsFragment : Fragment() {
         }
 
     }
+
+    private fun scheduleNotification() {
+
+        val intent = Intent(requireContext().applicationContext,Notification::class.java)
+        val title =  "Task Deadline Alert"
+        val message = "The Task ${binding.etNameCardDetails.text.toString().trim()} is due Today."
+        intent.putExtra(titleExtra,title)
+        intent.putExtra(messageExtra,message)
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            requireContext().applicationContext,
+            notificationID,
+            intent,
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            selectedDate,
+            pendingIntent
+        )
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createNotificationChannel() {
+        val name = "Project Board Notification Channel"
+        val description = "Deadline Alerts"
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(channelID, name,importance)
+        channel.description = description
+
+        val notificationManager = requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
+
 
     private fun validate():Boolean{
         binding.apply {
@@ -178,9 +237,11 @@ class TaskDetailsFragment : Fragment() {
         viewModel.membersOfProject.observe(viewLifecycleOwner, Observer {
             binding.selectMemberForTask.apply {
                 setAdapter(MembersArrayAdapter(requireContext(),it as ArrayList<User>))
-                keyListener = null
+                keyListener=null
+
             }
         })
+
     }
     override fun onDestroy() {
         super.onDestroy()
