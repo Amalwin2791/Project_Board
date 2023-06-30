@@ -54,7 +54,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.example.boardsdraft.view.activities.LoginActivity"
-            android:exported="false"
+            android:exported="true"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.example.boardsdraft.view.activities.SplashScreen"

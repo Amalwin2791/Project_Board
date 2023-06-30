@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.ActivityTasksBinding
 import com.example.boardsdraft.view.fragments.EditBoardFragment
+import com.example.boardsdraft.view.fragments.EditTaskDetailsFragment
 import com.example.boardsdraft.view.fragments.MyDialogFragment
 import com.example.boardsdraft.view.fragments.TasksOfProjectFragment
 import com.example.boardsdraft.view.viewModel.BoardsViewModel
@@ -46,6 +47,7 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
                             .show(supportFragmentManager,"deleteDialog")
 
                     }
+
 
                     R.id.edit_board -> {
                         

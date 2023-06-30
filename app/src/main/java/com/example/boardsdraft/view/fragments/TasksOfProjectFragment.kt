@@ -48,6 +48,8 @@ class TasksOfProjectFragment : Fragment() , TaskListAdapter.OnItemClickListener,
 
         taskDetailsInit()
 
+
+
     }
      private fun taskDetailsInit() {
         binding.taskList.apply {

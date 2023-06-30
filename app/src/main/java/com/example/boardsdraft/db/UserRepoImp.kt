@@ -34,7 +34,7 @@ class UserRepoImp @Inject constructor(
         retypePassword: String
     ): LoginResults {
         return withContext(Dispatchers.IO) {
-            val existingUser = dao.getUserByEmail(userName)
+            val existingUser = dao.getUserByEmail(email)
             if (existingUser != null) {
                 return@withContext LoginResults.USER_ALREADY_PRESENT
             }

@@ -49,8 +49,20 @@ class TaskInfoFragment(
         _binding = FragmentTaskInfoBinding.bind(view)
 
         val toolBar:androidx.appcompat.widget.Toolbar = requireActivity().findViewById(R.id.toolbar)
+        toolBar.title = task.taskName
         if(toolBar.menu.isEmpty()){
             toolBar.inflateMenu(R.menu.profile_menu_item)
+        }
+        toolBar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.edit -> {
+                    val editTaskDetailsFragment = EditTaskDetailsFragment(task)
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.task_manager_fragment_container,editTaskDetailsFragment)
+                        .addToBackStack("EditTaskDetailsFragment").commit()
+                }
+            }
+            true
         }
 
 
@@ -65,11 +77,11 @@ class TaskInfoFragment(
             assignedTo.text = task.assignedToName
 
 
-            binding.moveTo.apply {
+            moveTo.apply {
+                keyListener = null
                 setOnItemClickListener { parent, _, position, _ ->
                     val value = parent.getItemAtPosition(position) as TaskTitles
                     setText(value.taskTitle)
-                    keyListener = null
                 }
             }
 
@@ -131,6 +143,12 @@ class TaskInfoFragment(
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar).apply {
+            menu.clear()
+            title = task.projectName
+            inflateMenu(R.menu.menu_for_tasks)
+        }
+
 
     }
 

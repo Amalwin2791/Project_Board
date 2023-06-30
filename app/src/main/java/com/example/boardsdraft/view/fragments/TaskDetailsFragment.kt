@@ -26,6 +26,7 @@ import com.example.boardsDraft.databinding.FragmentTaskDetailsBinding
 import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.User
 import com.example.boardsdraft.view.Notification
+import com.example.boardsdraft.view.activities.SplashScreen
 import com.example.boardsdraft.view.channelID
 import com.example.boardsdraft.view.messageExtra
 import com.example.boardsdraft.view.notificationID
@@ -168,7 +169,7 @@ class TaskDetailsFragment : Fragment() {
 
         val intent = Intent(requireContext().applicationContext,Notification::class.java)
         val title =  "Task Deadline Alert"
-        val message = "The Task ${binding.etNameCardDetails.text.toString().trim()} is due Today."
+        val message = "The Task ${binding.etNameCardDetails.text.toString().trim()} of Board ${requireArguments().getString("projectName",null)} is due Today."
         intent.putExtra(titleExtra,title)
         intent.putExtra(messageExtra,message)
 
@@ -176,8 +177,9 @@ class TaskDetailsFragment : Fragment() {
             requireContext().applicationContext,
             notificationID,
             intent,
-            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_IMMUTABLE
         )
+
 
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setExactAndAllowWhileIdle(
@@ -189,7 +191,7 @@ class TaskDetailsFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel() {
-        val name = "Project Board Notification Channel"
+        val name = "Project Board Notifications"
         val description = "Deadline Alerts"
         val importance = NotificationManager.IMPORTANCE_HIGH
         val channel = NotificationChannel(channelID, name,importance)

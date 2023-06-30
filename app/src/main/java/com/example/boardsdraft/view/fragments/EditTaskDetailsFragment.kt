@@ -162,7 +162,7 @@ class EditTaskDetailsFragment(
 
         val intent = Intent(requireContext().applicationContext, Notification::class.java)
         val title =  "Task Deadline Alert"
-        val message = "The Task ${binding.editTaskName.text.toString().trim()} is due Today."
+        val message = "The Task ${binding.editTaskName.text.toString().trim()} of Board ${task.projectName} is due Today."
         intent.putExtra(titleExtra,title)
         intent.putExtra(messageExtra,message)
 
@@ -170,7 +170,7 @@ class EditTaskDetailsFragment(
             requireContext().applicationContext,
             notificationID,
             intent,
-            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_IMMUTABLE
         )
 
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
