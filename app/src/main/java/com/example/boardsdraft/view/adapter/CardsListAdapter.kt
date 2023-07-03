@@ -27,7 +27,6 @@ class CardsListAdapter(private val clickListener: OnItemClickListener) : Recycle
     fun setMembers(members:List<User>){
         this.members.clear()
         this.members.addAll(members)
-        println(this.members)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardsViewHolder {
         return CardsViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_card,parent,false))
@@ -48,7 +47,6 @@ class CardsListAdapter(private val clickListener: OnItemClickListener) : Recycle
 
     private fun getAssignedUser(userID:Int):User?{
         for(member in members){
-            println("member $member")
             if (member.userID == userID){
                 return member
             }

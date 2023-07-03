@@ -4,25 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardsdraft.db.ProjectsRepo
-import com.example.boardsdraft.db.TaskTitlesRepo
 import com.example.boardsdraft.db.TasksRepo
 import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.User
-import com.example.boardsdraft.db.entities.relations.ProjectWithTasks
-import com.example.boardsdraft.view.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NewTaskViewModel @Inject constructor(
+class TaskDetailsViewModel @Inject constructor(
     private val tasksRepo: TasksRepo,
-    private val repo : ProjectsRepo,
-    private val sharedPreferences: SessionManager
+    private val repo : ProjectsRepo
 ): ViewModel(){
-
-    val lastTaskID = tasksRepo.getLastTaskID()
 
     lateinit var membersOfProject : LiveData<List<User>>
 
@@ -30,21 +24,9 @@ class NewTaskViewModel @Inject constructor(
         membersOfProject = repo.getUsersByProjectId(projectID)
     }
 
-
-
-    fun insertTask(task: Task){
+    fun updateTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
-            tasksRepo.insertTask(task)
+            tasksRepo.updateTask(task)
         }
     }
-    fun getCurrentUserName(): String? {
-        return sharedPreferences.getLoggedInName()
-    }
-
-    fun getCurrentUserID():Int{
-        return sharedPreferences.getLoggedInID()
-    }
-
-
-
 }

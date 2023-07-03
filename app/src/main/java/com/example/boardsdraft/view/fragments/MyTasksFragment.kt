@@ -55,30 +55,21 @@ class MyTasksFragment : Fragment(), MyTasksAdapter.OnItemClickListener {
 
 
         viewModel.allTasksOfCurrentUser.observe(viewLifecycleOwner, Observer {
+
+            binding.myTasksList.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                myTasksAdapter = MyTasksAdapter(this@MyTasksFragment)
+                adapter = myTasksAdapter
+                myTasksAdapter.setMyTasks(sortTasks(it!![0].tasks))
+            }
+
             if (it!![0].tasks.isNotEmpty()) {
-
-                binding.myTasksList.apply {
-                    layoutManager = LinearLayoutManager(requireContext())
-                    myTasksAdapter = MyTasksAdapter(this@MyTasksFragment)
-                    adapter = myTasksAdapter
-                    myTasksAdapter.setMyTasks(sortTasks(it[0].tasks))
-                }
-
-                binding.apply {
-                    myTasksList.visibility = View.VISIBLE
-                }
+                binding.myTasksList.visibility = View.VISIBLE
             }
             else{
                 binding.noTasksHaveBeenAssigned.visibility = View.VISIBLE
             }
-
-
-
         })
-
-
-
-
     }
 
 

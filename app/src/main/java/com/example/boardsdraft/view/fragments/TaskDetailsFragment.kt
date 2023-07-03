@@ -5,12 +5,14 @@ import android.app.DatePickerDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +28,6 @@ import com.example.boardsDraft.databinding.FragmentTaskDetailsBinding
 import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.User
 import com.example.boardsdraft.view.Notification
-import com.example.boardsdraft.view.activities.SplashScreen
 import com.example.boardsdraft.view.channelID
 import com.example.boardsdraft.view.messageExtra
 import com.example.boardsdraft.view.notificationID
@@ -111,15 +112,14 @@ class TaskDetailsFragment : Fragment() {
         binding.tvSelectDueDate.setOnClickListener {
             val currentDate = Calendar.getInstance()
             val year = currentDate.get(Calendar.YEAR)
-            val month = currentDate.get(Calendar.MONTH)+1
+            val month = currentDate.get(Calendar.MONTH)
             val day = currentDate.get(Calendar.DAY_OF_MONTH)
-            creationDate = "$day/$month/$year"
-
 
             val datePickerDialog = DatePickerDialog(requireContext(), dateSetListener, year, month, day)
 
             datePickerDialog.datePicker.minDate = currentDate.timeInMillis
 
+            creationDate = "$day/${month+1}/$year"
             datePickerDialog.show()
 
             binding.tvSelectDueDate.error = null
@@ -130,6 +130,7 @@ class TaskDetailsFragment : Fragment() {
             btnUpdateCardDetails.setOnClickListener {
 
                 if(validate()){
+                    Log.d(TAG, "onViewCreated validate: $creationDate")
                     val task= Task(taskName = etNameCardDetails.text.toString().trim(),
                         projectID = requireArguments().getInt("projectID"), projectName = requireArguments().getString("projectName",null),
                     assignedTo = assignedToID!!, assignedToName = assignedToName!!,

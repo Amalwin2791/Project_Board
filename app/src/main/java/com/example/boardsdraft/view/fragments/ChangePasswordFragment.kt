@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentChangePasswordBinding
-import com.example.boardsdraft.view.viewModel.MyProfileViewModel
+import com.example.boardsdraft.view.viewModel.ChangePasswordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +20,7 @@ class ChangePasswordFragment : Fragment() {
     private var _binding: FragmentChangePasswordBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MyProfileViewModel by viewModels()
+    private val viewModel: ChangePasswordViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

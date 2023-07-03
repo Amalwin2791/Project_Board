@@ -10,11 +10,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentEditMembersBinding
 import com.example.boardsdraft.view.adapter.EditMembersAdapter
-import com.example.boardsdraft.view.viewModel.MembersViewModel
+import com.example.boardsdraft.view.viewModel.EditMembersViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class EditMembersFragment : Fragment(), EditMembersAdapter.OnItemClickListener,MyDialogFragment.OnItemClickListener{
     private var _binding: FragmentEditMembersBinding?= null
     private val binding get() = _binding!!
-    private val viewModel: MembersViewModel by viewModels()
+    private val viewModel: EditMembersViewModel by viewModels()
     private lateinit var editMembersListAdapter: EditMembersAdapter
     private var userID: Int =0
 

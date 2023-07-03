@@ -49,4 +49,16 @@ class TasksRepoImp(
     override suspend fun deleteTaskByTitle(title: String) {
         dao.deleteTaskByTitle(title)
     }
+
+    override suspend fun updateAssignedToName(id: Int, name: String) {
+        dao.updateAssignedToName(id, name)
+    }
+
+    override suspend fun updateCreatedByToName(id: Int, name: String) {
+        dao.updateCreatedByToName(id, name)
+    }
+
+    override suspend fun updateTasKProjectName(id: Int, name: String) {
+        dao.updateTasKProjectName(id,name)
+    }
 }

@@ -28,6 +28,7 @@ interface ProjectsDao {
     @Upsert
     suspend fun insertUserProjectCrossRef(crossRef: UserProjectCrossRef)
 
+
     @Delete
     suspend fun deleteUserProjectCrossRef(crossRef: UserProjectCrossRef)
 

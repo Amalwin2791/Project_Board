@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentEditBoardBinding
 import com.example.boardsdraft.db.entities.Project
 import com.example.boardsdraft.view.viewModel.EditBoardsViewModel
@@ -57,6 +58,7 @@ class EditBoardFragment : Fragment() {
                     board.image =compressedImageData
                     viewModel.updateBoard(board)
                     parentFragmentManager.popBackStack()
+                    viewModel.updateTasks(board.projectID,board.projectName)
                 }
             }
             boardImage.setOnClickListener {
@@ -129,6 +131,7 @@ class EditBoardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding= null
+        requireActivity().findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar).title = board.projectName
 
     }
 

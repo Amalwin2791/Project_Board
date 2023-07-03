@@ -12,18 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toolbar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentEditMyProfileBinding
-import com.example.boardsdraft.view.viewModel.MyProfileViewModel
+import com.example.boardsdraft.view.viewModel.EditProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import kotlin.math.pow
 
@@ -33,7 +28,7 @@ class EditMyProfileFragment : Fragment() {
     private var _binding: FragmentEditMyProfileBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MyProfileViewModel by viewModels()
+    private val viewModel: EditProfileViewModel by viewModels()
 
     private var isImagePickerOpen = false
     private var compressedImageData :ByteArray? = null
@@ -107,6 +102,8 @@ class EditMyProfileFragment : Fragment() {
                     if (validateInputs()){
                         viewModel.updateUser(viewModel.currentUser)
                         parentFragmentManager.popBackStack()
+                        viewModel.updateTaskAssignedToName()
+                        viewModel.updateTaskCreatedByName()
                     }
                 }
             }
@@ -194,7 +191,10 @@ class EditMyProfileFragment : Fragment() {
         super.onDestroy()
         _binding = null
 
+
     }
+
+
     private val galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         isImagePickerOpen = false
         if (result.resultCode == Activity.RESULT_OK) {

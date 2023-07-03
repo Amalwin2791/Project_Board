@@ -28,10 +28,4 @@ class MembersViewModel @Inject constructor(
         return sharedPreferences.getLoggedInID()
     }
 
-    fun removeUserFromProject(userID:Int,projectID: Int){
-        viewModelScope.launch {
-            repo.deleteUserProjectCrossRef(UserProjectCrossRef(userID,projectID))
-        }
-    }
-
 }

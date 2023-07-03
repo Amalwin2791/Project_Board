@@ -10,14 +10,14 @@ import com.example.boardsDraft.databinding.ActivityTaskManagerBinding
 import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.view.fragments.EditTaskDetailsFragment
 import com.example.boardsdraft.view.fragments.TaskInfoFragment
-import com.example.boardsdraft.view.viewModel.MyTasksViewModel
+import com.example.boardsdraft.view.viewModel.TaskManagerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TaskManagerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTaskManagerBinding
-    private val viewModel: MyTasksViewModel by viewModels()
+    private val viewModel: TaskManagerViewModel by viewModels()
     private lateinit var task: Task
 
     override fun onCreate(savedInstanceState: Bundle?) {

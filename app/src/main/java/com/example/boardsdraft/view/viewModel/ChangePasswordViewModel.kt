@@ -5,17 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardsdraft.db.UserRepo
-import com.example.boardsdraft.db.entities.Project
 import com.example.boardsdraft.db.entities.User
-import com.example.boardsdraft.db.entities.relations.ProjectsWithUsers
 import com.example.boardsdraft.view.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MyProfileViewModel @Inject constructor(
+class ChangePasswordViewModel @Inject constructor(
     private val repo: UserRepo,
     private val sharedPreference: SessionManager
 ): ViewModel() {
@@ -33,29 +30,19 @@ class MyProfileViewModel @Inject constructor(
         }
     }
 
-
-
-    fun getCurrentUserName(): String?{
-        return sharedPreference.getLoggedInName()
-    }
-
-    fun getCurrentUserEmailID(): String?{
+    private fun getCurrentUserEmailID(): String?{
         return sharedPreference.getLoggedInEmail()
     }
 
-    fun getCurrentUserImage(): ByteArray? {
-        return currentUser.image
+    fun updateUser(user:User){
+        viewModelScope.launch {
+            sharedPreference.setLoggedIn(true,user.email,user.userID,user.userName,user.password)
+            repo.updateUser(user)
+
+        }
     }
 
-    fun getCurrentUserID(): Int{
-        return sharedPreference.getLoggedInID()
+    fun getCurrentUserPassword(): String?{
+        return sharedPreference.getPassword()
     }
-
-    fun clearSession(){
-        sharedPreference.clearSession()
-    }
-
-//    suspend fun doesEmailExist(email: String):Boolean{
-//        return repo.doesEmailIdExists(email)
-//    }
 }

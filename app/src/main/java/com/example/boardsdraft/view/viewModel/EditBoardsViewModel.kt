@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardsdraft.db.ProjectsRepo
+import com.example.boardsdraft.db.TasksRepo
 import com.example.boardsdraft.db.entities.Project
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditBoardsViewModel @Inject constructor(
-    private val repo: ProjectsRepo
+    private val repo: ProjectsRepo,
+    private val tasksRepo: TasksRepo
 ): ViewModel() {
 
     private val _board = MutableLiveData<Project>()
@@ -29,8 +31,15 @@ class EditBoardsViewModel @Inject constructor(
     }
 
     fun updateBoard(board:Project){
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
             repo.updateBoard(board)
+
+        }
+    }
+
+    fun updateTasks(id:Int, name:String){
+        viewModelScope.launch {
+            tasksRepo.updateTasKProjectName(id, name)
         }
     }
 }

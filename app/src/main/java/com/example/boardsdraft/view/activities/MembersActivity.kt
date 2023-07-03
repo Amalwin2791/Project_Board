@@ -120,12 +120,10 @@ class MembersActivity : AppCompatActivity(), InputBottomSheetFragment.OnItemClic
             bundle.putInt("userID",userID)
 
             showProfile.arguments = bundle
-            if(userID != viewModel.getCurrentUserID()){
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.members_layout,showProfile)
                     .addToBackStack(null)
                     .commit()
-            }
             binding.membersFab.visibility = View.GONE
             binding.toolbar.menu.clear()
         }

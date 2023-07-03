@@ -4,20 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.boardsdraft.db.TasksRepo
 import com.example.boardsdraft.db.UserRepo
-import com.example.boardsdraft.db.entities.Project
 import com.example.boardsdraft.db.entities.User
-import com.example.boardsdraft.db.entities.relations.ProjectsWithUsers
 import com.example.boardsdraft.view.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MyProfileViewModel @Inject constructor(
+class EditProfileViewModel  @Inject constructor(
     private val repo: UserRepo,
-    private val sharedPreference: SessionManager
+    private val sharedPreference: SessionManager,
+    private val tasksRepo: TasksRepo
 ): ViewModel() {
 
     private var _user = MutableLiveData<User>()
@@ -33,7 +32,26 @@ class MyProfileViewModel @Inject constructor(
         }
     }
 
+    fun updateUser(user:User){
+        viewModelScope.launch {
+            sharedPreference.setLoggedIn(true,user.email,user.userID,user.userName,user.password)
+            repo.updateUser(user)
+            tasksRepo.updateCreatedByToName(currentUser.userID,currentUser.userName)
+            tasksRepo.updateAssignedToName(currentUser.userID,currentUser.userName)
 
+        }
+    }
+    fun updateTaskAssignedToName(){
+        viewModelScope.launch {
+            tasksRepo.updateAssignedToName(currentUser.userID,currentUser.userName)
+
+        }
+    }
+    fun updateTaskCreatedByName(){
+        viewModelScope.launch {
+            tasksRepo.updateCreatedByToName(currentUser.userID,currentUser.userName)
+        }
+    }
 
     fun getCurrentUserName(): String?{
         return sharedPreference.getLoggedInName()
@@ -47,15 +65,13 @@ class MyProfileViewModel @Inject constructor(
         return currentUser.image
     }
 
-    fun getCurrentUserID(): Int{
-        return sharedPreference.getLoggedInID()
+    fun getCurrentUserDepartment():String?{
+        return currentUser.department
     }
 
-    fun clearSession(){
-        sharedPreference.clearSession()
+    fun getCurrentUserDesignation(): String?{
+        return currentUser.designation
     }
 
-//    suspend fun doesEmailExist(email: String):Boolean{
-//        return repo.doesEmailIdExists(email)
-//    }
+
 }

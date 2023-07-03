@@ -180,7 +180,7 @@
                     android:id="@+id/projects_in_common_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
+                    android:layout_marginTop="6dp"
                     android:text="@string/projects_in_common"
                     android:textAlignment="center"
                     android:textColor="@color/black"

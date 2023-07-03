@@ -31,6 +31,7 @@ import com.example.boardsdraft.view.messageExtra
 import com.example.boardsdraft.view.notificationID
 import com.example.boardsdraft.view.titleExtra
 import com.example.boardsdraft.view.viewModel.NewTaskViewModel
+import com.example.boardsdraft.view.viewModel.TaskDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -44,7 +45,7 @@ class EditTaskDetailsFragment(
     private var _binding: FragmentEditTaskDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel : NewTaskViewModel by viewModels()
+    private val viewModel : TaskDetailsViewModel by viewModels()
     private var assignedDate: String? = null
     private var selectedDateLong: Long = 0
 

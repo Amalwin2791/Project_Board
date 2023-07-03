@@ -18,7 +18,7 @@ import androidx.lifecycle.Observer
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentNewBoardBinding
 import com.example.boardsdraft.db.entities.Project
-import com.example.boardsdraft.view.viewModel.BoardsViewModel
+import com.example.boardsdraft.view.viewModel.NewBoardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import kotlin.math.pow
@@ -29,7 +29,7 @@ class NewBoardFragment : Fragment() {
     private var _binding : FragmentNewBoardBinding? = null
 
     private val binding get() = _binding!!
-    private val viewModel : BoardsViewModel by viewModels()
+    private val viewModel : NewBoardViewModel by viewModels()
     private var compressedImageData :ByteArray? = null
     private var projectID :Int =0
     private var isImagePickerOpen = false

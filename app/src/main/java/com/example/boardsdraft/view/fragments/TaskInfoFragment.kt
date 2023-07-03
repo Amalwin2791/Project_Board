@@ -17,7 +17,7 @@ import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.TaskTitles
 import com.example.boardsdraft.view.activities.TaskManagerActivity
 import com.example.boardsdraft.view.activities.TasksActivity
-import com.example.boardsdraft.view.viewModel.MyTasksViewModel
+import com.example.boardsdraft.view.viewModel.TaskInfoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +29,7 @@ class TaskInfoFragment(
 
     private val binding get() = _binding!!
 
-    private val viewModel: MyTasksViewModel by viewModels()
+    private val viewModel: TaskInfoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,12 +93,12 @@ class TaskInfoFragment(
                     task.status = moveTo.text.toString()
                     viewModel.updateTask(task)
 
-//                    if(activity is TaskManagerActivity){
+                    if(activity is TaskManagerActivity){
                         requireActivity().finish()
-//                    }
-//                    if(activity is TasksActivity){
-//                        parentFragmentManager.popBackStack()
-//                    }
+                    }
+                    if(activity is TasksActivity){
+                        parentFragmentManager.popBackStack()
+                    }
 
                 }
             }
@@ -155,7 +155,15 @@ class TaskInfoFragment(
     override fun result(choice: String) {
         if(choice=="YES"){
             viewModel.deleteTask(task)
-            requireActivity().finish()
+
+            if(activity is TaskManagerActivity){
+                requireActivity().finish()
+            }
+            if(activity is TasksActivity){
+                parentFragmentManager.popBackStack()
+            }
+
+
         }
     }
 

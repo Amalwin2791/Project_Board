@@ -8,17 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.ActivityTasksBinding
 import com.example.boardsdraft.view.fragments.EditBoardFragment
-import com.example.boardsdraft.view.fragments.EditTaskDetailsFragment
 import com.example.boardsdraft.view.fragments.MyDialogFragment
 import com.example.boardsdraft.view.fragments.TasksOfProjectFragment
-import com.example.boardsdraft.view.viewModel.BoardsViewModel
+import com.example.boardsdraft.view.viewModel.TaskActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
 
     private lateinit var binding: ActivityTasksBinding
-    private val viewModel: BoardsViewModel by viewModels()
+    private val viewModel: TaskActivityViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTasksBinding.inflate(layoutInflater)

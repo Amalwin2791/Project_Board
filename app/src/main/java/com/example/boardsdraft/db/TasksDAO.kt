@@ -45,4 +45,14 @@ interface TasksDAO {
 
     @Query("DELETE FROM Tasks WHERE status = :title")
     suspend fun deleteTaskByTitle(title:String)
+
+    @Query("UPDATE Tasks SET assignedToName = :name WHERE assignedTo = :id")
+    suspend fun updateAssignedToName(id: Int, name: String)
+
+    @Query("UPDATE Tasks SET createdBy = :name WHERE createdByID = :id")
+    suspend fun updateCreatedByToName(id: Int, name: String)
+
+    @Query("UPDATE tasks SET projectName= :name WHERE projectID = :id")
+    suspend fun updateTasKProjectName(id:Int,name:String)
+
 }
