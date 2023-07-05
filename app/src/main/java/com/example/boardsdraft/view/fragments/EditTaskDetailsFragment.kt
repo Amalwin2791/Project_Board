@@ -106,9 +106,11 @@ class EditTaskDetailsFragment(
 
             editTaskDueDate.setOnClickListener {
                 val currentDate = Calendar.getInstance()
-                val year = currentDate.get(Calendar.YEAR)
-                val month = currentDate.get(Calendar.MONTH)+1
-                val day = currentDate.get(Calendar.DAY_OF_MONTH)
+                val oldDeadline = task.deadLine.split("/")
+
+                val year = oldDeadline[2].toInt()
+                val month = oldDeadline[1].toInt()
+                val day = oldDeadline[0].toInt()
 
 
 
@@ -117,6 +119,7 @@ class EditTaskDetailsFragment(
                 datePickerDialog.datePicker.minDate = currentDate.timeInMillis
 
                 datePickerDialog.show()
+                binding.editTaskDueDate.error = null
             }
 
 

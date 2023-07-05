@@ -27,12 +27,17 @@ class TasksViewModel @Inject constructor(
 
     val lastTaskTitleID = taskTitleRepo.getLastTaskTitleID()
 
-    private val _monitor = MutableLiveData<Boolean>()
-    val monitor: LiveData<Boolean> = _monitor
+    var lastId = 0
 
-    lateinit var taskTitlesOfProject: List<String?>
+//    private val _monitor = MutableLiveData<Boolean>()
+//    val monitor: LiveData<Boolean> = _monitor
+
+//    lateinit var taskTitlesOfProject: List<String?>
 
     lateinit var membersOfProject : LiveData<List<User>>
+
+//    lateinit var taskTitlesOfProject : LiveData<List<String?>>
+//     var taskTitlesOfProject : List<String?>? =  null
 
     fun allTasksOfDisplayedProject(projectID: Int): LiveData<List<ProjectWithTasks>?> {
         return tasksRepo.getTasksOfProject(projectID)
@@ -68,12 +73,32 @@ class TasksViewModel @Inject constructor(
         }
     }
 
-    fun getAllTaskTitleNames(projectID: Int){
-        viewModelScope.launch{
+//    fun getAllTaskTitleNames(projectID: Int){
+//        viewModelScope.launch{
+////            taskTitlesOfProject = taskTitleRepo.getAllTaskTitleNamesOfProject(projectID)
+//            taskTitlesOfProject = taskTitleRepo.getAllTaskTitleNamesOfProject(projectID).value
+//            _monitor.value = true
+//
+//        }
+//    }
+    lateinit var taskTitlesOfProject: LiveData<List<String>>
+
+
+
+
+
+//    private val _monitor = MutableLiveData<Boolean>()
+//    val monitor: LiveData<Boolean> = _monitor
+
+    fun getAllTaskTitleNames(projectID: Int) {
+        viewModelScope.launch {
             taskTitlesOfProject = taskTitleRepo.getAllTaskTitleNamesOfProject(projectID)
-            _monitor.value = true
+//            _monitor.value = true
         }
     }
+
+
+    var taskTitles : List<String> = listOf()
 
 
 }

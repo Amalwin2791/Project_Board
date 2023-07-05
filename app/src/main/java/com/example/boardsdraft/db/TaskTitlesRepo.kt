@@ -16,7 +16,7 @@ interface TaskTitlesRepo {
 
     fun getLastTaskTitleID(): LiveData<Int?>
 
-    suspend fun getAllTaskTitleNamesOfProject(projectID:Int): List<String?>
+    fun getAllTaskTitleNamesOfProject(projectID:Int): LiveData<List<String>>
 
 
 }

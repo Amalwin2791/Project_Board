@@ -30,7 +30,7 @@ class TaskTitlesRepoImp @Inject constructor(
         return lastTaskTitleID
     }
 
-    override suspend fun getAllTaskTitleNamesOfProject(projectID: Int): List<String?> {
+    override fun getAllTaskTitleNamesOfProject(projectID: Int): LiveData<List<String>> {
         return dao.getAllTaskTitleNamesOfProject(projectID)
     }
 

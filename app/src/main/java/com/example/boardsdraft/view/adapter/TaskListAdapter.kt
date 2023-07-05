@@ -1,6 +1,8 @@
 package com.example.boardsdraft.view.adapter
 
+import android.content.ContentValues.TAG
 import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,6 +88,7 @@ class TaskListAdapter(
             addTaskButton.setOnClickListener {
                 addTaskButton.visibility = View.GONE
                 taskListName.visibility = View.VISIBLE
+
             }
             closeListName.setOnClickListener{
                 addTaskButton.visibility = View.VISIBLE
@@ -96,11 +99,13 @@ class TaskListAdapter(
                     newTaskListName.error = "Task List Title Cannot Be empty"
                 }
                 else{
+
                     addTaskButton.visibility = View.GONE
                     taskListName.visibility = View.GONE
                     clickListener.insertTaskTitle(TaskTitles(taskTitleID = taskTitleID,
                         taskTitle = newTaskListName.text.toString().trim(),
                         projectID = projectID))
+                    newTaskListName.text.clear()
                 }
             }
 
@@ -122,17 +127,19 @@ class TaskListAdapter(
                 else{
                     val existingTitle = taskTitlesList[0].taskTitles[position]
                     val oldTitle = existingTitle?.taskTitle
-                    existingTitle?.taskTitle =editTaskListName.text.toString()
+                    existingTitle?.taskTitle =editTaskListName.text.toString().trim()
                     if (existingTitle != null) {
                         clickListener.updateTaskTitle(existingTitle,oldTitle)
                     }
 //                    taskListTitle.text =editTaskListName.text.toString()
                     editTitleCardView.visibility = View.GONE
                     editTitleLayout.visibility = View.VISIBLE
+                    editTaskListName.text.clear()
                 }
             }
             deleteList.setOnClickListener {
                 taskTitlesList[0].taskTitles[position]?.let { it1 ->
+//                    Log.d(TAG, "onBindViewHolder:  ${it1.taskTitleID} name = ${it1.taskTitle}")
                     clickListener.deleteTaskTitle(it1)
                 }
                 newTaskListName.text.clear()
@@ -146,6 +153,7 @@ class TaskListAdapter(
                     setHasFixedSize(true)
                     cardsAdapter = CardsListAdapter(this@TaskListAdapter)
                     adapter = cardsAdapter
+
                     setCards(filterTasksByStatus(taskTitlesList[0].taskTitles[position]!!.taskTitle))
                     setMembersForCards(members)
                     cardsAdapter.notifyDataSetChanged()

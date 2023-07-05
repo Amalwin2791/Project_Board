@@ -34,11 +34,9 @@ class EditProfileViewModel  @Inject constructor(
 
     fun updateUser(user:User){
         viewModelScope.launch {
-            sharedPreference.setLoggedIn(true,user.email,user.userID,user.userName,user.password)
+            sharedPreference.changeName(user.userName)
+            sharedPreference.changeEmail(user.email)
             repo.updateUser(user)
-            tasksRepo.updateCreatedByToName(currentUser.userID,currentUser.userName)
-            tasksRepo.updateAssignedToName(currentUser.userID,currentUser.userName)
-
         }
     }
     fun updateTaskAssignedToName(){

@@ -58,7 +58,7 @@ class TaskInfoFragment(
                 R.id.edit -> {
                     val editTaskDetailsFragment = EditTaskDetailsFragment(task)
                     parentFragmentManager.beginTransaction()
-                        .replace(R.id.task_manager_fragment_container,editTaskDetailsFragment)
+                        .replace(R.id.tasks_view,editTaskDetailsFragment)
                         .addToBackStack("EditTaskDetailsFragment").commit()
                 }
             }

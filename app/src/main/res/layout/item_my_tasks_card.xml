@@ -84,6 +84,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/status"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:paddingStart="5dp"
                 android:textSize="14sp"/>
 

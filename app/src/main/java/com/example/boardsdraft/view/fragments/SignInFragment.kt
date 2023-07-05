@@ -137,10 +137,6 @@ class SignInFragment : Fragment(),InputBottomSheetFragment.OnItemClickListener {
                         requireActivity().startActivity(Intent.createChooser(emailIntent, "Choose An App"))
                     }
                 }
-
-
-
-
             }
             else{
                 Toast.makeText(requireContext(), "Enter The Correct Email ID", Toast.LENGTH_SHORT).show()

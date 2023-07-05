@@ -30,6 +30,15 @@ class SessionManager @Inject constructor(
         return sharedPreferences.getString("password",null)
     }
 
+    fun checkPermissionAsked():Boolean{
+        return sharedPreferences.getBoolean("permissionAsked",false)
+    }
+    fun setPermission(){
+        sharedPreferences.edit{
+            putBoolean("permissionAsked",true)
+        }
+    }
+
     fun clearSession(){
         sharedPreferences.edit {
             putBoolean("loggedIn", false)
@@ -37,16 +46,33 @@ class SessionManager @Inject constructor(
             putString("LoggedInName", "")
             putInt("loggedInID", -1)
             putString("password","")
+            putBoolean("permissionAsked",false)
+        }
+    }
+    fun changePassword(newPassword:String){
+        sharedPreferences.edit{
+            putString("password",newPassword)
+        }
+    }
+    fun changeName(newName:String){
+        sharedPreferences.edit{
+            putString("LoggedInName",newName)
+        }
+    }
+    fun changeEmail(newEmail:String){
+        sharedPreferences.edit{
+            putString("loggedInEmail",newEmail)
         }
     }
 
-    fun setLoggedIn(isLoggedIn: Boolean, email: String,userID: Int,userName: String,password: String) {
+    fun setLoggedIn(isLoggedIn: Boolean, email: String,userID: Int,userName: String,password: String,permissionAsked: Boolean) {
         sharedPreferences.edit {
             putBoolean("loggedIn", isLoggedIn)
             putString("loggedInEmail", email)
             putString("LoggedInName", userName)
             putInt("loggedInID", userID)
             putString("password",password)
+            putBoolean("permissionAsked",permissionAsked)
         }
     }
 }

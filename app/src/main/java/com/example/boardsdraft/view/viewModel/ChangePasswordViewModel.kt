@@ -36,9 +36,8 @@ class ChangePasswordViewModel @Inject constructor(
 
     fun updateUser(user:User){
         viewModelScope.launch {
-            sharedPreference.setLoggedIn(true,user.email,user.userID,user.userName,user.password)
+            sharedPreference.changePassword(user.password)
             repo.updateUser(user)
-
         }
     }
 

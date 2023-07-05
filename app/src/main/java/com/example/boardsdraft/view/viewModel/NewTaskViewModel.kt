@@ -45,6 +45,14 @@ class NewTaskViewModel @Inject constructor(
         return sharedPreferences.getLoggedInID()
     }
 
+    fun setNotificationStatus(){
+        sharedPreferences.setPermission()
+    }
+
+    fun getNotificationStatus():Boolean{
+        return sharedPreferences.checkPermissionAsked()
+    }
+
 
 
 }

@@ -45,7 +45,7 @@ class LoginViewModel @Inject constructor(
             if (success == LoginResults.LOGIN_SUCCESSFUL) {
                 val user = repo.getUser(email)
                 if (user != null) {
-                    sharedPreference.setLoggedIn(true,user.email, user.userID,user.userName,password )
+                    sharedPreference.setLoggedIn(true,user.email, user.userID,user.userName,password ,false)
                 }
             }
             _signInStatus.value = success
@@ -91,7 +91,7 @@ class LoginViewModel @Inject constructor(
             if (success == LoginResults.LOGIN_SUCCESSFUL) {
                 val user = repo.getUser(email)
                 if (user != null) {
-                    sharedPreference.setLoggedIn(true,email,user.userID,username,password)
+                    sharedPreference.setLoggedIn(true,email,user.userID,username,password,false)
                 }
             }
         }

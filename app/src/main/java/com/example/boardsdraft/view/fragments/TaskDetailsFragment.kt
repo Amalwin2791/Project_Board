@@ -9,7 +9,7 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
-import android.net.Uri
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -19,7 +19,10 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -37,6 +40,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.jar.Manifest
 
 @AndroidEntryPoint
 class TaskDetailsFragment : Fragment() {
@@ -44,14 +48,14 @@ class TaskDetailsFragment : Fragment() {
     private var _binding: FragmentTaskDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel : NewTaskViewModel by viewModels()
+    private val viewModel: NewTaskViewModel by viewModels()
 
-    private var taskID : Int = 0
+    private var taskID: Int = 0
 
-    private var assignedToName:String? = null
-    private var assignedToID:Int? = null
+    private var assignedToName: String? = null
+    private var assignedToID: Int? = null
     private var assignedDate: String? = null
-    private var creationDate : String? = null
+    private var creationDate: String? = null
     private var assignedToEmail: String? = null
     private var selectedDate: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,14 +68,48 @@ class TaskDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTaskDetailsBinding.inflate(inflater,container,false)
+        _binding = FragmentTaskDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    private val registerPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            scheduleNotification()
+        }
+
+    }
+
+    private fun requestPermission() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED) {
+            scheduleNotification()
+        } else {
+            registerPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
+
+
+//        requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 111)
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if (requestCode == 111) {
+//            Log.d(TAG, "onRequestPermissionsResult: granted")
+//        }
+//    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentTaskDetailsBinding.bind(view)
+
 
         createNotificationChannel()
 
@@ -80,9 +118,9 @@ class TaskDetailsFragment : Fragment() {
         })
 
         binding.apply {
-            selectMemberForTask.apply{
+            selectMemberForTask.apply {
                 setOnItemClickListener { parent, _, position, _ ->
-                    val value =  parent.getItemAtPosition(position) as User
+                    val value = parent.getItemAtPosition(position) as User
                     setText(value.userName)
                     assignedToName = value.userName
                     assignedToID = value.userID
@@ -91,23 +129,29 @@ class TaskDetailsFragment : Fragment() {
             }
         }
 
-        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            val selectedDate = Calendar.getInstance()
-            selectedDate.set(year, monthOfYear, dayOfMonth)
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(year, monthOfYear, dayOfMonth)
 
-            this.selectedDate = selectedDate.timeInMillis
+                this.selectedDate = selectedDate.timeInMillis
 
-            val currentDate = Calendar.getInstance()
+                val currentDate = Calendar.getInstance()
 
-            if (selectedDate.before(currentDate)) {
-                Toast.makeText(requireContext(), "Please select a date after today", Toast.LENGTH_SHORT).show()
-                return@OnDateSetListener
+                if (selectedDate.before(currentDate)) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please select a date after today",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@OnDateSetListener
+                }
+
+                val formattedDate =
+                    SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(selectedDate.time)
+                binding.tvSelectDueDate.text = formattedDate
+                assignedDate = formattedDate
             }
-
-            val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(selectedDate.time)
-            binding.tvSelectDueDate.text = formattedDate
-            assignedDate = formattedDate
-        }
 
         binding.tvSelectDueDate.setOnClickListener {
             val currentDate = Calendar.getInstance()
@@ -115,11 +159,12 @@ class TaskDetailsFragment : Fragment() {
             val month = currentDate.get(Calendar.MONTH)
             val day = currentDate.get(Calendar.DAY_OF_MONTH)
 
-            val datePickerDialog = DatePickerDialog(requireContext(), dateSetListener, year, month, day)
+            val datePickerDialog =
+                DatePickerDialog(requireContext(), dateSetListener, year, month, day)
 
             datePickerDialog.datePicker.minDate = currentDate.timeInMillis
 
-            creationDate = "$day/${month+1}/$year"
+            creationDate = "$day/${month + 1}/$year"
             datePickerDialog.show()
 
             binding.tvSelectDueDate.error = null
@@ -129,18 +174,26 @@ class TaskDetailsFragment : Fragment() {
         binding.apply {
             btnUpdateCardDetails.setOnClickListener {
 
-                if(validate()){
-                    Log.d(TAG, "onViewCreated validate: $creationDate")
-                    val task= Task(taskName = etNameCardDetails.text.toString().trim(),
-                        projectID = requireArguments().getInt("projectID"), projectName = requireArguments().getString("projectName",null),
-                    assignedTo = assignedToID!!, assignedToName = assignedToName!!,
-                    createdBy = viewModel.getCurrentUserName()!!, createdByID = viewModel.getCurrentUserID(),status = requireArguments().getString("taskTitle",null),
-                        priority = selectPriorityColor.text.toString(), createdDate = creationDate!!, deadLine = assignedDate!!, taskID = taskID)
+                if (validate()) {
+                    val task = Task(
+                        taskName = etNameCardDetails.text.toString().trim(),
+                        projectID = requireArguments().getInt("projectID"),
+                        projectName = requireArguments().getString("projectName", null),
+                        assignedTo = assignedToID!!,
+                        assignedToName = assignedToName!!,
+                        createdBy = viewModel.getCurrentUserName()!!,
+                        createdByID = viewModel.getCurrentUserID(),
+                        status = requireArguments().getString("taskTitle", null),
+                        priority = selectPriorityColor.text.toString(),
+                        createdDate = creationDate!!,
+                        deadLine = assignedDate!!,
+                        taskID = taskID
+                    )
 
                     viewModel.insertTask(task)
                     parentFragmentManager.popBackStack()
 
-                    scheduleNotification()
+                    requestPermission()
                 }
             }
 
@@ -166,13 +219,16 @@ class TaskDetailsFragment : Fragment() {
 
     }
 
+
     private fun scheduleNotification() {
 
-        val intent = Intent(requireContext().applicationContext,Notification::class.java)
-        val title =  "Task Deadline Alert"
-        val message = "The Task ${binding.etNameCardDetails.text.toString().trim()} of Board ${requireArguments().getString("projectName",null)} is due Today."
-        intent.putExtra(titleExtra,title)
-        intent.putExtra(messageExtra,message)
+        val intent = Intent(requireContext().applicationContext, Notification::class.java)
+        val title = "Task Deadline Alert"
+        val message = "The Task ${
+            binding.etNameCardDetails.text.toString().trim()
+        } of Board ${requireArguments().getString("projectName", null)} is due Today."
+        intent.putExtra(titleExtra, title)
+        intent.putExtra(messageExtra, message)
 
         val pendingIntent = PendingIntent.getBroadcast(
             requireContext().applicationContext,
@@ -180,14 +236,14 @@ class TaskDetailsFragment : Fragment() {
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )
-
-
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             selectedDate,
             pendingIntent
         )
+
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -195,31 +251,35 @@ class TaskDetailsFragment : Fragment() {
         val name = "Project Board Notifications"
         val description = "Deadline Alerts"
         val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel(channelID, name,importance)
+        val channel = NotificationChannel(channelID, name, importance)
         channel.description = description
 
-        val notificationManager = requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
 
 
-    private fun validate():Boolean{
+    private fun validate(): Boolean {
         binding.apply {
-            when{
-                etNameCardDetails.text.isNullOrBlank()->{
+            when {
+                etNameCardDetails.text.isNullOrBlank() -> {
                     taskNameLayout.error = "Task Name Cannot Be Empty"
                 }
-                selectPriorityColor.text.isNullOrBlank()->{
-                    selectPriorityLayout.error ="Select A Priority"
+
+                selectPriorityColor.text.isNullOrBlank() -> {
+                    selectPriorityLayout.error = "Select A Priority"
                 }
 
-                selectMemberForTask.text.isNullOrBlank()->{
-                    selectMemberLayout.error= "Select A Member"
+                selectMemberForTask.text.isNullOrBlank() -> {
+                    selectMemberLayout.error = "Select A Member"
                 }
-                assignedDate.isNullOrBlank()->{
+
+                assignedDate.isNullOrBlank() -> {
                     tvSelectDueDate.error = "Select A Deadline"
                 }
-                else->{
+
+                else -> {
                     return true
                 }
             }
@@ -231,7 +291,7 @@ class TaskDetailsFragment : Fragment() {
         super.onResume()
 
         val colors = resources.getStringArray(R.array.priorities)
-        val arrayAdapter = ArrayAdapter(requireContext(),R.layout.item_priority_color,colors)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_priority_color, colors)
         binding.selectPriorityColor.apply {
             setAdapter(arrayAdapter)
             keyListener = null
@@ -239,24 +299,29 @@ class TaskDetailsFragment : Fragment() {
 
         viewModel.membersOfProject.observe(viewLifecycleOwner, Observer {
             binding.selectMemberForTask.apply {
-                setAdapter(MembersArrayAdapter(requireContext(),it as ArrayList<User>))
-                keyListener=null
+                setAdapter(MembersArrayAdapter(requireContext(), it as ArrayList<User>))
+                keyListener = null
 
             }
         })
 
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 }
-private class MembersArrayAdapter(private val context : Context,private val userList : ArrayList<User>): ArrayAdapter<User>(context,R.layout.item_priority_color,userList) {
+
+private class MembersArrayAdapter(
+    private val context: Context,
+    private val userList: ArrayList<User>
+) : ArrayAdapter<User>(context, R.layout.item_priority_color, userList) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
         val inflater: LayoutInflater = LayoutInflater.from(context)
-        val view: View = inflater.inflate(R.layout.item_priority_color,null)
+        val view: View = inflater.inflate(R.layout.item_priority_color, null)
         val name: TextView = view.findViewById(R.id.drop_down_tv)
 
         name.text = userList[position].userName
