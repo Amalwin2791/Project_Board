@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.boardsdraft.db.ProjectsRepo
 import com.example.boardsdraft.db.TasksRepo
 import com.example.boardsdraft.db.UserRepo
 import com.example.boardsdraft.db.entities.User
@@ -16,7 +17,8 @@ import javax.inject.Inject
 class EditProfileViewModel  @Inject constructor(
     private val repo: UserRepo,
     private val sharedPreference: SessionManager,
-    private val tasksRepo: TasksRepo
+    private val tasksRepo: TasksRepo,
+    private val projectsRepo: ProjectsRepo
 ): ViewModel() {
 
     private var _user = MutableLiveData<User>()
@@ -48,6 +50,11 @@ class EditProfileViewModel  @Inject constructor(
     fun updateTaskCreatedByName(){
         viewModelScope.launch {
             tasksRepo.updateCreatedByToName(currentUser.userID,currentUser.userName)
+        }
+    }
+    fun updateCreatedByName(){
+        viewModelScope.launch {
+            projectsRepo.updateProjectCreatedByName(currentUser.userName,currentUser.userID)
         }
     }
 

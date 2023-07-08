@@ -58,4 +58,7 @@ interface ProjectsDao {
     @Query("SELECT * FROM Projects WHERE projectID = :projectID")
     suspend fun getProjectByID(projectID: Int): Project
 
+    @Query("UPDATE projects SET createdBy = :newName WHERE createdByID = :id")
+    suspend fun updateProjectCreatedByName(newName:String,id:Int)
+
 }

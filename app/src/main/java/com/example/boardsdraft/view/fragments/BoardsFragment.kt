@@ -57,8 +57,6 @@ class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSh
         val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
         toolbar.title= "Boards"
 
-
-
         binding.newBoard.setOnClickListener {
             AddBottomSheetFragment(this@BoardsFragment).show(parentFragmentManager,"AddBottomSheet")
         }

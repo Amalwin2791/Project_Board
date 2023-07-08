@@ -141,7 +141,7 @@ class TaskDetailsFragment : Fragment() {
                 if (selectedDate.before(currentDate)) {
                     Toast.makeText(
                         requireContext(),
-                        "Please select a date after today",
+                        "Please select a date",
                         Toast.LENGTH_SHORT
                     ).show()
                     return@OnDateSetListener
@@ -277,6 +277,7 @@ class TaskDetailsFragment : Fragment() {
 
                 assignedDate.isNullOrBlank() -> {
                     tvSelectDueDate.error = "Select A Deadline"
+                    Toast.makeText(requireContext(), "Select A Deadline", Toast.LENGTH_SHORT).show()
                 }
 
                 else -> {

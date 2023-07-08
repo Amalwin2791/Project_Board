@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityHomeBinding
-    private var currentFragmentTag: String? = null
+//    private var currentFragmentTag: String? = null
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {

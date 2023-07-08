@@ -51,14 +51,16 @@ class TaskInfoFragment(
         val toolBar:androidx.appcompat.widget.Toolbar = requireActivity().findViewById(R.id.toolbar)
         toolBar.title = task.taskName
         if(toolBar.menu.isEmpty()){
-            toolBar.inflateMenu(R.menu.profile_menu_item)
+            if(task.createdByID == viewModel.getCurrentUserID()){
+                toolBar.inflateMenu(R.menu.profile_menu_item)
+            }
         }
         toolBar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.edit -> {
                     val editTaskDetailsFragment = EditTaskDetailsFragment(task)
                     parentFragmentManager.beginTransaction()
-                        .replace(R.id.tasks_view,editTaskDetailsFragment)
+                        .replace(R.id.task_manager_fragment_container,editTaskDetailsFragment)
                         .addToBackStack("EditTaskDetailsFragment").commit()
                 }
             }

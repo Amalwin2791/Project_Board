@@ -95,7 +95,7 @@ class EditTaskDetailsFragment(
                 val currentDate = Calendar.getInstance()
 
                 if (selectedDate.before(currentDate)) {
-                    Toast.makeText(requireContext(), "Please select a date after today", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Please select a date", Toast.LENGTH_SHORT).show()
                     return@OnDateSetListener
                 }
 
@@ -211,6 +211,7 @@ class EditTaskDetailsFragment(
                 }
                 editTaskDueDate.text.isNullOrBlank()->{
                     editTaskDueDate.error = "Select A Deadline"
+                    Toast.makeText(requireContext(), "Select A Deadline", Toast.LENGTH_SHORT).show()
                 }
                 else->{
                     return true

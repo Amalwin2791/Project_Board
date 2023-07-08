@@ -33,7 +33,7 @@ class LoginViewModel @Inject constructor(
             _signInStatus.value = LoginResults.FIELD_IS_NULL
             return
         }
-        val emailRegex = Regex("^([a-zA-Z0-9_.+-]+)@([a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+)$")
+        val emailRegex = Regex("^[a-z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\$")
         if(!emailRegex.matches(email)){
             _signInStatus.value = LoginResults.INVALID_EMAIL
             return

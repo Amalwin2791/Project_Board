@@ -31,4 +31,5 @@ interface ProjectsRepo {
     suspend fun exists(userID: Int, projectID: Int): Boolean
 
     suspend fun getProjectByID(projectID: Int): Project
+    suspend fun updateProjectCreatedByName(newName:String,id:Int)
 }

@@ -63,7 +63,7 @@
                 android:textSize="@dimen/profile_text_options_size"
                 android:drawableLeft="@drawable/user"
                 android:gravity="center"
-                android:drawablePadding="-20dp"
+                android:drawablePadding="-25dp"
                 android:textAlignment="center"
                 android:background="@drawable/my_profile_design"
 
@@ -109,10 +109,29 @@
                 android:drawablePadding="-30dp"
                 android:gravity="center"
                 android:textAlignment="center"
-
                 android:background="@drawable/my_profile_design"
-
                 />
+
+<!--            <com.google.android.material.switchmaterial.SwitchMaterial-->
+<!--                android:id="@+id/switch_button"-->
+<!--                android:padding="10dp"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:drawableLeft="@drawable/ic_notifications"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:drawablePadding="13dp"-->
+<!--                app:layout_constraintWidth_percent="0.95"-->
+<!--                android:text="@string/notification"-->
+<!--                android:background="@drawable/my_profile_design"-->
+<!--                android:textSize="@dimen/profile_text_options_size"-->
+<!--                android:layout_marginTop="7dp"-->
+<!--                android:fontFamily="sans-serif"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/change_my_password"-->
+<!--                app:layout_constraintStart_toStartOf="@id/change_my_password"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/change_my_password"-->
+<!--                />-->
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

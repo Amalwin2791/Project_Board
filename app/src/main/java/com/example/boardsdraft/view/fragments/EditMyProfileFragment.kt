@@ -104,6 +104,7 @@ class EditMyProfileFragment : Fragment() {
                         parentFragmentManager.popBackStack()
                         viewModel.updateTaskAssignedToName()
                         viewModel.updateTaskCreatedByName()
+                        viewModel.updateCreatedByName()
                     }
                 }
             }

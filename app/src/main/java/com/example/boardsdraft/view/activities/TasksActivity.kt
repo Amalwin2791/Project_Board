@@ -25,7 +25,9 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
 
         binding.toolbar.apply {
 
+
             setOnMenuItemClickListener { menuItem ->
+
                 when (menuItem.itemId) {
                     R.id.members -> {
                         startActivity(
@@ -75,6 +77,10 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
             }
             title = intent.getStringExtra("projectName")
             inflateMenu(R.menu.menu_for_tasks)
+            if(intent.getIntExtra("projectCreatedByID",0) != viewModel.getCurrentUserID()){
+
+                menu.findItem(R.id.edit_board).isVisible = false
+            }
             setNavigationOnClickListener {
                 val fragmentManager = supportFragmentManager
                 val backStackEntryCount = fragmentManager.backStackEntryCount
@@ -98,6 +104,7 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
 
             bundle.putInt("projectID", intent.getIntExtra("projectID", 0))
             bundle.putString("projectName",intent.getStringExtra("projectName"))
+            bundle.putInt("projectCreatedByID",intent.getIntExtra("projectCreatedByID",0))
             tasksOfProjectFragment.arguments = bundle
 
             supportFragmentManager.beginTransaction()

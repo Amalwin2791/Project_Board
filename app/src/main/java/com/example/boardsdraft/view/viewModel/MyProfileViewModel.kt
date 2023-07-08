@@ -28,7 +28,7 @@ class MyProfileViewModel @Inject constructor(
 
     fun getCurrentUser() {
         viewModelScope.launch {
-            currentUser= getCurrentUserEmailID()?.let { repo.getUser(it) }!!
+             getCurrentUserEmailID()?.let {currentUser= repo.getUser(it)!! }
             _user.value = currentUser
         }
     }
@@ -39,7 +39,7 @@ class MyProfileViewModel @Inject constructor(
         return sharedPreference.getLoggedInName()
     }
 
-    fun getCurrentUserEmailID(): String?{
+    private fun getCurrentUserEmailID(): String?{
         return sharedPreference.getLoggedInEmail()
     }
 

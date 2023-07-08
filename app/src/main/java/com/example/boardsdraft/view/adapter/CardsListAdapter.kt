@@ -12,6 +12,7 @@ import com.example.boardsDraft.R
 import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.User
 import com.example.boardsdraft.db.entities.relations.ProjectWithTasks
+import kotlinx.coroutines.runBlocking
 
 class CardsListAdapter(private val clickListener: OnItemClickListener) :
     RecyclerView.Adapter<CardsListAdapter.CardsViewHolder>() {
@@ -62,13 +63,13 @@ class CardsListAdapter(private val clickListener: OnItemClickListener) :
         fun bind(task: Task) {
 //            val assignedMember = getAssignedUser(task.assignedTo)
             cardName.text = task.taskName
-            Thread(Runnable {
-                getAssignedUser(task.assignedTo)?.image?.let { image ->
+            runBlocking{
+                getAssignedUser(task.assignedTo)?.image?.let { img ->
 
-                    this.image.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.size))
+                    image.setImageBitmap(BitmapFactory.decodeByteArray(img, 0, img.size))
 
                 }
-            }).start()
+            }
 //            assignedMember?.image?.let {
 //                image.setImageBitmap(BitmapFactory.decodeByteArray(assignedMember.image,0,it.size))
 //            }

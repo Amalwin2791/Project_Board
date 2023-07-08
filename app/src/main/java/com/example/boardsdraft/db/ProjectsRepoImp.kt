@@ -63,5 +63,9 @@ class ProjectsRepoImp @Inject constructor(
         return dao.getProjectByID(projectID)
     }
 
+    override suspend fun updateProjectCreatedByName(newName: String, id: Int) {
+        dao.updateProjectCreatedByName(newName, id)
+    }
+
 
 }
