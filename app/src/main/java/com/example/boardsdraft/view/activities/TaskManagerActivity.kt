@@ -1,7 +1,9 @@
 package com.example.boardsdraft.view.activities
 
+import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.view.isEmpty
 import androidx.lifecycle.Observer

@@ -1,6 +1,8 @@
 package com.example.boardsdraft.view.adapter
 
+import android.content.ContentValues.TAG
 import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -75,10 +77,7 @@ class TaskListAdapter(
 
     override fun onBindViewHolder(holder: TasksViewHolder, position: Int) {
         if (taskTitlesList.size > 0) {
-
             holder.bindTitle(taskTitlesList[0].taskTitles[position])
-
-
 
             holder.apply {
 
@@ -202,10 +201,7 @@ class TaskListAdapter(
     private fun setMembersForCards(members: List<User>) {
         cardsAdapter.setMembers(members)
     }
-//    fun updateLastItemVisibility(isVisible: Boolean) {
-//        isLastItemVisible = isVisible
-//        notifyDataSetChanged()
-//    }
+
 
 
     private fun filterTasksByStatus(status: String): List<Task> {

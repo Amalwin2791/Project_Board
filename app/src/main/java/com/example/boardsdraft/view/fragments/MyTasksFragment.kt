@@ -94,7 +94,9 @@ class MyTasksFragment : Fragment(), MyTasksAdapter.OnItemClickListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.myTasksList.adapter = null
         _binding= null
+
     }
 
     override fun onItemClick(taskID: Int,taskName: String) {

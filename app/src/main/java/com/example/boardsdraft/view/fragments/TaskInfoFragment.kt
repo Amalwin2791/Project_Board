@@ -59,9 +59,17 @@ class TaskInfoFragment(
             when(it.itemId){
                 R.id.edit -> {
                     val editTaskDetailsFragment = EditTaskDetailsFragment(task)
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.task_manager_fragment_container,editTaskDetailsFragment)
-                        .addToBackStack("EditTaskDetailsFragment").commit()
+
+                    if (activity is TaskManagerActivity ){
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.task_manager_fragment_container,editTaskDetailsFragment)
+                            .addToBackStack("EditTaskDetailsFragment").commit()
+                    }
+                    else if(activity is TasksActivity){
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.tasks_view,editTaskDetailsFragment)
+                            .addToBackStack("EditTaskDetailsFragment").commit()
+                    }
                 }
             }
             true

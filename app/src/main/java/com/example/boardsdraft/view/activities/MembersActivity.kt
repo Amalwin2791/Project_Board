@@ -18,48 +18,52 @@ import com.example.boardsdraft.view.viewModel.MembersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MembersActivity : AppCompatActivity(), InputBottomSheetFragment.OnItemClickListener, MembersListAdapter.OnItemClickListener {
+class MembersActivity : AppCompatActivity(), InputBottomSheetFragment.OnItemClickListener,
+    MembersListAdapter.OnItemClickListener {
 
     private lateinit var binding: ActivityMemebersBinding
     private lateinit var membersListAdapter: MembersListAdapter
     private val viewModel: MembersViewModel by viewModels()
-
+    private val editMembersFragment: String = EditMembersFragment::class.java.simpleName
+    private val showProfileFragment: String = ShowProfileFragment::class.java.simpleName
+    private var isCreator: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getAllUsersOfProject(intent.getIntExtra("projectID",0))
+        viewModel.getAllUsersOfProject(intent.getIntExtra("projectID", 0))
         binding = ActivityMemebersBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.toolbar.apply {
             title = "Members"
-            if (viewModel.getCurrentUserID() == intent.getIntExtra("projectCreatedByID",0) ){
+            if (viewModel.getCurrentUserID() == intent.getIntExtra("projectCreatedByID", 0)) {
                 inflateMenu(R.menu.profile_menu_item)
+                isCreator = true
             }
 
             setNavigationOnClickListener {
                 val fragmentManager = supportFragmentManager
                 val backStackEntryCount = fragmentManager.backStackEntryCount
-                if (backStackEntryCount > 0){
-                    val currentFragmentTag = fragmentManager.getBackStackEntryAt(backStackEntryCount - 1).name
-                    val editMembersFragment = EditMembersFragment::class.java.simpleName
-                    if (currentFragmentTag == editMembersFragment){
+                if (backStackEntryCount > 0) {
+                    val currentFragmentTag =
+                        fragmentManager.getBackStackEntryAt(backStackEntryCount - 1).name
+
+                    if (currentFragmentTag == editMembersFragment || currentFragmentTag == showProfileFragment) {
                         fragmentManager.popBackStack()
 
-                    }else{
+                    } else {
                         finish()
                     }
-                }
-                else{
+                } else {
                     finish()
                 }
             }
             setOnMenuItemClickListener {
-                when(it.itemId){
+                when (it.itemId) {
                     R.id.edit -> {
-                        val bundle= Bundle()
-                        bundle.putInt("projectID",intent.getIntExtra("projectID",0))
+                        val bundle = Bundle()
+                        bundle.putInt("projectID", intent.getIntExtra("projectID", 0))
                         val editMembersFragment = EditMembersFragment()
                         editMembersFragment.arguments = bundle
                         binding.membersLinearLayout.visibility = View.GONE
@@ -73,14 +77,16 @@ class MembersActivity : AppCompatActivity(), InputBottomSheetFragment.OnItemClic
             }
         }
 
-        binding.rvMembersList.layoutManager =LinearLayoutManager(this@MembersActivity)
+        binding.rvMembersList.layoutManager = LinearLayoutManager(this@MembersActivity)
         membersListAdapter = MembersListAdapter(this@MembersActivity)
         binding.rvMembersList.adapter = membersListAdapter
 
         binding.membersFab.apply {
             setOnClickListener {
-                InputBottomSheetFragment("Enter The Email ID", "Invite","Email",
-                    this@MembersActivity).show(supportFragmentManager,"BottomFrag")
+                InputBottomSheetFragment(
+                    "Enter The Email ID", "Invite", "Email",
+                    this@MembersActivity
+                ).show(supportFragmentManager, "BottomFrag")
             }
 
         }
@@ -97,16 +103,21 @@ class MembersActivity : AppCompatActivity(), InputBottomSheetFragment.OnItemClic
 
     override fun action(value: String) {
         val emailAddresses = arrayOf(value)
-        val emailIntent= Intent(Intent.ACTION_SENDTO)
+        val emailIntent = Intent(Intent.ACTION_SENDTO)
         emailIntent.apply {
             data = Uri.parse("mailto:")
-            putExtra(Intent.EXTRA_EMAIL,emailAddresses)
-            putExtra(Intent.EXTRA_SUBJECT,"Invitation to Work Together")
+            putExtra(Intent.EXTRA_EMAIL, emailAddresses)
+            putExtra(Intent.EXTRA_SUBJECT, "Invitation to Work Together")
             putExtra(
-                Intent.EXTRA_TEXT,"I have created a Trello board to " +
-                    "streamline our project management process, and I think your expertise and input would be valuable. The board code to join is ${intent.getStringExtra("projectCode")} in the Project Board App.")
-            if(emailIntent.resolveActivity(packageManager) != null){
-                startActivity(Intent.createChooser(emailIntent,"Choose An App"))
+                Intent.EXTRA_TEXT, "I have created a Trello board to " +
+                        "streamline our project management process, and I think your expertise and input would be valuable. The board code to join is ${
+                            intent.getStringExtra(
+                                "projectCode"
+                            )
+                        } in the Project Board App."
+            )
+            if (emailIntent.resolveActivity(packageManager) != null) {
+                startActivity(Intent.createChooser(emailIntent, "Choose An App"))
             }
         }
 
@@ -114,37 +125,50 @@ class MembersActivity : AppCompatActivity(), InputBottomSheetFragment.OnItemClic
 
     override fun onItemClick(userID: Int) {
 
-        if(userID != viewModel.getCurrentUserID()){
+        if (userID != viewModel.getCurrentUserID()) {
             val bundle = Bundle()
             val showProfile = ShowProfileFragment("NO")
-            bundle.putInt("userID",userID)
+            bundle.apply {
+                putInt("userID", userID)
+                putBoolean("isCreator", isCreator)
+            }
+
 
             showProfile.arguments = bundle
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.members_layout,showProfile)
-                    .addToBackStack(null)
-                    .commit()
-            binding.membersFab.visibility = View.GONE
-            binding.toolbar.menu.clear()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.members_layout, showProfile)
+                .addToBackStack("ShowProfileFragment")
+                .commit()
+
+            binding.apply {
+                rvMembersList.visibility = View.GONE
+                membersFab.visibility = View.GONE
+                toolbar.menu.clear()
+            }
         }
 
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.rvMembersList.adapter = null
+    }
+
     override fun onBackPressed() {
         val fragmentManager = supportFragmentManager
         val backStackEntryCount = fragmentManager.backStackEntryCount
-        if (backStackEntryCount > 0){
-            val currentFragmentTag = fragmentManager.getBackStackEntryAt(backStackEntryCount - 1).name
-            val editMembersFragment = EditMembersFragment::class.java.simpleName
-            if (currentFragmentTag == editMembersFragment){
+        if (backStackEntryCount > 0) {
+            val currentFragmentTag =
+                fragmentManager.getBackStackEntryAt(backStackEntryCount - 1).name
+
+            if (currentFragmentTag == editMembersFragment || currentFragmentTag == showProfileFragment) {
                 fragmentManager.popBackStack()
 
-            }else{
+            } else {
                 finish()
             }
-        }
-        else{
+        } else {
             super.onBackPressed()
         }
     }

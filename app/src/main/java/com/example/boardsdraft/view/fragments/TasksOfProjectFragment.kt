@@ -1,8 +1,6 @@
 package com.example.boardsdraft.view.fragments
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentTasksOfProjectBinding
 import com.example.boardsdraft.db.entities.Task
@@ -57,23 +54,6 @@ class TasksOfProjectFragment : Fragment(), TaskListAdapter.OnItemClickListener,
             }
         }
 
-//        binding.apply {
-//            taskList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//                    super.onScrollStateChanged(recyclerView, newState)
-//                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-//                        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-//                        val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-//                        val totalItemCount = layoutManager.itemCount
-//
-//                        val isLastItemVisible = lastVisibleItemPosition == totalItemCount - 1
-//
-//                        taskListAdapter.updateLastItemVisibility(isLastItemVisible)
-//                    }
-//                }
-//            })
-//        }
-
         taskListAdapter = TaskListAdapter(
             this@TasksOfProjectFragment,
             taskTitleID,
@@ -100,7 +80,6 @@ class TasksOfProjectFragment : Fragment(), TaskListAdapter.OnItemClickListener,
         displayTasks()
 
     }
-
 
 
     private fun displayTasks() {
@@ -159,10 +138,8 @@ class TasksOfProjectFragment : Fragment(), TaskListAdapter.OnItemClickListener,
 
     override fun insertTaskTitle(taskTitle: TaskTitles) {
 
-        Log.d(TAG, "inside insert:  $taskTitle")
         if (!viewModel.taskTitles.contains(taskTitle.taskTitle)) {
             taskTitle.taskTitleID = viewModel.lastId
-            Log.d(TAG, "outside insert: ")
             viewModel.insertTaskTitle(taskTitle)
         } else {
             Toast.makeText(requireContext(), "Title Already Present", Toast.LENGTH_SHORT).show()

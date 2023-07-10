@@ -46,6 +46,11 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.viewPager.adapter = null
+    }
+
 
 
     override fun onBackPressed() {

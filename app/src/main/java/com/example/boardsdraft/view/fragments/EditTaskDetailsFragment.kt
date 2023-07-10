@@ -30,7 +30,6 @@ import com.example.boardsdraft.view.channelID
 import com.example.boardsdraft.view.messageExtra
 import com.example.boardsdraft.view.notificationID
 import com.example.boardsdraft.view.titleExtra
-import com.example.boardsdraft.view.viewModel.NewTaskViewModel
 import com.example.boardsdraft.view.viewModel.TaskDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -66,7 +65,6 @@ class EditTaskDetailsFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentEditTaskDetailsBinding.bind(view)
-
         createNotificationChannel()
 
         val toolBar: Toolbar = requireActivity().findViewById(R.id.toolbar)

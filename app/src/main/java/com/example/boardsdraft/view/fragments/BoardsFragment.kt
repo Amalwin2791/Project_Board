@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -15,10 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentBoardsBinding
-import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.view.activities.TasksActivity
 import com.example.boardsdraft.view.adapter.BoardsAdapter
-import com.example.boardsdraft.view.adapter.CardsListAdapter
 import com.example.boardsdraft.view.viewModel.BoardsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -65,6 +62,7 @@ class BoardsFragment : Fragment(),BoardsAdapter.OnItemClickListener, AddBottomSh
 
     override fun onDestroy() {
         super.onDestroy()
+        binding.boardsList.adapter = null
         _binding = null
 
     }

@@ -69,13 +69,16 @@ class EditMembersFragment : Fragment(), EditMembersAdapter.OnItemClickListener,M
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
-        requireActivity().findViewById<LinearLayout>(R.id.members_linear_layout).visibility = View.VISIBLE
-        requireActivity().findViewById<FloatingActionButton>(R.id.members_fab).visibility = View.VISIBLE
-        requireActivity().findViewById<Toolbar>(R.id.toolbar).apply {
-            inflateMenu(R.menu.profile_menu_item)
-            title = "Members"
+        requireActivity().apply {
+            findViewById<LinearLayout>(R.id.members_linear_layout).visibility = View.VISIBLE
+            findViewById<FloatingActionButton>(R.id.members_fab).visibility = View.VISIBLE
+            findViewById<Toolbar>(R.id.toolbar).apply {
+                inflateMenu(R.menu.profile_menu_item)
+                title = "Members"
+            }
         }
+        binding.editMembersList.adapter = null
+        _binding = null
     }
 
     override fun onItemClick(userID: Int) {

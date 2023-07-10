@@ -1,7 +1,9 @@
 package com.example.boardsdraft.view.activities
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -57,7 +59,7 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
                             val bundle = Bundle()
                             bundle.putInt("projectID", intent.getIntExtra("projectID", 0))
                             bundle.putString("projectName",intent.getStringExtra("projectName"))
-
+                            Log.d(TAG, "tasks activity: ")
                             val editBoardFragment = EditBoardFragment()
                             editBoardFragment.arguments = bundle
                             supportFragmentManager.beginTransaction()

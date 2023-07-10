@@ -20,7 +20,7 @@ interface UserDAO {
     suspend fun getUserByEmail(email: String): User?
 
     @Update
-    suspend fun updateUser(user:User)
+    suspend fun updateUser(user: User)
 
     @Query("SELECT * FROM Users WHERE userID = :userID ")
     suspend fun getUser(userID: Int): User

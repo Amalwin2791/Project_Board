@@ -10,18 +10,21 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isEmpty
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.boardsDraft.R
 import com.example.boardsDraft.databinding.FragmentShowProfileBinding
+import com.example.boardsdraft.view.activities.MembersActivity
 import com.example.boardsdraft.view.adapter.ProjectsInCommonAdapter
 import com.example.boardsdraft.view.viewModel.ShowProfileViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ShowProfileFragment(
-    private val editable:String
+    private val editable: String
 ) : Fragment() {
 
-    private var _binding: FragmentShowProfileBinding? =null
+    private var _binding: FragmentShowProfileBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: ShowProfileViewModel by viewModels()
@@ -37,7 +40,7 @@ class ShowProfileFragment(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding =FragmentShowProfileBinding.inflate(inflater,container,false)
+        _binding = FragmentShowProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,9 +51,9 @@ class ShowProfileFragment(
         val toolBar: Toolbar = requireActivity().findViewById(R.id.toolbar)
 
         toolBar.apply {
-            title= "Profile"
-            if(editable == "YES"){
-                if(menu.isEmpty()){
+            title = "Profile"
+            if (editable == "YES") {
+                if (menu.isEmpty()) {
                     inflateMenu(R.menu.profile_menu_item)
                 }
             }
@@ -58,50 +61,50 @@ class ShowProfileFragment(
 
         viewModel.user.observe(viewLifecycleOwner) {
 
-                binding.apply {
-                    profileNameDisplay.text = viewModel.getCurrentUserName()
-                    profileEmailDisplay.text = viewModel.getCurrentUserEmailID()
+            binding.apply {
+                profileNameDisplay.text = viewModel.getCurrentUserName()
+                profileEmailDisplay.text = viewModel.getCurrentUserEmailID()
 
 
-                    if (viewModel.getCurrentUserDesignation().isNullOrBlank()) {
-                        profileDesignationDisplay.text = resources.getString(R.string.unknown)
-                    } else {
-                        profileDesignationDisplay.text = viewModel.getCurrentUserDesignation()
-                    }
-                    if (viewModel.getCurrentUserDepartment().isNullOrBlank()) {
-                        profileOrganizationDisplay.text = resources.getString(R.string.unknown)
-                    } else {
-                        profileOrganizationDisplay.text = viewModel.getCurrentUserDepartment()
-                    }
-                    if (viewModel.getCurrentUserImage() != null) {
-                        val image = viewModel.getCurrentUserImage()
-                        profileImage.setImageBitmap(
-                            BitmapFactory.decodeByteArray(
-                                image,
-                                0,
-                                image!!.size
-                            )
+                if (viewModel.getCurrentUserDesignation().isNullOrBlank()) {
+                    profileDesignationDisplay.text = resources.getString(R.string.unknown)
+                } else {
+                    profileDesignationDisplay.text = viewModel.getCurrentUserDesignation()
+                }
+                if (viewModel.getCurrentUserDepartment().isNullOrBlank()) {
+                    profileOrganizationDisplay.text = resources.getString(R.string.unknown)
+                } else {
+                    profileOrganizationDisplay.text = viewModel.getCurrentUserDepartment()
+                }
+                if (viewModel.getCurrentUserImage() != null) {
+                    val image = viewModel.getCurrentUserImage()
+                    profileImage.setImageBitmap(
+                        BitmapFactory.decodeByteArray(
+                            image,
+                            0,
+                            image!!.size
                         )
-                    }
+                    )
+                }
 
-                    if (editable == "YES") {
-                        projectsInCommonLayout.visibility = View.GONE
-                    } else {
-                        projectsInCommon.apply {
-                            layoutManager = LinearLayoutManager(requireContext())
-                            projectsInCommonAdapter = ProjectsInCommonAdapter()
-                            adapter = projectsInCommonAdapter
+                if (editable == "YES") {
+                    projectsInCommonLayout.visibility = View.GONE
+                } else {
+                    projectsInCommon.apply {
+                        layoutManager = LinearLayoutManager(requireContext())
+                        projectsInCommonAdapter = ProjectsInCommonAdapter()
+                        adapter = projectsInCommonAdapter
 
-                            viewModel.getProjectsInCommon(requireArguments().getInt("userID"))
-                            viewModel.projectsInCommon.observe(viewLifecycleOwner) { commonProjects ->
-                                if (commonProjects != null) {
-                                    projectsInCommonAdapter.setList(commonProjects)
-                                    projectsInCommonAdapter.notifyDataSetChanged()
-                                }
+                        viewModel.getProjectsInCommon(requireArguments().getInt("userID"))
+                        viewModel.projectsInCommon.observe(viewLifecycleOwner) { commonProjects ->
+                            if (commonProjects != null) {
+                                projectsInCommonAdapter.setList(commonProjects)
+                                projectsInCommonAdapter.notifyDataSetChanged()
                             }
                         }
                     }
                 }
+            }
         }
     }
 
@@ -112,8 +115,22 @@ class ShowProfileFragment(
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
 
+        if (activity is MembersActivity) {
+            requireActivity().apply {
+                findViewById<RecyclerView>(R.id.rv_members_list).visibility = View.VISIBLE
+                findViewById<FloatingActionButton>(R.id.members_fab).visibility = View.VISIBLE
+                findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar).title = "Members"
+                if (requireArguments().getBoolean("isCreator")) {
+                    findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar).inflateMenu(
+                        R.menu.profile_menu_item
+                    )
+                }
+            }
+        }
+
+        binding.projectsInCommon.adapter = null
+        _binding = null
     }
 
 
