@@ -93,18 +93,6 @@ class TaskDetailsFragment : Fragment() {
     }
 
 
-//        requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 111)
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == 111) {
-//            Log.d(TAG, "onRequestPermissionsResult: granted")
-//        }
-//    }
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

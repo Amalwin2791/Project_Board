@@ -26,7 +26,12 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
         setContentView(binding.root)
 
         binding.toolbar.apply {
+            title = intent.getStringExtra("projectName")
+            inflateMenu(R.menu.menu_for_tasks)
 
+            if(intent.getIntExtra("projectCreatedByID",0) != viewModel.getCurrentUserID()){
+                menu.findItem(R.id.edit_board).isVisible = false
+            }
 
             setOnMenuItemClickListener { menuItem ->
 
@@ -77,12 +82,7 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
                 }
                 true
             }
-            title = intent.getStringExtra("projectName")
-            inflateMenu(R.menu.menu_for_tasks)
-            if(intent.getIntExtra("projectCreatedByID",0) != viewModel.getCurrentUserID()){
 
-                menu.findItem(R.id.edit_board).isVisible = false
-            }
             setNavigationOnClickListener {
                 val fragmentManager = supportFragmentManager
                 val backStackEntryCount = fragmentManager.backStackEntryCount
@@ -116,6 +116,8 @@ class TasksActivity : AppCompatActivity(),MyDialogFragment.OnItemClickListener{
         }
 
     }
+
+
 
     override fun result(choice: String) {
         if(choice == "YES"){

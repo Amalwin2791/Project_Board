@@ -33,8 +33,7 @@ class TasksOfProjectFragment : Fragment(), TaskListAdapter.OnItemClickListener,
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTasksOfProjectBinding.inflate(inflater, container, false)
         return binding.root
@@ -55,9 +54,7 @@ class TasksOfProjectFragment : Fragment(), TaskListAdapter.OnItemClickListener,
         }
 
         taskListAdapter = TaskListAdapter(
-            this@TasksOfProjectFragment,
-            taskTitleID,
-            requireArguments().getInt("projectID", 0)
+            this@TasksOfProjectFragment, taskTitleID, requireArguments().getInt("projectID", 0)
         )
 
         viewModel.taskTitlesOfProject.observe(viewLifecycleOwner) { list ->
@@ -73,7 +70,7 @@ class TasksOfProjectFragment : Fragment(), TaskListAdapter.OnItemClickListener,
         binding.taskList.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            setHasFixedSize(true)
+            setHasFixedSize(false)
             adapter = taskListAdapter
         }
 
@@ -84,27 +81,25 @@ class TasksOfProjectFragment : Fragment(), TaskListAdapter.OnItemClickListener,
 
     private fun displayTasks() {
         viewModel.allTasksOfDisplayedProject(requireArguments().getInt("projectID", 0))
-            .observe(viewLifecycleOwner,
-                Observer {
-                    if (it != null) {
-                        taskListAdapter.apply {
-                            setTaskList(it)
-                            setCurrentUser(viewModel.getCurrentUserID())
-                            notifyDataSetChanged()
-                        }
+            .observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    taskListAdapter.apply {
+                        setTaskList(it)
+                        setCurrentUser(viewModel.getCurrentUserID())
+                        notifyDataSetChanged()
                     }
+                }
 
-                })
+            })
         viewModel.getTaskTitlesOfProject(requireArguments().getInt("projectID", 0))
-            .observe(viewLifecycleOwner,
-                Observer {
-                    if (it != null) {
-                        taskListAdapter.apply {
-                            setTaskTitlesList(it)
-                            notifyDataSetChanged()
-                        }
+            .observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    taskListAdapter.apply {
+                        setTaskTitlesList(it)
+                        notifyDataSetChanged()
                     }
-                })
+                }
+            })
 
         viewModel.membersOfProject.observe(viewLifecycleOwner, Observer {
             viewModel.membersOfProject.value?.let {
@@ -128,8 +123,7 @@ class TasksOfProjectFragment : Fragment(), TaskListAdapter.OnItemClickListener,
             "Are you sure you want to delete this list? All the tasks under this list will also be deleted.",
             "Delete",
             this@TasksOfProjectFragment
-        )
-            .show(parentFragmentManager, "deleteDialog")
+        ).show(parentFragmentManager, "deleteDialog")
         this.taskTitle = taskTitle
 
 
@@ -166,18 +160,14 @@ class TasksOfProjectFragment : Fragment(), TaskListAdapter.OnItemClickListener,
 
         taskDetailsFragment.arguments = bundle
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.tasks_view, taskDetailsFragment)
-            .addToBackStack(null)
-            .commit()
+            .replace(R.id.tasks_view, taskDetailsFragment).addToBackStack("TaskDetailsFragment").commit()
         taskListAdapter.notifyDataSetChanged()
     }
 
     override fun showTask(task: Task) {
         requireActivity().findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar).menu.clear()
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.tasks_view, TaskInfoFragment(task))
-            .addToBackStack("TaskInfoFragment")
-            .commit()
+        parentFragmentManager.beginTransaction().replace(R.id.tasks_view, TaskInfoFragment(task))
+            .addToBackStack("TaskInfoFragment").commit()
     }
 
 

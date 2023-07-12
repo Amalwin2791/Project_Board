@@ -6,17 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boardsDraft.R
 import com.example.boardsdraft.db.entities.relations.ProjectsWithUsers
+import com.google.android.material.card.MaterialCardView
 
 class BoardsAdapter(private val clickListener: OnItemClickListener): RecyclerView.Adapter<BoardsAdapter.BoardsViewHolder>() {
 
     private val boards = ArrayList<ProjectsWithUsers>()
 
     inner class BoardsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val card: CardView = itemView.findViewById(R.id.card_view)
+        val card: MaterialCardView = itemView.findViewById(R.id.card_view)
         private val boardName: TextView = itemView.findViewById(R.id.cd_board_name)
         private val boardImage : ImageView = itemView.findViewById(R.id.cd_board_image)
         val createdBy : TextView = itemView.findViewById(R.id.cd_board_creator_name)

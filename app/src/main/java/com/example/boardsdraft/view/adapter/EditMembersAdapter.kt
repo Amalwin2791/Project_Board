@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boardsDraft.R
 import com.example.boardsdraft.db.entities.User
+import com.google.android.material.card.MaterialCardView
 
 class EditMembersAdapter(
     private val clickListener: OnItemClickListener
@@ -23,15 +24,16 @@ class EditMembersAdapter(
     inner class EditMembersViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val name: TextView = itemView.findViewById(R.id.edit_member_name)
         private val image: ImageView = itemView.findViewById(R.id.edit_member_image)
-        val card: CardView = itemView.findViewById(R.id.edit_members_card)
+        val card: MaterialCardView = itemView.findViewById(R.id.edit_members_card)
         val deleteButton: ImageButton =  itemView.findViewById(R.id.ib_edit_delete_member)
 
         fun bind(user: User){
+            card.isEnabled = false
 
             if(user.userID != currentUserID){
-                println(currentUserID)
                 deleteButton.visibility= View.VISIBLE
                 name.text = user.userName
+
                 if(user.image != null){
                     image.setImageBitmap(BitmapFactory.decodeByteArray(user.image, 0, user.image!!.size))
                 }
@@ -40,6 +42,9 @@ class EditMembersAdapter(
             if(user.userID == currentUserID){
                 name.text = name.context.resources.getString(R.string.you)
                 deleteButton.visibility= View.GONE
+                if(user.image != null){
+                    image.setImageBitmap(BitmapFactory.decodeByteArray(user.image, 0, user.image!!.size))
+                }
             }
 
         }

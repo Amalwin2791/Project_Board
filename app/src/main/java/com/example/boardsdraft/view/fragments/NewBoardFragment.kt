@@ -84,7 +84,7 @@ class NewBoardFragment : Fragment() {
 
         }
 
-        binding.boardImage.setOnClickListener {
+        binding.editFloatingActionButton.setOnClickListener {
             if (!isImagePickerOpen) {
                 isImagePickerOpen = true
 
@@ -131,6 +131,7 @@ class NewBoardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         requireActivity().findViewById<Toolbar>(R.id.toolbar).title = "Boards"
+        requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_nav_bar).visibility = View.VISIBLE
         _binding= null
 
     }

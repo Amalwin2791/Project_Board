@@ -1,8 +1,6 @@
 package com.example.boardsdraft.view.adapter
 
-import android.content.ContentValues.TAG
 import android.content.res.Resources
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +17,7 @@ import com.example.boardsdraft.db.entities.TaskTitles
 import com.example.boardsdraft.db.entities.User
 import com.example.boardsdraft.db.entities.relations.ProjectWithTasks
 import com.example.boardsdraft.db.entities.relations.TaskTitlesOfProject
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputLayout
 
 class TaskListAdapter(
@@ -27,13 +26,13 @@ class TaskListAdapter(
     private val projectID: Int,
 ) : RecyclerView.Adapter<TaskListAdapter.TasksViewHolder>(), CardsListAdapter.OnItemClickListener {
 
+
     private var taskList = listOf<ProjectWithTasks>()
     private val taskTitlesList = ArrayList<TaskTitlesOfProject>()
     private var members = listOf<User>()
     private var currentUserID: Int = -1
     private var taskTitlesListSize = 0
     private lateinit var cardsAdapter: CardsListAdapter
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
@@ -52,7 +51,7 @@ class TaskListAdapter(
     }
 
     fun setTaskList(tasks: List<ProjectWithTasks>) {
-        this.taskList =tasks
+        this.taskList = tasks
     }
 
     fun setCurrentUser(id: Int) {
@@ -81,6 +80,7 @@ class TaskListAdapter(
 
             holder.apply {
 
+
                 addTaskButton.visibility = View.GONE
                 taskListName.visibility = View.GONE
                 tasksLayout.visibility = View.VISIBLE
@@ -91,6 +91,8 @@ class TaskListAdapter(
                 } else {
                     addTaskButton.visibility = View.GONE
                     tasksLayout.visibility = View.VISIBLE
+                    editTitleLayout.visibility = View.VISIBLE
+                    editTitleCardView.visibility = View.GONE
                 }
 
 
@@ -164,13 +166,17 @@ class TaskListAdapter(
                 if (taskList[0].tasks.isNotEmpty()) {
                     cardsList.apply {
                         layoutManager = LinearLayoutManager(context)
-                        setHasFixedSize(true)
+                        setHasFixedSize(false)
                         cardsAdapter = CardsListAdapter(this@TaskListAdapter)
                         adapter = cardsAdapter
-
                         setCards(filterTasksByStatus(taskTitlesList[0].taskTitles[position]!!.taskTitle))
                         setMembersForCards(members)
+
+
                         cardsAdapter.notifyDataSetChanged()
+
+                        taskCard.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+
                     }
                 }
 
@@ -184,7 +190,7 @@ class TaskListAdapter(
                     if (hasFocus) {
                         editTaskListNameLayout.error = null
                     }
-                    if(!hasFocus){
+                    if (!hasFocus) {
                         editTitleCardView.visibility = View.GONE
                         editTaskListName.text.clear()
                     }
@@ -194,6 +200,7 @@ class TaskListAdapter(
         }
     }
 
+
     private fun setCards(tasks: List<Task>) {
         cardsAdapter.setCardsList(tasks)
     }
@@ -201,7 +208,6 @@ class TaskListAdapter(
     private fun setMembersForCards(members: List<User>) {
         cardsAdapter.setMembers(members)
     }
-
 
 
     private fun filterTasksByStatus(status: String): List<Task> {
@@ -236,6 +242,7 @@ class TaskListAdapter(
         val deleteList: ImageButton = view.findViewById(R.id.ib_delete_list)
         val addCardText: TextView = view.findViewById(R.id.tv_add_card)
         val cardsList: RecyclerView = view.findViewById(R.id.rv_card_list)
+        val taskCard: MaterialCardView = view.findViewById(R.id.task_card_layout)
         fun bindTitle(taskTitle: TaskTitles?) {
             taskListTitle.text = taskTitle!!.taskTitle
         }

@@ -60,6 +60,7 @@ class AddBottomSheetFragment(
                      transaction.replace(R.id.home, NewBoardFragment())
                      transaction.addToBackStack(null)
                      transaction.commit()
+                     requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_nav_bar).visibility = View.GONE
                      dismiss()
                  }
              }

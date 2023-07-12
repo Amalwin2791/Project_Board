@@ -9,13 +9,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boardsDraft.R
 import com.example.boardsdraft.db.entities.Task
+import com.google.android.material.card.MaterialCardView
 
 class MyTasksAdapter(private val clickListener: OnItemClickListener): RecyclerView.Adapter<MyTasksAdapter.MyTasksViewHolder>() {
 
     private var myTasks = ArrayList<Task?>()
 
     inner class MyTasksViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val card: CardView = itemView.findViewById(R.id.my_tasks_card)
+        val card: MaterialCardView = itemView.findViewById(R.id.my_tasks_card)
 
         fun bind(task: Task) {
             val taskName: TextView = itemView.findViewById(R.id.tvTaskName)

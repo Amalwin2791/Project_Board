@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boardsDraft.R
 import com.example.boardsdraft.db.entities.User
+import com.google.android.material.card.MaterialCardView
 
 class MembersListAdapter(
     private val clickListener: OnItemClickListener
@@ -23,13 +24,14 @@ class MembersListAdapter(
 
         private val name: TextView = itemView.findViewById(R.id.member_name)
         private val image: ImageView = itemView.findViewById(R.id.member_image)
-        val card: CardView = itemView.findViewById(R.id.members_card)
+        val card: MaterialCardView = itemView.findViewById(R.id.members_card)
 
 
         fun bind(user: User) {
 
             if (user.userID == currentUserID) {
                 name.text = name.context.resources.getString(R.string.you)
+                card.isEnabled = false
             } else {
                 name.text = user.userName
             }

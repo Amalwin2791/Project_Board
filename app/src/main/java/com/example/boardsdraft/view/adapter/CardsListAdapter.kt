@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.boardsDraft.R
 import com.example.boardsdraft.db.entities.Task
 import com.example.boardsdraft.db.entities.User
-import com.example.boardsdraft.db.entities.relations.ProjectWithTasks
+import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.runBlocking
 
 class CardsListAdapter(private val clickListener: OnItemClickListener) :
@@ -37,13 +37,17 @@ class CardsListAdapter(private val clickListener: OnItemClickListener) :
     }
 
     override fun onBindViewHolder(holder: CardsViewHolder, position: Int) {
+
         if (tasksList.isNotEmpty()) {
             holder.bind(tasksList[position])
             holder.card.setOnClickListener {
                 clickListener.onItemClick(tasksList[position])
             }
+
         }
+
     }
+
 
     override fun getItemCount(): Int {
         return tasksList.size
@@ -59,7 +63,8 @@ class CardsListAdapter(private val clickListener: OnItemClickListener) :
     inner class CardsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val cardName: TextView = view.findViewById(R.id.tv_card_name)
         private val image: ImageView = view.findViewById(R.id.assigned_user_image)
-        val card: CardView = view.findViewById(R.id.task_card)
+        val card: MaterialCardView = view.findViewById(R.id.task_card)
+
         fun bind(task: Task) {
 //            val assignedMember = getAssignedUser(task.assignedTo)
             cardName.text = task.taskName

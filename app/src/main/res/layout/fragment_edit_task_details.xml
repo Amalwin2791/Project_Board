@@ -39,19 +39,17 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_task_Name_layout"
                     android:layout_width="match_parent"
-                    android:hint="@string/hint_card_name"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="15"
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_task_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="@string/hint_card_name"
                         android:inputType="text"
                         android:maxLength="15"
                         android:textSize="@dimen/et_text_size"
-                        />
+                        tools:hint="Title" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>

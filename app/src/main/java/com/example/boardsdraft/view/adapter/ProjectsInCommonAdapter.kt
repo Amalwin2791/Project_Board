@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boardsDraft.R
 import com.example.boardsdraft.db.entities.Project
+import com.google.android.material.card.MaterialCardView
 
 class ProjectsInCommonAdapter: RecyclerView.Adapter<ProjectsInCommonAdapter.ProjectsInCommonAdapterViewHolder>() {
 
@@ -19,9 +20,10 @@ class ProjectsInCommonAdapter: RecyclerView.Adapter<ProjectsInCommonAdapter.Proj
 
         private val boardName: TextView = view.findViewById(R.id.name_minimal)
         private val boardImage: ImageView = view.findViewById(R.id.image_minimal)
-        val card: CardView = view.findViewById(R.id.card_minimal)
+        val card: MaterialCardView = view.findViewById(R.id.card_minimal)
 
         fun bind(project: Project){
+            card.isEnabled = false
             boardName.text = project.projectName
             project.image?.let {
                 boardImage.setImageBitmap(BitmapFactory.decodeByteArray(project.image, 0, it.size))
