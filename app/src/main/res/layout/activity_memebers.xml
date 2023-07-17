@@ -42,7 +42,9 @@
                 android:id="@+id/rv_members_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="5dp"/>
+                android:padding="5dp"
+                tools:listitem="@layout/item_members_card" />
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/members_fab"
                 android:layout_width="56dp"

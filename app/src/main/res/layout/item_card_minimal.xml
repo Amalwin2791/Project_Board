@@ -15,6 +15,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="24dp"
         android:paddingTop="8dp"
+        android:background="@color/off_white"
         android:paddingBottom="8dp">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_minimal"

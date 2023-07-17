@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/task_item_cv_margin"
             android:elevation="@dimen/task_item_cv_elevation"
+
             android:visibility="gone"
             app:cardCornerRadius="@dimen/task_item_cv_corner_radius"
             tools:visibility="visible">
@@ -43,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:background="@color/off_white"
                 android:orientation="horizontal"
                 android:padding="2dp">
 
@@ -62,12 +64,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/hint_list_name"
+                    app:hintTextColor="@color/seed"
+                    app:counterTextColor="@color/grey"
                     app:counterEnabled="true"
                     app:counterMaxLength="15">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_task_list_name"
-
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -162,6 +167,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:background="@color/off_white"
                     android:orientation="horizontal"
                     android:padding="2dp">
 
@@ -181,6 +187,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="@string/hint_list_name"
+                        app:hintTextColor="@color/seed"
+                        app:counterTextColor="@color/grey"
                         app:counterEnabled="true"
                         app:counterMaxLength="15">
 
@@ -188,7 +196,8 @@
                             android:id="@+id/et_edit_task_list_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
                             android:inputType="text"
                             android:maxLength="15" />
 
@@ -207,12 +216,13 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_card_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/task_item_rv_card_list_margin" />
-
+                android:layout_margin="@dimen/task_item_rv_card_list_margin"
+                tools:listitem="@layout/item_card" />
 
             <TextView
                 android:id="@+id/tv_add_card"

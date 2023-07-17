@@ -4,5 +4,6 @@
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:textSize="16sp"
+    android:text="@string/name"
     android:textStyle="bold"
     android:id="@+id/drop_down_tv" />

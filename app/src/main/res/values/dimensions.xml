@@ -8,7 +8,7 @@
     <dimen name="retypeCorrectPass">12sp</dimen>
     <dimen name="fabMargin">16dp</dimen>
     <dimen name="boardImageSizeHeight">150dp</dimen>
-    <dimen name="boardImageSizeWidth">300dp</dimen>
+    <dimen name="boardImageSizeWidth">150dp</dimen>
     <dimen name="boardImageSizeHeightLand">120dp</dimen>
     <dimen name="btn_text_size">18sp</dimen>
     <dimen name="btn_paddingTopBottom">8dp</dimen>

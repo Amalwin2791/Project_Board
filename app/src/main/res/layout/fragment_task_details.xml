@@ -36,6 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:counterEnabled="true"
+                    app:hintTextColor="@color/seed"
                     app:counterMaxLength="15">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -44,6 +45,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_card_name"
                         android:inputType="text"
+                        android:textColorHint="@color/grey"
+                        android:textColor="@color/black"
                         android:maxLength="15"
                         android:textSize="@dimen/et_text_size"
                         tools:hint="Title" />
@@ -71,6 +74,7 @@
                     android:id="@+id/select_priority_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:hintTextColor="@color/seed"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
                     <AutoCompleteTextView
@@ -79,6 +83,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/label_color"
+
+                        android:textColorHint="@color/grey"
+                        android:textColor="@color/black"
+                        android:backgroundTint="@color/off_white"
                         android:textSize="@dimen/et_text_size" />
 
 
@@ -91,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-
+                    app:hintTextColor="@color/seed"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
                     <AutoCompleteTextView
@@ -100,6 +108,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/assign_member"
+
+                        android:textColorHint="@color/grey"
+                        android:textColor="@color/black"
+                        android:backgroundTint="@color/off_white"
                         android:textSize="@dimen/et_text_size" />
 
 
@@ -113,6 +125,8 @@
                     android:padding="@dimen/card_details_value_padding"
                     android:text="@string/select_due_date"
                     android:textSize="16sp"
+                    android:textColorHint="@color/grey"
+                    android:textColor="@color/black"
                     android:drawableEnd="@drawable/round_calendar_month_24"/>
 
 

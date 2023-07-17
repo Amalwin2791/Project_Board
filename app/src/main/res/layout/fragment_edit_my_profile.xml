@@ -38,7 +38,7 @@
                 app:maxImageSize="24dp"
                 app:layout_constraintBottom_toBottomOf="@+id/edit_profile_image"
                 app:layout_constraintEnd_toEndOf="@+id/edit_profile_image"
-                app:tint="@color/seed" />
+                app:tint="?attr/colorPrimary" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_profile_name_layout"
@@ -65,9 +65,7 @@
                     android:maxLength="15"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey" />
+                    android:paddingBottom="10dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,8 +92,6 @@
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey"
                     app:layout_constraintWidth_percent=".8" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -115,8 +111,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/designation"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey"
                     android:textSize="@dimen/et_text_size" />
 
 
@@ -138,8 +132,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/department"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey"
                     android:textSize="@dimen/et_text_size" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -152,7 +144,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/edit_select_department_layout"
                 app:layout_constraintStart_toStartOf="@+id/edit_select_department_layout"
                 app:layout_constraintEnd_toEndOf="@+id/edit_select_department_layout"
-                android:textColor="@color/off_white"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:textStyle="bold"
                 android:layout_marginTop="30dp"

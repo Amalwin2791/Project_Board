@@ -47,6 +47,7 @@ class ProjectsInCommonAdapter: RecyclerView.Adapter<ProjectsInCommonAdapter.Proj
     override fun onBindViewHolder(holder: ProjectsInCommonAdapterViewHolder, position: Int) {
         holder.bind(projectsInCommon[position])
 
+
     }
 
     fun setList(projects :List<Project>){

@@ -195,6 +195,7 @@
                     android:layout_margin="15dp"
                     android:padding="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    tools:listitem="@layout/item_card_minimal"
                     app:layout_constraintEnd_toEndOf="@id/projects_in_common_tv"
                     app:layout_constraintStart_toStartOf="@id/projects_in_common_tv"
                     app:layout_constraintTop_toBottomOf="@id/projects_in_common_tv" />

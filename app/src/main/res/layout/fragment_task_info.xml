@@ -244,7 +244,7 @@
             android:visibility="gone"
             tools:visibility="visible"
             android:paddingBottom="10dp"
-
+            app:hintTextColor="@color/seed"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
             <AutoCompleteTextView
@@ -252,6 +252,10 @@
                 android:id="@+id/move_to"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:textColorHint="@color/grey"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/off_white"
                 android:hint="@string/change_status"
                 android:textSize="@dimen/et_text_size" />
 
@@ -263,7 +267,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/saveChanges"
-            android:textColor="@color/off_white"
             android:fontFamily="sans-serif-condensed-medium"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
@@ -281,7 +284,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@color/off_white"
             android:fontFamily="sans-serif-condensed-medium"
             android:textStyle="bold"
             android:text="@string/Delete"

@@ -39,6 +39,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_task_Name_layout"
                     android:layout_width="match_parent"
+                    app:hintTextColor="@color/seed"
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -47,6 +48,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_card_name"
                         android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
                         android:maxLength="15"
                         android:textSize="@dimen/et_text_size"
                         tools:hint="Title" />
@@ -76,6 +79,7 @@
                     android:id="@+id/edit_task_priority_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:hintTextColor="@color/seed"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
                     <AutoCompleteTextView
@@ -84,6 +88,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/label_color"
+                        android:textColorHint="@color/grey"
+                        android:textColor="@color/black"
+                        android:backgroundTint="@color/off_white"
                         android:textSize="@dimen/et_text_size" />
 
 
@@ -96,6 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    app:hintTextColor="@color/seed"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
                     <AutoCompleteTextView
@@ -103,7 +111,10 @@
                         android:id="@+id/edit_task_member"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColorHint="@color/grey"
+                        android:textColor="@color/black"
                         android:hint="@string/assign_member"
+                        android:backgroundTint="@color/off_white"
                         android:textSize="@dimen/et_text_size" />
 
 
@@ -115,6 +126,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/card_details_value_marginTop"
                     android:padding="@dimen/card_details_value_padding"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
                     android:text="@string/select_due_date"
                     android:textSize="16sp"
                     android:drawableEnd="@drawable/round_calendar_month_24"/>

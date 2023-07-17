@@ -28,6 +28,7 @@ tools:context="com.example.boardsdraft.view.fragments.BoardsFragment">
         android:id="@+id/boards_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:listitem="@layout/card_design"
         android:layout_marginTop="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         android:paddingTop="8dp"
